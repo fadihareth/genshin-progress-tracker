@@ -1,6 +1,6 @@
 <script lang="ts">
     import { browser } from '$app/environment';
-	import AddCharacter from '$lib/components/AddCharacter.svelte';
+	import { AddCharacter } from '$lib/components/character';
 	import { CharacterBuild } from '$lib/models/CharacterBuild.svelte';
 	import { buildsState } from '$lib/stores/state.svelte';
 

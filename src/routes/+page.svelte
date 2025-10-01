@@ -1,6 +1,6 @@
 <script lang="ts">
-    import Card from '$lib/components/Card.svelte';
-	import Header from '$lib/components/Header.svelte';
+    import { CharacterCard } from '$lib/components/character';
+	import { Header } from '$lib/components/layout';
 	import { buildsState } from '$lib/stores/state.svelte';
 </script>
 
@@ -12,7 +12,7 @@
 		style="grid-template-columns: repeat(auto-fit, minmax(var(--minWidth-card), 1fr));"
 	>
 		{#each Object.keys(buildsState) as id}
-			<Card {id} />
+			<CharacterCard {id} />
 		{/each}
 	</div>
 </main>

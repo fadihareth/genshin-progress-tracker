@@ -11,7 +11,6 @@
 <div
 	aria-hidden="true"
 	class="flex h-80 overflow-hidden rounded-xl bg-white shadow-md transition-transform duration-300 ease-out"
-	style:transform={isHovered ? 'scale(1.01)' : 'scale(1)'}
 	onmouseenter={() => {
 		isHovered = true;
 	}}
