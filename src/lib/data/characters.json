@@ -1,0 +1,86 @@
+[
+    {
+        "id": 0,
+        "name": "Hu Tao",
+        "rarity": 5,
+        "weapon": "Polearm",
+        "element": "Pyro",
+        "region": "Liyue",
+        "substat": "Crit DMG",
+        "talents": [
+            1,
+            2,
+            3
+        ],
+        "localSpecialtyMaterial": 1,
+        "worldBossItemMaterial": 2,
+        "worldDropItemMaterial": {
+            "1": 1,
+            "2": 2,
+            "3": 3
+        }
+    },
+    {
+        "id": 1,
+        "name": "Furina",
+        "rarity": 5,
+        "weapon": "Sword",
+        "element": "Hydro",
+        "region": "Fontaine",
+        "substat": "HP%",
+        "talents": [
+            1,
+            2,
+            3
+        ],
+        "localSpecialtyMaterial": 1,
+        "worldBossItemMaterial": 2,
+        "worldDropItemMaterial": {
+            "1": 1,
+            "2": 2,
+            "3": 3
+        }
+    },
+    {
+        "id": 2,
+        "name": "Yumemizuki Mizuki",
+        "rarity": 5,
+        "weapon": "Catalyst",
+        "element": "Anemo",
+        "region": "Inazuma",
+        "substat": "Elemental Mastery",
+        "talents": [
+            1,
+            2,
+            3
+        ],
+        "localSpecialtyMaterial": 1,
+        "worldBossItemMaterial": 2,
+        "worldDropItemMaterial": {
+            "1": 1,
+            "2": 2,
+            "3": 3
+        }
+    },
+    {
+        "id": 3,
+        "name": "Citlali",
+        "rarity": 5,
+        "weapon": "Catalyst",
+        "element": "Cryo",
+        "region": "Natlan",
+        "substat": "Elemental Mastery",
+        "talents": [
+            1,
+            2,
+            3
+        ],
+        "localSpecialtyMaterial": 1,
+        "worldBossItemMaterial": 2,
+        "worldDropItemMaterial": {
+            "1": 1,
+            "2": 2,
+            "3": 3
+        }
+    }
+]

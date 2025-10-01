@@ -1,0 +1,5 @@
+@import 'tailwindcss';
+
+@theme {
+    --minWidth-card: 500px;
+}
