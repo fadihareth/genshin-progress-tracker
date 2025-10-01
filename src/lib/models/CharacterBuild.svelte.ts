@@ -23,4 +23,12 @@ export class CharacterBuild {
         this.id = id;
         this.character = character;
     }
+
+    get menuOptions(): string[] {
+        let options = ["Remove Build"];
+        if (!this.trackingLevel) {
+            options = [...options, "Track Level"];
+        }
+        return options;
+    }
 }

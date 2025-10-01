@@ -3,3 +3,9 @@
 @theme {
     --minWidth-card: 500px;
 }
+
+@layer components {
+    .section-label {
+        @apply text-sm font-medium text-gray-400;
+    }
+}

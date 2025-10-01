@@ -11,8 +11,8 @@
 		class="grid gap-6"
 		style="grid-template-columns: repeat(auto-fit, minmax(var(--minWidth-card), 1fr));"
 	>
-		{#each Object.keys(buildsState) as id}
-			<CharacterCard {id} />
+		{#each Object.values(buildsState) as build (build.id)}
+			<CharacterCard id={build.id} />
 		{/each}
 	</div>
 </main>

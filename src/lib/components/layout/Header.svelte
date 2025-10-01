@@ -1,8 +1,9 @@
 <script lang="ts">
-    import { browser } from '$app/environment';
+	import { browser } from '$app/environment';
 	import { AddCharacter } from '$lib/components/character';
 	import { CharacterBuild } from '$lib/models/CharacterBuild.svelte';
 	import { buildsState } from '$lib/stores/state.svelte';
+	import { fade } from 'svelte/transition';
 
 	let showOverlay = $state(false);
 
@@ -39,7 +40,11 @@
 </header>
 
 {#if showOverlay}
-	<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50" id="overlay">
+	<div
+		transition:fade={{ duration: 150 }}
+		class="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+		id="overlay"
+	>
 		<AddCharacter {addBuild} />
 	</div>
 {/if}
