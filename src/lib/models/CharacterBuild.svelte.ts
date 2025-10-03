@@ -4,31 +4,30 @@ export class CharacterBuild {
 
     // Level Progress
     trackingLevel: boolean = $state(false);
-    currLevel: number = $state(0);
+    currLevel: number = $state(1);
     targetLevel: number = $state(90);
 
     // Talents Progress
     trackingTalents: boolean = $state(false);
-    trackingTalent1: boolean = $state(false);
     currTalent1Level: number = $state(1);
     targetTalent1Level: number = $state(10);
-    trackingTalent2: boolean = $state(false);
     currTalent2Level: number = $state(1);
     targetTalent2Level: number = $state(10);
-    trackingTalent3: boolean = $state(false);
     currTalent3Level: number = $state(1);
     targetTalent3Level: number = $state(10);
 
-    constructor(id: number, character: number) {
+    constructor(id: number, character: number, buildValues: Record<string,any>) {
         this.id = id;
         this.character = character;
-    }
-
-    get menuOptions(): string[] {
-        let options = ["Remove Build"];
-        if (!this.trackingLevel) {
-            options = [...options, "Track Level"];
-        }
-        return options;
+        this.trackingLevel = buildValues.trackingLevel;
+        this.currLevel = buildValues.currLevel;
+        this.targetLevel = buildValues.targetLevel;
+        this.trackingTalents = buildValues.trackingTalents;
+        this.currTalent1Level = buildValues.currTalent1Level;
+        this.targetTalent1Level = buildValues.targetTalent1Level;
+        this.currTalent2Level = buildValues.currTalent2Level;
+        this.targetTalent2Level = buildValues.targetTalent2Level;
+        this.currTalent3Level = buildValues.currTalent3Level;
+        this.targetTalent3Level = buildValues.targetTalent3Level;
     }
 }

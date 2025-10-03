@@ -9,6 +9,7 @@
 <svelte:head>
 	<title>Genshin Build Progress</title>
 	<meta name="description" content="Keep track of Genshin Impact character build progress" />
+    <meta name="theme-color" content="#3F4555" />
 	<link rel="icon" href={favicon} />
 	<link rel="apple-touch-icon" href={appleTouchIcon} />
 </svelte:head>

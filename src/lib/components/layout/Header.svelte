@@ -1,41 +1,37 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
 	import { AddCharacter } from '$lib/components/character';
-	import { CharacterBuild } from '$lib/models/CharacterBuild.svelte';
-	import { buildsState } from '$lib/stores/state.svelte';
 	import { fade } from 'svelte/transition';
 
 	let showOverlay = $state(false);
 
-	function addBuild(id: number) {
-		let key = Object.keys(buildsState).length;
-		buildsState[key] = new CharacterBuild(key, id);
-		showOverlay = false;
-	}
+    function toggleShowOverlay() {
+        // Hide scrollbar when overlay is shown
+        document.body.style.overflow = showOverlay ? "unset" : "hidden";
+        showOverlay = !showOverlay;
+    }
 
 	// hide overlay when clicking outside overlayed component
 	if (browser) {
 		window.onclick = function (event) {
 			const overlay = document.getElementById('overlay');
 			if (event.target === overlay) {
-				showOverlay = false;
+				toggleShowOverlay();
 			}
 		};
 	}
 </script>
 
 <header
-	class="sticky top-0 z-10 flex items-center justify-between bg-gray-200/90 p-4 shadow-sm backdrop-blur"
+	class="sticky top-0 z-100 flex items-center justify-between bg-genshin-blue p-4 shadow-sm"
 >
-	<h1 class="text-2xl font-bold text-gray-800">Genshin Build Progress</h1>
+	<h1 class="text-2xl text-genshin-gold">Genshin Build Progress</h1>
 	<button
-		onclick={() => {
-			showOverlay = true;
-		}}
-		class="rounded-md bg-gray-500 p-2 px-4 text-white transition hover:bg-gray-600"
+		onclick={toggleShowOverlay}
+		class="flex items-center gap-1 font-md rounded-md bg-genshin-gold p-2 px-4 text-genshin-blue transition hover:bg-genshin-gold/50"
 		aria-label="Add character"
 	>
-		+
+		<img src="/src/lib/assets/ui/plus.svg" alt="Add Button" class="h-7 w-7" />Add Character
 	</button>
 </header>
 
@@ -45,6 +41,6 @@
 		class="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
 		id="overlay"
 	>
-		<AddCharacter {addBuild} />
+		<AddCharacter {toggleShowOverlay} />
 	</div>
 {/if}

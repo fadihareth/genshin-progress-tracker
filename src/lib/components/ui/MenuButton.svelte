@@ -1,5 +1,5 @@
 <script lang="ts">
-	let { options = ['Edit', 'Duplicate', 'Delete'], onSelect } = $props();
+	let { options = ['Edit Build', "Delete Build"], onSelect } = $props();
 
 	let open = $state(false);
 	let menuRef: HTMLDivElement | null = null;
@@ -23,12 +23,12 @@
 
 <div class="relative" bind:this={menuRef}>
 	<button
-		class="rounded-full p-2 shadow-md transition hover:bg-gray-100"
+		class="rounded-full h-8 w-8 p-1 transition hover:bg-white/20"
 		aria-haspopup="true"
 		aria-expanded={open}
 		onclick={() => (open = !open)}
 	>
-		<img src="/src/lib/assets/ui/ellipsis.svg" alt="Menu Button" class="h-6 w-6" />
+		<img src="/src/lib/assets/ui/ellipsis.svg" alt="Menu Button" class="h-full w-full" />
 	</button>
 
 	{#if open}

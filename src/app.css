@@ -1,11 +1,34 @@
 @import 'tailwindcss';
 
 @theme {
+    --font-sans: "genshin", sans-seriff;
     --minWidth-card: 500px;
+    --color-genshin-blue: #3F4555;
+    --color-genshin-gold: #CFBD93;
+    --color-genshin-white: #EBE5D9;
 }
 
 @layer components {
-    .section-label {
-        @apply text-sm font-medium text-gray-400;
+    .number-textfield {
+        @apply w-10 rounded px-2 py-1 text-center;
     }
+
+    .section-complete {
+        @apply opacity-30 text-green-700 font-medium;
+    }
+
+    .section-label {
+        @apply text-xl font-medium text-gray-600;
+    }
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+@font-face {
+    font-family: genshin;
+    src: url(/src/lib/assets/fonts/genshin-text.ttf);
 }
