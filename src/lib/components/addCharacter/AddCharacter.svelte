@@ -4,16 +4,14 @@
 	import { characterList } from '$lib/stores/data';
 	import { buildsState } from '$lib/stores/state.svelte';
 	import { fly } from 'svelte/transition';
-	import { LevelSectionForm } from '../form';
+	import { LevelSectionForm } from './components';
 
 	let { toggleShowOverlay }: { toggleShowOverlay: () => void } = $props();
 	let search = $state('');
 	let selectedCharacter: Character | null = $state(null);
 	let buildValues = $state({
-		trackingLevel: true,
 		currLevel: 1,
 		targetLevel: 90,
-		trackingTalents: true,
 		currTalent1Level: 1,
 		targetTalent1Level: 10,
 		currTalent2Level: 1,
@@ -87,11 +85,7 @@
 			</div>
 
 			<div class="space-y-4">
-				<LevelSectionForm
-					bind:tracking={buildValues.trackingLevel}
-					bind:curr={buildValues.currLevel}
-					bind:target={buildValues.targetLevel}
-				/>
+				<LevelSectionForm bind:curr={buildValues.currLevel} bind:target={buildValues.targetLevel} />
 
 				<div class="mt-6 flex justify-between">
 					<button class="rounded bg-gray-200 px-4 py-2 hover:bg-gray-300" onclick={goBack}>

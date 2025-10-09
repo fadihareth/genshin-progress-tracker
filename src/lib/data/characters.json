@@ -82,5 +82,89 @@
             "2": 2,
             "3": 3
         }
+    },
+    {
+        "id": 4,
+        "name": "Navia",
+        "rarity": 5,
+        "weapon": "Claymore",
+        "element": "Geo",
+        "region": "Fontaine",
+        "substat": "ATK%",
+        "talents": [
+            1,
+            2,
+            3
+        ],
+        "localSpecialtyMaterial": 1,
+        "worldBossItemMaterial": 2,
+        "worldDropItemMaterial": {
+            "1": 1,
+            "2": 2,
+            "3": 3
+        }
+    },
+    {
+        "id": 5,
+        "name": "Lauma",
+        "rarity": 5,
+        "weapon": "Catalyst",
+        "element": "Dendro",
+        "region": "Nod Krai",
+        "substat": "Elemental Mastery",
+        "talents": [
+            1,
+            2,
+            3
+        ],
+        "localSpecialtyMaterial": 1,
+        "worldBossItemMaterial": 2,
+        "worldDropItemMaterial": {
+            "1": 1,
+            "2": 2,
+            "3": 3
+        }
+    },
+    {
+        "id": 6,
+        "name": "Varesa",
+        "rarity": 5,
+        "weapon": "Catalyst",
+        "element": "Electro",
+        "region": "Natlan",
+        "substat": "ATK%",
+        "talents": [
+            1,
+            2,
+            3
+        ],
+        "localSpecialtyMaterial": 1,
+        "worldBossItemMaterial": 2,
+        "worldDropItemMaterial": {
+            "1": 1,
+            "2": 2,
+            "3": 3
+        }
+    },
+    {
+        "id": 7,
+        "name": "Mavuika",
+        "rarity": 5,
+        "weapon": "Claymore",
+        "element": "Pyro",
+        "region": "Natlan",
+        "substat": "Crit Rate",
+        "talents": [
+            1,
+            2,
+            3
+        ],
+        "localSpecialtyMaterial": 1,
+        "worldBossItemMaterial": 2,
+        "worldDropItemMaterial": {
+            "1": 1,
+            "2": 2,
+            "3": 3
+        }
     }
 ]

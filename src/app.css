@@ -4,21 +4,21 @@
     --font-sans: "genshin", sans-seriff;
     --minWidth-card: 500px;
     --color-genshin-blue: #3F4555;
+    --color-genshin-blue-darker: #353A49;
     --color-genshin-gold: #CFBD93;
     --color-genshin-white: #EBE5D9;
+    --color-anemo: #32D7A0;
+    --color-cryo: #80FFFF;
+    --color-dendro: #90CC00;
+    --color-electro: #CC80FF;
+    --color-geo: #FFAC00;
+    --color-hydro: #00C0FF;
+    --color-pyro: #FF6640;
 }
 
 @layer components {
     .number-textfield {
         @apply w-10 rounded px-2 py-1 text-center;
-    }
-
-    .section-complete {
-        @apply opacity-30 text-green-700 font-medium;
-    }
-
-    .section-label {
-        @apply text-xl font-medium text-gray-600;
     }
 }
 

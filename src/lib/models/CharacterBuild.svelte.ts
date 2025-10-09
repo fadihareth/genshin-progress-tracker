@@ -2,13 +2,18 @@ export class CharacterBuild {
     id: number;
     character: number;
 
+    // Sort order (lower = earlier in grid)
+	order: number;
+
     // Level Progress
-    trackingLevel: boolean = $state(false);
     currLevel: number = $state(1);
     targetLevel: number = $state(90);
 
+    // Weapon Progress
+    currWeaponLevel: number = $state(1);
+    targetWeaponLevel: number = $state(90);
+
     // Talents Progress
-    trackingTalents: boolean = $state(false);
     currTalent1Level: number = $state(1);
     targetTalent1Level: number = $state(10);
     currTalent2Level: number = $state(1);
@@ -19,10 +24,9 @@ export class CharacterBuild {
     constructor(id: number, character: number, buildValues: Record<string,any>) {
         this.id = id;
         this.character = character;
-        this.trackingLevel = buildValues.trackingLevel;
+        this.order = id;
         this.currLevel = buildValues.currLevel;
         this.targetLevel = buildValues.targetLevel;
-        this.trackingTalents = buildValues.trackingTalents;
         this.currTalent1Level = buildValues.currTalent1Level;
         this.targetTalent1Level = buildValues.targetTalent1Level;
         this.currTalent2Level = buildValues.currTalent2Level;
