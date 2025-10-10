@@ -37,6 +37,7 @@
 		"vite": "^7.0.4"
 	},
 	"dependencies": {
+		"@tabler/icons-svelte": "^3.35.0",
 		"sortablejs": "^1.15.6"
 	}
 }
