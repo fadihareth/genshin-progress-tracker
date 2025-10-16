@@ -2,7 +2,7 @@
 
 @theme {
     --font-sans: "genshin", sans-seriff;
-    --minWidth-card: 500px;
+    --minWidth-card: 450px;
     --color-genshin-blue: #3F4555;
     --color-genshin-blue-darker: #353A49;
     --color-genshin-gold: #CFBD93;
@@ -22,13 +22,23 @@
     }
 }
 
+@font-face {
+    font-family: genshin;
+    src: url(/src/lib/assets/fonts/genshin-text.ttf);
+}
+
+/* Hide increments from number textfields */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
 
-@font-face {
-    font-family: genshin;
-    src: url(/src/lib/assets/fonts/genshin-text.ttf);
+/* Hide scrollbar from overflows */
+.hidescrollbar::-webkit-scrollbar {
+    display: none;
+}
+.hidescrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }

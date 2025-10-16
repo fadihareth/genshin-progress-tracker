@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { IconDots } from "@tabler/icons-svelte";
 	let { options = ['Edit Build', "Delete Build"], onSelect } = $props();
 
 	let open = $state(false);
@@ -28,7 +29,7 @@
 		aria-expanded={open}
 		onclick={() => (open = !open)}
 	>
-		<img src="/src/lib/assets/ui/ellipsis.svg" alt="Menu Button" class="h-full w-full" />
+		<IconDots />
 	</button>
 
 	{#if open}

@@ -1,13 +1,23 @@
 <script lang="ts">
-	import { charactersById } from '$lib/stores/data';
+	import { charactersById, talentsByName } from '$lib/stores/data';
 	import { buildsState } from '$lib/stores/state.svelte';
-	import { MenuButton } from '../ui';
-	import { LevelSection, WeaponSection } from './components';
+	import { ArtifactIcons, CircleIcon } from './components';
+    import { MenuButton } from '../ui';
 	import { bgColors } from '$lib/constants';
+	import fitty from 'fitty';
 
 	let { id }: { id: number } = $props();
 	let build = $derived(buildsState[id]);
 	let character = charactersById[buildsState[id].character];
+
+	let textEl: HTMLElement;
+	$effect(() => {
+		fitty(textEl, {
+			minSize: 10,
+			maxSize: 20,
+			multiLine: false
+		});
+	});
 
 	function onSelect(option: String) {
 		switch (option) {
@@ -23,7 +33,7 @@
 </script>
 
 <div
-	class={`relative flex h-100 overflow-hidden rounded-xl ${bgColors[character.element]} text-genshin-gold shadow-xl`}
+	class={`relative flex h-75 rounded-xl ${bgColors[character.element]} text-genshin-gold shadow-xl`}
 >
 	<div class="absolute inset-2 z-0 rounded-xl border-2 border-genshin-gold/30"></div>
 	<div
@@ -32,39 +42,46 @@
 		<img src={character.profileImage} alt={character.name} class="h-full w-full object-cover" />
 	</div>
 
-	<div class="flex flex-1 flex-col gap-1 p-4">
+	<div class="z-1 flex flex-1 flex-col gap-y-2 p-4">
 		<div class="flex items-center justify-between">
-			<div class="flex items-center gap-1">
-				<img
-					src={`/src/lib/assets/elements/${character.element}.svg`}
-					alt={`${character.element} Element`}
-					class="h-12.5 w-12.5"
-				/>
-				<h2 class="text-3xl">{character.name}</h2>
-			</div>
-			<MenuButton {onSelect} />
+			<h2 bind:this={textEl} class="h-9">{character.name}</h2>
+            <MenuButton {onSelect} />
 		</div>
-		<div class="z-1 flex justify-between">
-			<div class="grid grid-cols-[max-content_1fr] items-center gap-x-4 gap-y-2">
-				<p class="col-span-2 text-sm">Character</p>
-				<LevelSection title="Level" bind:curr={build.currLevel} target={build.targetLevel} />
-				<LevelSection
-					title="Attack"
-					bind:curr={build.currTalent1Level}
-					target={build.targetTalent1Level}
-				/>
-				<LevelSection
-					title="Skill"
-					bind:curr={build.currTalent2Level}
-					target={build.targetTalent2Level}
-				/>
-				<LevelSection
-					title="Burst"
-					bind:curr={build.currTalent3Level}
-					target={build.targetTalent3Level}
-				/>
-			</div>
-			<WeaponSection bind:curr={build.currWeaponLevel} target={build.targetWeaponLevel} />
+		<div class="grid gap-y-4 pb-4" style="grid-template-columns: repeat(auto-fit, minmax(79px, 1fr));">
+			<CircleIcon
+				curr={build.currLevel}
+				target={build.targetLevel}
+				icon="src/lib/assets/icons/level.webp"
+				alt="Level Icon"
+				tags="p-2"
+			/>
+			<CircleIcon
+				curr={build.currWeaponLevel}
+				target={build.targetWeaponLevel}
+				icon={`src/lib/assets/icons/weapon.webp`}
+				alt="Weapon Icon"
+				tags="p-2"
+			/>
+			<CircleIcon curr={build.currWeaponRefine} target={build.targetWeaponRefine} />
+			<CircleIcon
+				curr={build.currTalent1Level}
+				target={build.targetTalent1Level}
+				icon={character.attackTalentImage}
+				alt="Attack Talent Icon"
+			/>
+			<CircleIcon
+				curr={build.currTalent2Level}
+				target={build.targetTalent2Level}
+				icon={talentsByName[character.name].skillImage}
+				alt="Skill Talent Icon"
+			/>
+			<CircleIcon
+				curr={build.currTalent3Level}
+				target={build.targetTalent3Level}
+				icon={talentsByName[character.name].burstImage}
+				alt="Burst Talent Icon"
+			/>
 		</div>
+		<ArtifactIcons />
 	</div>
 </div>

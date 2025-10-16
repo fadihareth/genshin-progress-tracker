@@ -1,49 +1,62 @@
 export type CharacterJSON = {
     id: number;
     name: string;
-    rarity: number;
+    title: string;
+    description: string;
     weapon: string;
+    gender: string;
+    rarity: number;
+    birthday: string;
     element: string;
-    region: string;
+    region: string | null;
     substat: string;
-    talents: number[];
-    localSpecialtyMaterial: number;
-    worldBossItemMaterial: number;
-    worldDropItemMaterial: Record<number, number>; // key = rarity, value = id
+    localSpecialtyMaterial: string;
+    worldBossMaterial: string;
+    worldDropMaterial: Record<number, string>; // key = rarity, value = name
 };
 
 export class Character {
     id: number;
     name: string;
-    rarity: number;
+    title: string;
+    description: string;
     weapon: string;
+    gender: string;
+    rarity: number;
+    birthday: string;
     element: string;
-    region: string;
+    region: string | null;
     substat: string;
-    talents: number[];
-    localSpecialtyMaterial: number;
-    worldBossItemMaterial: number;
-    worldDropItemMaterial: Record<number, number>;
+    localSpecialtyMaterial: string;
+    worldBossMaterial: string;
+    worldDropMaterial: Record<number, string>;
 
     constructor(data: CharacterJSON) {
         this.id = data.id;
         this.name = data.name;
-        this.rarity = data.rarity;
+        this.title = data.title;
+        this.description = data.description;
         this.weapon = data.weapon;
+        this.gender = data.gender;
+        this.rarity = data.rarity;
+        this.birthday = data.birthday;
         this.element = data.element;
         this.region = data.region;
         this.substat = data.substat;
-        this.talents = data.talents;
         this.localSpecialtyMaterial = data.localSpecialtyMaterial;
-        this.worldBossItemMaterial = data.worldBossItemMaterial;
-        this.worldDropItemMaterial = data.worldDropItemMaterial;
+        this.worldBossMaterial = data.worldBossMaterial;
+        this.worldDropMaterial = data.worldDropMaterial;
     }
 
     get profileImage(): string {
-        return `/src/lib/assets/${this.name.replaceAll(' ', '_')}_Profile.png`;
+        return `https://gbp-characters.s3.us-east-2.amazonaws.com/profiles/${this.name.replaceAll(' ', '_')}_Profile.png`;
     }
 
     get iconImage(): string {
-        return `/src/lib/assets/${this.name.replaceAll(' ', '_')}_Icon.png`;
+        return `https://gbp-characters.s3.us-east-2.amazonaws.com/icons/${this.name.replaceAll(' ', '_')}_Icon.png`;
+    }
+
+    get attackTalentImage(): string {
+        return `https://gbp-characters.s3.us-east-2.amazonaws.com/talents/${this.weapon}_${this.element}.png`;
     }
 }

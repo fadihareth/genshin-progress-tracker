@@ -1,2 +1,2 @@
-export { default as LevelSection } from './LevelSection.svelte';
-export { default as WeaponSection } from './WeaponSection.svelte';
+export { default as CircleIcon } from './CircleIcon.svelte';
+export { default as ArtifactIcons } from './ArtifactIcons.svelte';

@@ -12,6 +12,8 @@ export class CharacterBuild {
     // Weapon Progress
     currWeaponLevel: number = $state(1);
     targetWeaponLevel: number = $state(90);
+    currWeaponRefine: number = $state(0);
+    targetWeaponRefine: number = $state(5);
 
     // Talents Progress
     currTalent1Level: number = $state(1);

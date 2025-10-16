@@ -24,7 +24,7 @@
 	<input
 		type="number"
 		class="number-textfield border border-genshin-gold/10 transition duration-300
-                    outline-none focus:border-genshin-gold/50 focus:ring-1"
+                outline-none focus:border-genshin-gold/50 focus:ring-1"
 		bind:value={curr}
 		min="1"
 		max={target}

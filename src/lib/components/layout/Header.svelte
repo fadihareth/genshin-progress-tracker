@@ -2,6 +2,7 @@
 	import { browser } from '$app/environment';
 	import AddCharacter from '$lib/components/addCharacter/AddCharacter.svelte';
 	import { fade } from 'svelte/transition';
+    import { IconPlus } from '@tabler/icons-svelte';
 
 	let showOverlay = $state(false);
 
@@ -31,7 +32,7 @@
 		class="font-md flex items-center gap-1 rounded-md bg-genshin-gold p-2 px-4 text-genshin-blue transition hover:bg-genshin-gold/50"
 		aria-label="Add character"
 	>
-		<img src="/src/lib/assets/ui/plus.svg" alt="Add Button" class="h-7 w-7" />Add Character
+        <IconPlus stroke={3} size={18} /> Add Character
 	</button>
 </header>
 
