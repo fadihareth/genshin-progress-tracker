@@ -2,7 +2,7 @@
 	import { charactersById, talentsByName } from '$lib/stores/data';
 	import { buildsState } from '$lib/stores/state.svelte';
 	import { ArtifactIcons, CircleIcon } from './components';
-    import { MenuButton } from '../ui';
+	import { MenuButton } from '../ui';
 	import { bgColors } from '$lib/constants';
 	import fitty from 'fitty';
 
@@ -36,18 +36,19 @@
 	class={`relative flex h-75 rounded-xl ${bgColors[character.element]} text-genshin-gold shadow-xl`}
 >
 	<div class="absolute inset-2 z-0 rounded-xl border-2 border-genshin-gold/30"></div>
-	<div
-		class="z-10 h-full w-2/5 [mask-image:linear-gradient(to_right,_rgba(0,_0,_0,_1.0)_75%,_transparent_100%)]"
-	>
+	<div class="fadeout-right z-10 h-full w-2/5">
 		<img src={character.profileImage} alt={character.name} class="h-full w-full object-cover" />
 	</div>
 
 	<div class="z-1 flex flex-1 flex-col gap-y-2 p-4">
 		<div class="flex items-center justify-between">
 			<h2 bind:this={textEl} class="h-9">{character.name}</h2>
-            <MenuButton {onSelect} />
+			<MenuButton {onSelect} />
 		</div>
-		<div class="grid gap-y-4 pb-4" style="grid-template-columns: repeat(auto-fit, minmax(79px, 1fr));">
+		<div
+			class="grid gap-y-4 pb-4"
+			style="grid-template-columns: repeat(auto-fit, minmax(79px, 1fr));"
+		>
 			<CircleIcon
 				curr={build.currLevel}
 				target={build.targetLevel}

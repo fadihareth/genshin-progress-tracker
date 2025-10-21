@@ -38,7 +38,25 @@ input::-webkit-inner-spin-button {
 .hidescrollbar::-webkit-scrollbar {
     display: none;
 }
+
 .hidescrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
+}
+
+/* Applies fade out effect to view for each edge */
+.fadeout-right {
+    -webkit-mask-image: linear-gradient(to right, black 75%, transparent 100%);
+    mask-image: linear-gradient(to right, black 75%, transparent 100%);
+}
+
+.fadeout-all {
+	-webkit-mask-image:
+		linear-gradient(to right, transparent, black 25%, black 75%, transparent),
+		linear-gradient(to bottom, transparent, black 25%, black 75%, transparent);
+	mask-image:
+		linear-gradient(to right, transparent, black 25%, black 75%, transparent),
+		linear-gradient(to bottom, transparent, black 25%, black 75%, transparent);
+	-webkit-mask-composite: intersect;
+	mask-composite: intersect;
 }
