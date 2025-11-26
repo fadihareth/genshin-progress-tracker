@@ -11,20 +11,17 @@
 	);
 
     function update(id: number) {
-        document.startViewTransition(() => {
-             selectedBuild = id;
-        });
+        selectedBuild = id;
+        window.scrollTo(0, 0);
     }
 
     function reset() {
-        document.startViewTransition(() => {
-            selectedBuild = null;
-        });
+        selectedBuild = null;
     }
 
 	$effect(() => {
-		let gridContainer = document.getElementById('main-grid')!;
-		Sortable.create(gridContainer, {
+		const gridContainer = document.getElementById('main-grid')!;
+		const sortable = Sortable.create(gridContainer, {
 			animation: 200,
 			handle: '.drag-handle',
 			ghostClass: 'opacity-0',
@@ -46,11 +43,15 @@
 				}
 			}
 		});
+
+        return () => {
+            sortable?.destroy();
+        };
 	});
 </script>
 
 <main>
-	{#if selectedBuild == null}
+	<div style="display: {selectedBuild === null ? 'block' : 'none'};">
             <Header />
             <div
                 id="main-grid"
@@ -58,9 +59,9 @@
                 style="grid-template-columns: repeat(auto-fit, minmax(var(--minWidth-card), 1fr));"
             >
                 {#each orderedBuilds as build (build.id)}
-                    <div class="relative transition hover:scale-[1.01]" style={`view-transition-name: build-${build.id};`}>
+                    <div class="relative transition hover:scale-[1.01]">
                         <div
-                            class="drag-handle absolute right-0.5 bottom-4.5 z-10 h-10 -rotate-45 cursor-grab active:cursor-grabbing"
+                            class="drag-handle pointer-none absolute right-0.5 bottom-4.5 z-10 h-10 -rotate-45 cursor-grab active:cursor-grabbing"
                         >
                             <img src="src/lib/assets/ui/corner.svg" alt="Handlebar" />
                         </div>
@@ -75,8 +76,10 @@
                     </div>
                 {/each}
             </div>
-	{:else}
+	</div>
+
+    <div style="display: {selectedBuild !== null ? 'block' : 'none'};">
         <BuildHeader bind:id={selectedBuild} {update} {reset} />
         <CharacterDetailView bind:id={selectedBuild} />
-	{/if}
+    </div>
 </main>
