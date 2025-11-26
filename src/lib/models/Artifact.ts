@@ -1,0 +1,63 @@
+export type ArtifactJSON = {
+    id: number;
+    name: string;
+    rarity: string[];
+    "2pc": string;
+    "4pc": string;
+    flower: string;
+    plume: string;
+    sands: string;
+    goblet: string;
+    circlet: string;
+};
+
+export class Artifact {
+    id: number;
+    name: string;
+    rarity: string[];
+    "2pc": string;
+    "4pc": string;
+    flower: string;
+    plume: string;
+    sands: string;
+    goblet: string;
+    circlet: string;
+
+    constructor(data: ArtifactJSON) {
+        this.id = data.id;
+        this.name = data.name;
+        this.rarity = data.rarity;
+        this["2pc"] = data["2pc"];
+        this["4pc"] = data["4pc"];
+        this.flower = data.flower;
+        this.plume = data.plume;
+        this.sands = data.sands;
+        this.goblet = data.goblet;
+        this.circlet = data.circlet;
+    }
+
+    get flowerImage(): string {
+        let name = this.flower.replaceAll(':', '').replaceAll('/ ', '').replaceAll(' ', '_');
+        return `https://gbp-artifacts.s3.us-east-2.amazonaws.com/artifacts/${name}.png`;
+    }
+
+    get plumeImage(): string {
+        let name = this.plume.replaceAll(':', '').replaceAll('/ ', '').replaceAll(' ', '_');
+        return `https://gbp-artifacts.s3.us-east-2.amazonaws.com/artifacts/${name}.png`;
+    }
+
+    get sandsImage(): string {
+        let name = this.sands.replaceAll(':', '').replaceAll('/ ', '').replaceAll(' ', '_');
+        return `https://gbp-artifacts.s3.us-east-2.amazonaws.com/artifacts/${name}.png`;
+    }
+
+    get gobletImage(): string {
+        let name = this.goblet.replaceAll(':', '').replaceAll('/ ', '').replaceAll(' ', '_');
+        return `https://gbp-artifacts.s3.us-east-2.amazonaws.com/artifacts/${name}.png`;
+    }
+
+    get circletImage(): string {
+        let name = this.circlet.replaceAll(':', '').replaceAll('/ ', '').replaceAll(' ', '_');
+        return `https://gbp-artifacts.s3.us-east-2.amazonaws.com/artifacts/${name}.png`;
+    }
+}
