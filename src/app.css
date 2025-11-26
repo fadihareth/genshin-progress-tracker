@@ -18,7 +18,7 @@
 
 @layer components {
     .number-textfield {
-        @apply w-10 rounded px-2 py-1 text-center;
+        @apply w-15 rounded px-2 py-1 text-center;
     }
 }
 
@@ -52,11 +52,11 @@ input::-webkit-inner-spin-button {
 
 .fadeout-all {
 	-webkit-mask-image:
-		linear-gradient(to right, transparent, black 25%, black 75%, transparent),
-		linear-gradient(to bottom, transparent, black 25%, black 75%, transparent);
+		linear-gradient(to right, transparent, black 15%, black 85%, transparent),
+		linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
 	mask-image:
-		linear-gradient(to right, transparent, black 25%, black 75%, transparent),
-		linear-gradient(to bottom, transparent, black 25%, black 75%, transparent);
+		linear-gradient(to right, transparent, black 15%, black 85%, transparent),
+		linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
 	-webkit-mask-composite: intersect;
 	mask-composite: intersect;
 }
