@@ -1,12 +1,6 @@
 <script lang="ts">
+    import { allowOnlyNumbers } from "$lib/util";
 	let { curr = $bindable(), target = $bindable() }: { curr: number; target: number } = $props();
-
-	function allowOnlyNumbers(e: InputEvent) {
-		if (e.inputType.startsWith('delete')) return;
-		if (e.data && !/^\d+$/.test(e.data)) {
-			e.preventDefault();
-		}
-	}
 
 	function handleFocusOut() {
 		if (target == null) {
