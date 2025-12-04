@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { weaponList } from '$lib/stores/data';
+    import { LazyImage } from '../ui';
 
     let { onWeaponSelect }: { onWeaponSelect: (wId: number) => void } = $props();
 	let search = $state('');
@@ -31,7 +32,7 @@
                     class="flex flex-col items-center justify-evenly gap-1 rounded-xl bg-gray-100 p-2 hover:bg-gray-200"
                     onclick={() => onWeaponSelect(w.id)}
                 >
-                    <img src={w.image} alt={w.name} class="h-30 w-30 rounded object-cover" />
+                    <LazyImage src={w.image} alt={w.name} className="h-30 w-30 rounded object-cover" />
                     <p class="flex h-10 flex-col justify-around text-sm text-gray-800">{w.name}</p>
                 </button>
             {/each}

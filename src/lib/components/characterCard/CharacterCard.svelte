@@ -2,7 +2,7 @@
 	import { charactersById, talentsByName } from '$lib/stores/data';
 	import { buildsState } from '$lib/stores/state.svelte';
 	import { ArtifactIcons, CircleIcon } from './components';
-	import { MenuButton } from '../ui';
+	import { LazyImage, MenuButton } from '../ui';
 	import { bgColors } from '$lib/constants';
 	import fitty from 'fitty';
 
@@ -37,7 +37,7 @@
 >
 	<div class="absolute inset-2 z-0 rounded-xl border-2 border-genshin-gold/30"></div>
 	<div class="fadeout-right z-10 h-full w-2/5">
-		<img src={character.profileImage} alt={character.name} class="h-full w-full object-cover" />
+		<LazyImage src={character.profileImage} alt={character.name} className="h-full w-full" />
 	</div>
 
 	<div class="z-1 flex flex-1 flex-col gap-y-2 p-4">

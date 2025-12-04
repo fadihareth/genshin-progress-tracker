@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { LazyImage } from "$lib/components/ui";
 	let {
 		curr,
 		target,
@@ -12,10 +13,10 @@
 	class={`relative flex h-15 w-15 items-center justify-center rounded-full border-2 text-2xl shadow-md ${curr == target && 'opacity-30'}`}
 >
 	{#if icon}
-		<img
+		<LazyImage
 			src={icon}
 			{alt}
-			class={`pointer-events-none absolute object-contain select-none ${tags}`}
+			className={`pointer-events-none absolute object-contain select-none ${tags}`}
 		/>
 		{#if curr}
 			<span

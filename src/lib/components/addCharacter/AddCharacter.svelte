@@ -5,6 +5,7 @@
 	import { buildsState } from '$lib/stores/state.svelte';
 	import { fly } from 'svelte/transition';
 	import { LevelSectionForm } from './components';
+    import { LazyImage } from '../ui';
 
 	let { toggleShowOverlay }: { toggleShowOverlay: () => void } = $props();
 	let search = $state('');
@@ -12,6 +13,11 @@
 	let buildValues = $state({
 		currLevel: 1,
 		targetLevel: 90,
+        weaponId: null,
+        currWeaponLevel: 1,
+        targetWeaponLevel: 90,
+        currWeaponRefine: 0,
+        targetWeaponRefine: 5,
 		currTalent1Level: 1,
 		targetTalent1Level: 10,
 		currTalent2Level: 1,
@@ -36,9 +42,15 @@
 	function saveBuild() {
 		if (!selectedCharacter) return;
 
-		let key = Object.keys(buildsState).length;
-		const newBuild = new CharacterBuild(key, selectedCharacter.id, buildValues);
-		buildsState[key] = newBuild;
+        characterList.forEach((c) => {
+            let key = Object.keys(buildsState).length;
+            const newBuild = new CharacterBuild(key, c.id, buildValues);
+            buildsState[key] = newBuild;
+        })
+
+		// let key = Object.keys(buildsState).length;
+		// const newBuild = new CharacterBuild(key, selectedCharacter.id, buildValues);
+		// buildsState[key] = newBuild;
 		toggleShowOverlay();
 	}
 </script>
@@ -66,7 +78,7 @@
 						class="flex flex-col items-center justify-evenly gap-1 rounded-xl bg-gray-100 p-2 hover:bg-gray-200"
 						onclick={() => startBuild(c)}
 					>
-						<img src={c.iconImage} alt={c.name} class="h-30 w-30 rounded object-cover" />
+                        <LazyImage src={c.iconImage} alt={c.name} className="h-30 w-30 rounded object-cover" />
 						<p class="flex h-10 flex-col justify-around text-sm text-gray-800">{c.name}</p>
 					</button>
 				{/each}
