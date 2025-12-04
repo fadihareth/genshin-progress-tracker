@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { CircleIcon } from '$lib/components';
+	import { CircleIcon } from '.';
 	import { allowOnlyNumbers } from '$lib/util';
 	import { assets } from '$lib/assets';
 
