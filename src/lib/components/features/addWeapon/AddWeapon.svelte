@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { weaponList } from '$lib/stores/data';
-    import { LazyImage } from '../ui';
+	import { LazyImage } from '$lib/components';
 
     let { onWeaponSelect }: { onWeaponSelect: (wId: number) => void } = $props();
 	let search = $state('');

@@ -1,9 +1,10 @@
 <script lang="ts">
 	import { charactersById, talentsByName } from '$lib/stores/data';
 	import { buildsState } from '$lib/stores/state.svelte';
-	import { ArtifactIcons, CircleIcon } from './components';
-	import { LazyImage, MenuButton } from '../ui';
+	import { ArtifactIcons } from './components';
+	import { CircleIcon, LazyImage, MenuButton } from '$lib/components';
 	import { bgColors } from '$lib/constants';
+	import { assets } from '$lib/assets';
 	import fitty from 'fitty';
 
 	let { id }: { id: number } = $props();
@@ -52,14 +53,14 @@
 			<CircleIcon
 				curr={build.currLevel}
 				target={build.targetLevel}
-				icon="src/lib/assets/icons/level.webp"
+				icon={assets.icons.level}
 				alt="Level Icon"
 				tags="p-2"
 			/>
 			<CircleIcon
 				curr={build.currWeaponLevel}
 				target={build.targetWeaponLevel}
-				icon={`src/lib/assets/icons/weapon.webp`}
+				icon={assets.icons.weapon}
 				alt="Weapon Icon"
 				tags="p-2"
 			/>

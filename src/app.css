@@ -23,8 +23,8 @@
 }
 
 @font-face {
-    font-family: genshin;
-    src: url(/src/lib/assets/fonts/genshin-text.ttf);
+	font-family: genshin;
+	src: url(./lib/assets/fonts/genshin-text.ttf);
 }
 
 /* Hide increments from number textfields */

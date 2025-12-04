@@ -1,9 +1,8 @@
 <script lang="ts">
-	import CharacterCard from '$lib/components/characterCard/CharacterCard.svelte';
-    import CharacterDetailView from '$lib/components/characterDetailView/CharacterDetailView.svelte';
-	import { BuildHeader, Header } from '$lib/components/layout';
+	import { CharacterCard, CharacterDetailView, BuildHeader, Header } from '$lib/components';
 	import { buildsState } from '$lib/stores/state.svelte';
-    import Sortable from 'sortablejs';
+	import { assets } from '$lib/assets';
+	import Sortable from 'sortablejs';
 
 	let selectedBuild: number | null = $state(null);
 	let orderedBuilds = $derived(
@@ -63,7 +62,7 @@
                         <div
                             class="drag-handle pointer-none absolute right-0.5 bottom-4.5 z-10 h-10 -rotate-45 cursor-grab active:cursor-grabbing"
                         >
-                            <img src="src/lib/assets/ui/corner.svg" alt="Handlebar" />
+							<img src={assets.ui.corner} alt="Handlebar" />
                         </div>
                         <button
                             class="cursor-pointer"

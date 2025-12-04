@@ -1,6 +1,7 @@
 <script lang="ts">
-	import { CircleIcon } from '.';
+	import { CircleIcon } from '$lib/components';
 	import { allowOnlyNumbers } from '$lib/util';
+	import { assets } from '$lib/assets';
 
 	let {
 		title,
@@ -47,7 +48,7 @@
 		oninput={clampValues}
 	/>
 	<img
-		src="/src/lib/assets/ui/arrow-right.svg"
+		src={assets.ui.arrowRight}
 		alt="arrow"
 		class="w-4 [mask-image:linear-gradient(to_left,_rgba(0,_0,_0,_1.0)_25%,_transparent_100%)]"
 	/>

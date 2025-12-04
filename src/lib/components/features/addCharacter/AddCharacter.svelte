@@ -5,7 +5,7 @@
 	import { buildsState } from '$lib/stores/state.svelte';
 	import { fly } from 'svelte/transition';
 	import { LevelSectionForm } from './components';
-    import { LazyImage } from '../ui';
+	import { LazyImage } from '$lib/components';
 
 	let { toggleShowOverlay }: { toggleShowOverlay: () => void } = $props();
 	let search = $state('');

@@ -3,9 +3,9 @@
 	import { buildsState, nullBuild } from '$lib/stores/state.svelte';
 	import { bgColors, bgGradientColors } from '$lib/constants';
 	import { BuildSection, LevelSection } from './components';
-    import AddWeapon from '../addWeapon/AddWeapon.svelte';
+	import { AddWeapon, Overlay } from '$lib/components';
+	import { assets } from '$lib/assets';
 	import { IconPlus } from '@tabler/icons-svelte';
-    import { Overlay } from '../ui';
 
 	let { id = $bindable() }: { id: number | null } = $props();
 	let build = $derived(id !== null ? buildsState[id] : nullBuild);
@@ -41,11 +41,11 @@
                         <div
                             class={`absolute h-8 w-8 rounded-full ${bgColors[character.element]} blur-md`}
                         ></div>
-                    <img
-                        src={`src/lib/assets/elements/${character.element}.svg`}
-                        alt="element"
-                        class="relative h-12 w-12"
-                    />
+					<img
+						src={assets.getElementIcon(character.element)}
+						alt="element"
+						class="relative h-12 w-12"
+					/>
                     </div>
                     <h1 class="text-3xl text-white">{character.name}</h1>
                 </div>
@@ -54,7 +54,7 @@
                         <div class="grid grid-cols-[max-content_1fr] items-center gap-x-4 gap-y-2 p-4">
                             <LevelSection
                                 title="Level"
-                                iconProps={{ icon: 'src/lib/assets/icons/level.webp', alt: 'Level Icon', tags: "p-1" }}
+								iconProps={{ icon: assets.icons.level, alt: 'Level Icon', tags: "p-1" }}
                                 bind:curr={build.currLevel}
                                 target={build.targetLevel}
                             />

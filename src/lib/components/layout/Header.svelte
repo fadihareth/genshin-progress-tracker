@@ -1,7 +1,6 @@
 <script lang="ts">
-	import AddCharacter from '$lib/components/addCharacter/AddCharacter.svelte';
-    import { IconPlus } from '@tabler/icons-svelte';
-    import { Overlay } from '../ui';
+	import { AddCharacter, Overlay } from '$lib/components';
+	import { IconPlus } from '@tabler/icons-svelte';
 
 	let showOverlay = $state(false);
 	function toggleShowOverlay() {
