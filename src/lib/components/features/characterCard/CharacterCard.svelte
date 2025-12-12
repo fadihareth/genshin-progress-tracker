@@ -38,7 +38,12 @@
 >
 	<div class="absolute inset-2 z-0 rounded-xl border-2 border-genshin-gold/30"></div>
 	<div class="fadeout-right z-10 h-full w-2/5">
-		<LazyImage src={character.profileImage} alt={character.name} className="h-full w-full" />
+		<LazyImage
+			src={character.profileImage}
+			alt={character.name}
+			className="h-full w-full"
+			placeholder={assets.placeholders.character}
+		/>
 	</div>
 
 	<div class="z-1 flex flex-1 flex-col gap-y-2 p-4">

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 
-	let { src, alt = '', className = '', spinnerSize = 24 } = $props();
+	let { src, alt = '', spinnerSize = 24, className = "", placeholder = null } = $props();
 
 	let loading: boolean = $state(true);
 	let imgEl: HTMLImageElement;
@@ -25,6 +25,9 @@
 		<div class="absolute inset-0 flex items-center justify-center">
 			<div class="spinner" style={`width:${spinnerSize}px; height:${spinnerSize}px;`}></div>
 		</div>
+		{#if placeholder}
+			<img src={placeholder} alt="Placeholder" class="w-full object-cover" />
+		{/if}
 	{/if}
 
 	<img
