@@ -8,7 +8,7 @@
         iconProps,
 		curr = $bindable(),
 		target = $bindable()
-	}: { title: string; iconProps: any; curr: number; target: number } = $props();
+	}: { title: string; iconProps?: any; curr: number; target: number } = $props();
 
 	function handleFocusOut() {
 		if (target == null) {
@@ -32,7 +32,9 @@
 </script>
 
 <div class={`flex gap-4 items-center text-genshin-white/60 ${curr == target && 'opacity-30'}`}>
-    <CircleIcon icon={iconProps.icon} alt={iconProps.alt} tags={iconProps.tags} />
+	{#if iconProps !== undefined}
+    	<CircleIcon icon={iconProps.icon} alt={iconProps.alt} tags={iconProps.tags} />
+	{/if}
     <p class="text-sm">{title}</p>
 </div>
 <div class={`flex items-center gap-2 text-genshin-white ${curr == target && 'opacity-30'}`}>
