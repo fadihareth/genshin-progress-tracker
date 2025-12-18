@@ -36,28 +36,28 @@ export class Artifact {
         this.circlet = data.circlet;
     }
 
-    get flowerImage(): string {
+    get image(): string {
         let name = this.flower.replaceAll(':', '').replaceAll('/ ', '').replaceAll(' ', '_');
-        return `https://gbp-artifacts.s3.us-east-2.amazonaws.com/artifacts/${name}.png`;
+        return `https://gbp-artifacts.s3.us-east-2.amazonaws.com/${name}.png`;
     }
 
     get plumeImage(): string {
         let name = this.plume.replaceAll(':', '').replaceAll('/ ', '').replaceAll(' ', '_');
-        return `https://gbp-artifacts.s3.us-east-2.amazonaws.com/artifacts/${name}.png`;
+        return `https://gbp-artifacts.s3.us-east-2.amazonaws.com/${name}.png`;
     }
 
     get sandsImage(): string {
         let name = this.sands.replaceAll(':', '').replaceAll('/ ', '').replaceAll(' ', '_');
-        return `https://gbp-artifacts.s3.us-east-2.amazonaws.com/artifacts/${name}.png`;
+        return `https://gbp-artifacts.s3.us-east-2.amazonaws.com/${name}.png`;
     }
 
     get gobletImage(): string {
         let name = this.goblet.replaceAll(':', '').replaceAll('/ ', '').replaceAll(' ', '_');
-        return `https://gbp-artifacts.s3.us-east-2.amazonaws.com/artifacts/${name}.png`;
+        return `https://gbp-artifacts.s3.us-east-2.amazonaws.com/${name}.png`;
     }
 
     get circletImage(): string {
         let name = this.circlet.replaceAll(':', '').replaceAll('/ ', '').replaceAll(' ', '_');
-        return `https://gbp-artifacts.s3.us-east-2.amazonaws.com/artifacts/${name}.png`;
+        return `https://gbp-artifacts.s3.us-east-2.amazonaws.com/${name}.png`;
     }
 }
