@@ -10,14 +10,14 @@ export class CharacterBuild {
     targetLevel: number = $state(90);
 
     // Weapon Progress
-    weaponId: number | null = null;
+    weaponId: number | null = $state(null);
     currWeaponLevel: number = $state(1);
     targetWeaponLevel: number = $state(90);
     currWeaponRefine: number = $state(0);
     targetWeaponRefine: number = $state(5);
 
     // Artifact Progress
-    artifactIds: number[] = [];
+    artifactIds: number[] = $state([]);
     flowerStatus: boolean = false;
     plumeStatus: boolean = false;
     sandsStat: string | null = null;
@@ -50,7 +50,7 @@ export class CharacterBuild {
         this.currWeaponRefine = buildValues.currWeaponRefine ?? 0;
         this.targetWeaponRefine = buildValues.targetWeaponRefine ?? 5;
 
-        this.artifactIds = buildValues.artifactIds ?? [];
+        this.artifactIds = buildValues.artifactIds ? [...buildValues.artifactIds] : [];
         this.flowerStatus = buildValues.flowerStatus ?? false;
         this.plumeStatus = buildValues.plumeStatus ?? false;
         this.sandsStat = buildValues.sandsStat ?? null;
