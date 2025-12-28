@@ -6,14 +6,14 @@ export class CharacterBuild {
 	order: number;
 
     // Level Progress
-    currLevel: number = $state(1);
+    levelComplete: boolean = $state(false);
     targetLevel: number = $state(90);
 
     // Weapon Progress
     weaponId: number | null = $state(null);
-    currWeaponLevel: number = $state(1);
+    weaponLevelComplete: boolean = $state(false);
     targetWeaponLevel: number = $state(90);
-    currWeaponRefine: number = $state(0);
+    weaponRefineComplete: boolean = $state(false);
     targetWeaponRefine: number = $state(5);
 
     // Artifact Progress
@@ -29,11 +29,11 @@ export class CharacterBuild {
     artifactSubstats: string[] = [];
 
     // Talents Progress
-    currTalent1Level: number = $state(1);
+    talent1LevelComplete: boolean = $state(false);
     targetTalent1Level: number = $state(10);
-    currTalent2Level: number = $state(1);
+    talent2LevelComplete: boolean = $state(false);
     targetTalent2Level: number = $state(10);
-    currTalent3Level: number = $state(1);
+    talent3LevelComplete: boolean = $state(false);
     targetTalent3Level: number = $state(10);
 
     constructor(id: number, character: number, buildValues: Record<string,any>) {
@@ -41,13 +41,13 @@ export class CharacterBuild {
         this.character = character;
         this.order = id;
 
-        this.currLevel = buildValues.currLevel ?? 1;
+        this.levelComplete = buildValues.levelComplete ?? false;
         this.targetLevel = buildValues.targetLevel ?? 90;
 
         this.weaponId = buildValues.weaponId ?? null;
-        this.currWeaponLevel = buildValues.currWeaponLevel ?? 1;
+        this.weaponLevelComplete = buildValues.weaponLevelComplete ?? false;
         this.targetWeaponLevel = buildValues.targetWeaponLevel ?? 90;
-        this.currWeaponRefine = buildValues.currWeaponRefine ?? 0;
+        this.weaponRefineComplete = buildValues.weaponRefineComplete ?? false;
         this.targetWeaponRefine = buildValues.targetWeaponRefine ?? 5;
 
         this.artifactIds = buildValues.artifactIds ? [...buildValues.artifactIds] : [];
@@ -61,11 +61,11 @@ export class CharacterBuild {
         this.circletStatus = buildValues.circletStatus ?? false;
         this.artifactSubstats = buildValues.artifactSubstats ?? [];
 
-        this.currTalent1Level = buildValues.currTalent1Level ?? 1;
+        this.talent1LevelComplete = buildValues.talent1LevelComplete ?? false;
         this.targetTalent1Level = buildValues.targetTalent1Level ?? 10;
-        this.currTalent2Level = buildValues.currTalent2Level ?? 1;
+        this.talent2LevelComplete = buildValues.talent2LevelComplete ?? false;
         this.targetTalent2Level = buildValues.targetTalent2Level ?? 10;
-        this.currTalent3Level = buildValues.currTalent3Level ?? 1;
+        this.talent3LevelComplete = buildValues.talent3LevelComplete ?? false;
         this.targetTalent3Level = buildValues.targetTalent3Level ?? 10;
     }
 }

@@ -11,12 +11,12 @@
 	let search = $state('');
 	let selectedCharacter: Character | null = $state(null);
 	let buildValues = $state({
-		currLevel: 1,
+		levelComplete: false,
 		targetLevel: 90,
         weaponId: null,
-        currWeaponLevel: 1,
+        weaponLevelComplete: false,
         targetWeaponLevel: 90,
-        currWeaponRefine: 0,
+        weaponRefineComplete: false,
         targetWeaponRefine: 5,
 		artifactIds: [],
 		flowerStatus: false,
@@ -28,11 +28,11 @@
 		circletStat: null,
 		circletStatus: false,
 		artifactSubstats: [],
-		currTalent1Level: 1,
+		talent1LevelComplete: false,
 		targetTalent1Level: 10,
-		currTalent2Level: 1,
+		talent2LevelComplete: false,
 		targetTalent2Level: 10,
-		currTalent3Level: 1,
+		talent3LevelComplete: false,
 		targetTalent3Level: 10
 	});
 
@@ -107,7 +107,7 @@
 			</div>
 
 			<div class="space-y-4">
-				<LevelSectionForm bind:curr={buildValues.currLevel} bind:target={buildValues.targetLevel} />
+				<!-- <LevelSectionForm bind:curr={buildValues.currLevel} bind:target={buildValues.targetLevel} /> -->
 
 				<div class="mt-6 flex justify-between">
 					<button class="rounded bg-gray-200 px-4 py-2 hover:bg-gray-300" onclick={goBack}>

@@ -3,11 +3,11 @@ import { CharacterBuild } from '$lib/models/CharacterBuild.svelte';
 export const buildsState: Record<string, CharacterBuild> = $state({});
 
 let buildValues = {
-    currLevel: 1,
+    levelComplete: false,
     targetLevel: 90,
-    currWeaponLevel: 1,
+    weaponLevelComplete: false,
     targetWeaponLevel: 90,
-    currWeaponRefine: 0,
+    weaponRefineComplete: false,
     targetWeaponRefine: 5,
     artifactIds: [],
     flowerStatus: false,
@@ -19,11 +19,11 @@ let buildValues = {
     circletStat: null,
     circletStatus: false,
     artifactSubstats: [],
-    currTalent1Level: 1,
+    talent1LevelComplete: false,
     targetTalent1Level: 10,
-    currTalent2Level: 1,
+    talent2LevelComplete: false,
     targetTalent2Level: 10,
-    currTalent3Level: 1,
+    talent3LevelComplete: false,
     targetTalent3Level: 10,
 }
 export const nullBuild = new CharacterBuild(0, 0, buildValues)
