@@ -2,6 +2,7 @@
 
 @theme {
     --font-sans: "genshin", sans-seriff;
+    --minWidth-card: 450px;
     --color-genshin-blue: #3F4555;
     --color-genshin-blue-darker: #353A49;
     --color-genshin-gold: #CFBD93;
@@ -47,6 +48,17 @@ input::-webkit-inner-spin-button {
 .fadeout-right {
     -webkit-mask-image: linear-gradient(to right, black 75%, transparent 100%);
     mask-image: linear-gradient(to right, black 75%, transparent 100%);
+}
+
+.fadeout {
+	-webkit-mask-image:
+		linear-gradient(to right, black 75%, transparent 100%),
+		linear-gradient(to bottom, black 75%, transparent 100%);
+	mask-image:
+        linear-gradient(to right, black 75%, transparent 100%),
+        linear-gradient(to bottom, black 75%, transparent 100%);
+	-webkit-mask-composite: intersect;
+	mask-composite: intersect;
 }
 
 .fadeout-all {

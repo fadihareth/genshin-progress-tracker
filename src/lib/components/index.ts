@@ -9,6 +9,3 @@ export * from './layout';
 // UI components
 export * from './ui';
 
-// Shared components
-export * from './shared';
-

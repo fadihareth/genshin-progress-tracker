@@ -9,9 +9,12 @@
 
 <main>
 	<Header />
-    <div class="flex flex-col gap-6 p-6">
-        {#each orderedBuilds as build (build.id)}
-            <CharacterCard id={build.id} />
-        {/each}
-    </div>
+	<div
+		class="grid gap-6 p-6"
+		style="grid-template-columns: repeat(auto-fit, minmax(var(--minWidth-card), 1fr));"
+	>
+		{#each orderedBuilds as build (build.id)}
+			<CharacterCard id={build.id} />
+		{/each}
+	</div>
 </main>
