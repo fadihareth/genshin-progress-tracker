@@ -12,28 +12,30 @@
 	let selectedCharacter: Character | null = $state(null);
 	let buildValues = $state({
 		levelComplete: false,
-		targetLevel: 90,
+		targetLevel: "90",
+		constellationComplete: false,
+		targetConstellation: "C0",
         weaponId: null,
         weaponLevelComplete: false,
-        targetWeaponLevel: 90,
+        targetWeaponLevel: "90",
         weaponRefineComplete: false,
-        targetWeaponRefine: 5,
+        targetWeaponRefine: "R5",
 		artifactIds: [],
-		flowerStatus: false,
-		plumeStatus: false,
+		flowerComplete: false,
+		plumeComplete: false,
 		sandsStat: null,
-		sandsStatus: false,
+		sandsComplete: false,
 		gobletStat: null,
-		gobletStatus: false,
+		gobletComplete: false,
 		circletStat: null,
-		circletStatus: false,
+		circletComplete: false,
 		artifactSubstats: [],
 		talent1LevelComplete: false,
-		targetTalent1Level: 10,
+		targetTalent1Level: "10",
 		talent2LevelComplete: false,
-		targetTalent2Level: 10,
+		targetTalent2Level: "10",
 		talent3LevelComplete: false,
-		targetTalent3Level: 10
+		targetTalent3Level: "10"
 	});
 
 	function filtered() {
