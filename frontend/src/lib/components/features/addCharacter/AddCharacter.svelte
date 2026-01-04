@@ -1,25 +1,25 @@
 <script lang="ts">
 	import type { Character } from '$lib/models/Character';
-	import { CharacterBuild } from '$lib/models/CharacterBuild.svelte';
 	import { characterList } from '$lib/stores/data';
 	import { buildsState } from '$lib/stores/state.svelte';
+	import { createBuild } from '$lib/api/builds';
 	import { fly } from 'svelte/transition';
-	import { LevelSectionForm } from './components';
 	import { LazyImage } from '$lib/components';
 
 	let { toggleShowOverlay }: { toggleShowOverlay: () => void } = $props();
 	let search = $state('');
 	let selectedCharacter: Character | null = $state(null);
+	let saving = $state(false);
 	let buildValues = $state({
 		levelComplete: false,
-		targetLevel: "90",
+		targetLevel: '90',
 		constellationComplete: false,
-		targetConstellation: "C0",
-        weaponId: null,
-        weaponLevelComplete: false,
-        targetWeaponLevel: "90",
-        weaponRefineComplete: false,
-        targetWeaponRefine: "R5",
+		targetConstellation: 'C0',
+		weaponId: null,
+		weaponLevelComplete: false,
+		targetWeaponLevel: '90',
+		weaponRefineComplete: false,
+		targetWeaponRefine: 'R5',
 		artifactIds: [],
 		flowerComplete: false,
 		plumeComplete: false,
@@ -31,11 +31,11 @@
 		circletComplete: false,
 		artifactSubstats: [],
 		talent1LevelComplete: false,
-		targetTalent1Level: "10",
+		targetTalent1Level: '10',
 		talent2LevelComplete: false,
-		targetTalent2Level: "10",
+		targetTalent2Level: '10',
 		talent3LevelComplete: false,
-		targetTalent3Level: "10"
+		targetTalent3Level: '10'
 	});
 
 	function filtered() {
@@ -51,19 +51,24 @@
 		selectedCharacter = null;
 	}
 
-	function saveBuild() {
+	async function saveBuild() {
 		if (!selectedCharacter) return;
 
-        characterList.forEach((c) => {
-            let key = Object.keys(buildsState).length;
-            const newBuild = new CharacterBuild(key, c.id, buildValues);
-            buildsState[key] = newBuild;
-        })
+		try {
+			saving = true;
+			const newBuild = await createBuild({
+				characterId: selectedCharacter.id,
+				...buildValues
+			});
 
-		// let key = Object.keys(buildsState).length;
-		// const newBuild = new CharacterBuild(key, selectedCharacter.id, buildValues);
-		// buildsState[key] = newBuild;
-		toggleShowOverlay();
+			buildsState[newBuild.id] = newBuild;
+			toggleShowOverlay();
+		} catch (error) {
+			console.error('Error saving build:', error);
+			alert('Failed to save build. Please try again.');
+		} finally {
+			saving = false;
+		}
 	}
 </script>
 
@@ -82,7 +87,7 @@
 			/>
 
 			<div
-				class="grid max-h-3/4 gap-2 overflow-y-auto"
+				class="max-h-3/4 grid gap-2 overflow-y-auto"
 				style="grid-template-columns: repeat(4, minmax(80px, 1fr));"
 			>
 				{#each filtered() as c}
@@ -90,7 +95,7 @@
 						class="flex flex-col items-center justify-evenly gap-1 rounded-xl bg-gray-100 p-2 hover:bg-gray-200"
 						onclick={() => startBuild(c)}
 					>
-                        <LazyImage src={c.iconImage} alt={c.name} className="h-30 w-30 rounded object-cover" />
+						<LazyImage src={c.iconImage} alt={c.name} className="h-30 w-30 rounded object-cover" />
 						<p class="flex h-10 flex-col justify-around text-sm text-gray-800">{c.name}</p>
 					</button>
 				{/each}
@@ -112,14 +117,19 @@
 				<!-- <LevelSectionForm bind:curr={buildValues.currLevel} bind:target={buildValues.targetLevel} /> -->
 
 				<div class="mt-6 flex justify-between">
-					<button class="rounded bg-gray-200 px-4 py-2 hover:bg-gray-300" onclick={goBack}>
+					<button 
+						class="rounded bg-gray-200 px-4 py-2 hover:bg-gray-300" 
+						onclick={goBack}
+						disabled={saving}
+					>
 						Back
 					</button>
 					<button
-						class="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
+						class="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 disabled:opacity-50"
 						onclick={saveBuild}
+						disabled={saving}
 					>
-						Save
+						{saving ? 'Saving...' : 'Save'}
 					</button>
 				</div>
 			</div>
