@@ -41,7 +41,7 @@ export class CharacterBuild {
     constructor(id: number, character: number, buildValues: Record<string, any>) {
         this.id = id;
         this.character = character;
-        this.order = id;
+        this.order = buildValues.order ?? id;
 
         this.levelComplete = buildValues.levelComplete ?? false;
         this.targetLevel = buildValues.targetLevel ?? "90";
