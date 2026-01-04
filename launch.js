@@ -1,6 +1,6 @@
-import { spawn } from 'child_process';
-import { join } from 'path';
-import { exec } from 'child_process';
+const { spawn } = require('child_process');
+const { join } = require('path');
+const { exec } = require('child_process');
 
 const rootDir = __dirname;
 const backendDir = join(rootDir, 'backend');
@@ -24,23 +24,23 @@ function openBrowser(url, delay = 3000) {
             if (error) {
                 console.log(`⚠️  Could not automatically open browser. Please navigate to ${url}`);
             } else {
-                console.log(`🌐 Opened browser to ${url}`);
+                console.log(`Opened browser to ${url}`);
             }
         });
     }, delay);
 }
 
 // Start backend
-console.log('🚀 Starting backend server...');
-const backend = spawn('npm', ['run', 'dev'], {
+console.log('Starting backend server...');
+const backend = spawn('npm run dev', {
     cwd: backendDir,
     stdio: 'inherit',
     shell: true
 });
 
 // Start frontend
-console.log('🚀 Starting frontend server...');
-const frontend = spawn('npm', ['run', 'dev'], {
+console.log('Starting frontend server...');
+const frontend = spawn('npm run dev', {
     cwd: frontendDir,
     stdio: 'inherit',
     shell: true

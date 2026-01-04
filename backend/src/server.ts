@@ -26,8 +26,8 @@ const yoga = createYoga({
 const server = createServer(yoga);
 
 server.listen(config.port, () => {
-    console.log(`🚀 GraphQL server running on http://localhost:${config.port}/graphql`);
-    console.log(`📊 GraphiQL available at http://localhost:${config.port}/graphql`);
+    console.log(`GraphQL server running on http://localhost:${config.port}/graphql`);
+    console.log(`GraphiQL available at http://localhost:${config.port}/graphql`);
 });
 
 // Graceful shutdown
