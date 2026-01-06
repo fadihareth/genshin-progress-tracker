@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { artifactsById, charactersById, talentsByName } from '$lib/stores/data';
 	import { buildsState } from '$lib/stores/state.svelte';
+	import { deleteBuild } from '$lib/api/builds';
 	import { CircleIcon, ChecklistItem } from './components';
 	import { LazyImage, MenuButton } from '$lib/components';
 	import { bgColors } from '$lib/constants';
@@ -17,6 +18,7 @@
 	let { id }: { id: number } = $props();
 	let build = $derived(buildsState[id]);
 	let character = charactersById[buildsState[id].character];
+	let deleting = $state(false);
 
 	let textEl: HTMLElement;
 	$effect(() => {
@@ -27,10 +29,21 @@
 		});
 	});
 
-	function onSelect(option: String) {
+	async function onSelect(option: String) {
 		switch (option) {
-			case 'Remove Build': {
-				delete buildsState[id];
+			case 'Delete Build': {
+				if (confirm('Are you sure you want to delete this build?')) {
+					try {
+						deleting = true;
+						await deleteBuild(id);
+						delete buildsState[id];
+					} catch (error) {
+						console.error('Error deleting build:', error);
+						alert('Failed to delete build. Please try again.');
+					} finally {
+						deleting = false;
+					}
+				}
 				break;
 			}
 			default: {
@@ -43,9 +56,9 @@
 <div
 	class={`relative flex flex-col gap-2 rounded-xl ${bgColors[character.element]} ${build.isComplete() ? 'opacity-30' : ''} text-genshin-gold shadow-xl`}
 >
-	<div class="absolute inset-2 z-0 rounded-xl border-2 border-genshin-gold/30"></div>
+	<div class="border-genshin-gold/30 absolute inset-2 z-0 rounded-xl border-2"></div>
 	<div class="flex">
-		<div class="fadeout z-10 h-75 w-[300px]">
+		<div class="fadeout h-75 z-10 w-[300px]">
 			<LazyImage
 				src={character.profileImage}
 				alt={character.name}
@@ -53,7 +66,7 @@
 				placeholder={assets.placeholders.character}
 			/>
 		</div>
-		<div class="flex w-full flex-col gap-2 pt-5 pr-5 pl-5">
+		<div class="flex w-full flex-col gap-2 pl-5 pr-5 pt-5">
 			<div class="flex items-end justify-between">
 				<h2 bind:this={textEl}>{character.name}</h2>
 				<MenuButton {onSelect} />
@@ -101,19 +114,14 @@
 			</div>
 		</div>
 	</div>
-	<div class="flex w-full flex-col gap-2 pr-5 pb-5 pl-7">
+	<div class="flex w-full flex-col gap-2 pb-5 pl-7 pr-5">
 		<p class={build.artifactsComplete() ? 'opacity-30' : ''}>Artifacts</p>
 		<div class="flex gap-5">
-			<button
-				class={`cursor-pointer rounded-full bg-gray-100/10 hover:bg-gray-200/30 ${build.artifactsComplete() ? 'opacity-30' : ''}`}
-				onclick={() => {}}
-			>
-				<LazyImage
-					src={artifactsById[0].image}
-					alt="Artifact"
-					className="pointer-events-none absolute object-contain select-none w-25 h-25"
-				/>
-			</button>
+			<LazyImage
+				src={artifactsById[0].image}
+				alt="Artifact"
+				className="pointer-events-none absolute object-contain select-none w-25 h-25 rounded-full bg-gray-100/10"
+			/>
 			<div class="grid grid-cols-[max-content_1fr] items-center gap-x-10 gap-y-2">
 				<ChecklistItem bind:isComplete={build.flowerComplete} label="HP">
 					<IconFlower />

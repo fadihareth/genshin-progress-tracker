@@ -52,7 +52,7 @@ export class Character {
         return `https://gbp-characters.s3.us-east-2.amazonaws.com/profiles/${this.name.replaceAll(' ', '_')}_Profile.png`;
     }
 
-    get iconImage(): string {
+    get image(): string {
         return `https://gbp-characters.s3.us-east-2.amazonaws.com/icons/${this.name.replaceAll(' ', '_')}_Icon.png`;
     }
 

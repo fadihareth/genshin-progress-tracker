@@ -73,6 +73,13 @@ const CREATE_BUILD_MUTATION = `
     }
 `;
 
+// GraphQL mutation to delete a build
+const DELETE_BUILD_MUTATION = `
+    mutation DeleteBuild($id: Int!) {
+        deleteBuild(id: $id)
+    }
+`;
+
 // Type for the build data from API
 interface BuildData {
     id: number;
@@ -186,6 +193,20 @@ export async function createBuild(buildInput: {
         return buildDataToCharacterBuild(response.createBuild);
     } catch (error) {
         console.error('Error creating build:', error);
+        throw error;
+    }
+}
+
+// Delete a build via the API
+export async function deleteBuild(id: number): Promise<number> {
+    try {
+        const response = await graphqlClient.request<{ deleteBuild: number }>(
+            DELETE_BUILD_MUTATION,
+            { id }
+        );
+        return response.deleteBuild;
+    } catch (error) {
+        console.error('Error deleting build:', error);
         throw error;
     }
 }
