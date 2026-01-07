@@ -1,22 +1,20 @@
 <script lang="ts">
 	import { LazyImage } from '$lib/components';
-
-	interface SelectableItem {
-		id: number;
-		name: string;
-		image: string;
-	}
+	import ChevronLeft from '@tabler/icons-svelte/icons/chevron-left';
+	import type { SelectableItem } from "$lib/constants";
 
 	let {
 		items,
 		onItemSelect,
 		title,
-		searchPlaceholder
+		searchPlaceholder,
+		goBack
 	}: {
 		items: SelectableItem[];
 		onItemSelect: (id: number) => void;
 		title: string;
 		searchPlaceholder: string;
+		goBack: () => void;
 	} = $props();
 	let search = $state('');
 
@@ -26,20 +24,22 @@
 	}
 </script>
 
-<div
-	class="relative h-3/4 w-full max-w-2xl overflow-x-hidden overflow-y-scroll rounded-lg bg-white p-6 shadow-lg"
->
-	<h2 class="mb-4 text-xl">{title}</h2>
-	<div>
+<div>
+	<div class="sticky top-0 z-10 flex gap-2 items-center bg-white/80 pt-6 p-3 backdrop-blur">
+		<button class="rounded-full p-1 hover:bg-gray-100" onclick={goBack}>
+			<ChevronLeft />
+		</button>
+		<h2>{title}</h2>
+	</div>
+	<div class="px-6 pb-3 space-y-3">
 		<input
 			type="text"
 			placeholder={searchPlaceholder}
 			bind:value={search}
-			class="mb-4 w-full rounded border px-3 py-2"
+			class="w-full rounded-xl border px-3 py-2"
 		/>
-
 		<div
-			class="grid max-h-3/4 gap-2 overflow-y-auto"
+			class="max-h-3/4 grid gap-2 overflow-y-auto"
 			style="grid-template-columns: repeat(4, minmax(80px, 1fr));"
 		>
 			{#each filtered() as i}

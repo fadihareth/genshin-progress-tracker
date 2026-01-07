@@ -17,3 +17,9 @@ export const bgGradientColors: Record<string, string> = {
     Hydro: "to-hydro/30",
     Pyro: "to-pyro/30"
 }
+
+export interface SelectableItem {
+    id: number;
+    name: string;
+    image: string;
+}

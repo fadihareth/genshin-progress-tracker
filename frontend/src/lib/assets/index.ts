@@ -1,7 +1,7 @@
 // Static asset imports
 import cornerIcon from './ui/corner.svg?url';
 import arrowRightIcon from './ui/arrow-right.svg?url';
-import characterPlaceholder from './ui/character-placeholder.png';
+import profilePlaceholder from './ui/profile-placeholder.png';
 import levelIcon from './icons/level.webp?url';
 import weaponIcon from './icons/weapon.webp?url';
 
@@ -40,7 +40,7 @@ export const assets = {
 		weapon: weaponIcon
 	},
 	placeholders: {
-		character: characterPlaceholder
+		character: profilePlaceholder
 	},
 	elements: elementIcons,
 	getElementIcon

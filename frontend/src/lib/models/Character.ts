@@ -1,3 +1,5 @@
+import type { SelectableItem } from "$lib/constants";
+
 export type CharacterJSON = {
     id: number;
     name: string;
@@ -15,7 +17,7 @@ export type CharacterJSON = {
     worldDropMaterial: Record<number, string>; // key = rarity, value = name
 };
 
-export class Character {
+export class Character implements SelectableItem {
     id: number;
     name: string;
     title: string;

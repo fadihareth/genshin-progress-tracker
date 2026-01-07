@@ -1,3 +1,5 @@
+import type { SelectableItem } from "$lib/constants";
+
 export type ArtifactJSON = {
     id: number;
     name: string;
@@ -11,7 +13,7 @@ export type ArtifactJSON = {
     circlet: string;
 };
 
-export class Artifact {
+export class Artifact implements SelectableItem {
     id: number;
     name: string;
     rarity: string[];
