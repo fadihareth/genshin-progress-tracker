@@ -4,11 +4,22 @@
 	let {
 		value = $bindable(),
 		id,
-		items
-	}: { value: string | null; id: string; items: string[] } = $props();
+		items,
+		icon
+	}: { value: string | null; id: string; items: string[]; icon?: string | any } = $props();
 </script>
 
-<label for={id} class="text-gray-600">{id}</label>
+<div class="flex items-center gap-2">
+	{#if icon}
+		{#if typeof icon === 'string'}
+			<img src={icon} alt={`${id} icon`} class="h-8 w-8" />
+		{:else}
+			{@const Icon = icon}
+			<Icon class="text-gray-600" size={28} />
+		{/if}
+	{/if}
+	<label for={id} class="text-gray-600">{id}</label>
+</div>
 <form autocomplete="off">
 	<Select id bind:value {items} placeholder="Select" clearable={false} />
 </form>

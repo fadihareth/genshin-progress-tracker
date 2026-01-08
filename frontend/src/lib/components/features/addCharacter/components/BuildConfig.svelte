@@ -1,7 +1,14 @@
 <script lang="ts">
+	import type { Character } from '$lib/models/Character';
 	import { BuildSelect, BuildMultiSelect } from '.';
+	import { talentsByName } from '$lib/stores/data';
+	import {
+		IconCrown,
+		IconGlass,
+		IconHourglassEmpty
+	} from '@tabler/icons-svelte';
 
-	let { onSave, saving }: { onSave: (buildValues: any) => void; saving: boolean } = $props();
+	let { onSave, saving, character }: { onSave: (buildValues: any) => void; saving: boolean; character: Character | null } = $props();
 
 	let buildValues = $state({
 		targetLevel: '90',
@@ -20,7 +27,7 @@
 
 <div class="grid grid-cols-[max-content_1fr] items-center gap-x-10 gap-y-4 text-start">
     <hr class="col-span-2 border-t border-gray-300" />
-	<p class="col-span-2">Character Info</p>
+	<p class="col-span-2">Character Goals</p>
 	<BuildSelect
 		bind:value={buildValues.targetLevel}
 		id="Level"
@@ -35,20 +42,23 @@
 		bind:value={buildValues.targetTalent1Level}
 		id="Normal Attack Talent"
 		items={Array.from({ length: 10 }, (_, i) => (i + 1).toString())}
+		icon={character?.attackTalentImage}
 	/>
 	<BuildSelect
 		bind:value={buildValues.targetTalent2Level}
 		id="Skill Talent"
 		items={Array.from({ length: 10 }, (_, i) => (i + 1).toString())}
+		icon={talentsByName[character?.name ?? ""]?.skillImage}
 	/>
 	<BuildSelect
 		bind:value={buildValues.targetTalent3Level}
 		id="Burst Talent"
 		items={Array.from({ length: 10 }, (_, i) => (i + 1).toString())}
+		icon={talentsByName[character?.name ?? ""]?.burstImage}
 	/>
 
     <hr class="col-span-2 border-t border-gray-300" />
-    <p class="col-span-2">Weapon Info</p>
+    <p class="col-span-2">Weapon Goals</p>
 	<BuildSelect
 		bind:value={buildValues.targetWeaponLevel}
 		id="Weapon Level"
@@ -61,11 +71,12 @@
 	/>
 
     <hr class="col-span-2 border-t border-gray-300" />
-    <p class="col-span-2">Artifacts Info</p>
+    <p class="col-span-2">Artifact Goals</p>
 	<BuildSelect
 		bind:value={buildValues.sandsStat}
 		id="Sands Main Stat"
 		items={['HP(%)', 'ATK(%)', 'DEF(%)', 'EM', 'ER(%)']}
+		icon={IconHourglassEmpty}
 	/>
 	<BuildSelect
 		bind:value={buildValues.gobletStat}
@@ -84,11 +95,13 @@
 			'ATK(%)',
 			'DEF(%)'
 		]}
+		icon={IconGlass}
 	/>
 	<BuildSelect
 		bind:value={buildValues.circletStat}
 		id="Circlet Main Stat"
 		items={['CRIT Rate(%)', 'CRIT DMG(%)', 'EM', 'HP(%)', 'ATK(%)', 'DEF(%)', 'Healing Bonus(%)']}
+		icon={IconCrown}
 	/>
 	<BuildMultiSelect
 		bind:value={buildValues.artifactSubstats}
@@ -108,7 +121,7 @@
 		max={4}
 	/>
 </div>
-<div class="sticky bottom-0 flex w-full justify-end bg-white p-3 pl-6 pr-6">
+<div class="sticky bottom-0 flex w-full justify-end bg-white py-3">
 	<button
 		class="rounded bg-blue-500 object-right px-4 py-2 text-white shadow hover:bg-blue-600 disabled:opacity-50"
 		onclick={() => {

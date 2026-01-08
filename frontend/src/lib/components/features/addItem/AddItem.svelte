@@ -24,7 +24,7 @@
 	}
 </script>
 
-<div>
+<div class="page-forward">
 	<div class="sticky top-0 z-10 flex gap-2 items-center bg-white/80 pt-6 p-3 backdrop-blur">
 		<button class="rounded-full p-1 hover:bg-gray-100" onclick={goBack}>
 			<ChevronLeft />
@@ -54,3 +54,20 @@
 		</div>
 	</div>
 </div>
+
+<style>
+	.page-forward {
+		animation: slideInForward 0.3s ease-in-out;
+	}
+
+	@keyframes slideInForward {
+		from {
+			opacity: 0;
+			transform: translateX(20px);
+		}
+		to {
+			opacity: 1;
+			transform: translateX(0);
+		}
+	}
+</style>

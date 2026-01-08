@@ -25,7 +25,7 @@
 		ARTIFACTS: 2,
 		BUILD_CONFIG: 3
 	} as const;
-	let mode: number = $state(MODE.BUILD_CONFIG);
+	let mode: number = $state(MODE.CHARACTER);
 	let selectedCharacter: Character | null = $state(null);
 	let selectedWeapon: Weapon | null = $state(null);
 	let selectedArtifacts: Artifact[] = $state([]);
@@ -113,7 +113,7 @@
 			{goBack}
 		/>
 	{:else}
-		<div class="space-y-4 p-6">
+		<div class="page-backward space-y-4 pt-6 px-6">
 			<p class="float-left">Add Character Build</p>
 			<BuildNavButton
 				selected={selectedCharacter}
@@ -126,7 +126,24 @@
 				changeMode={selectWeaponMode}
 				disabled={selectedCharacter === null}
 			/>
-			<BuildConfig onSave={saveBuild} {saving} />
+			<BuildConfig onSave={saveBuild} {saving} character={selectedCharacter} />
 		</div>
 	{/if}
 </div>
+
+<style>
+	.page-backward {
+		animation: slideInBackward 0.3s ease-in-out;
+	}
+
+	@keyframes slideInBackward {
+		from {
+			opacity: 0;
+			transform: translateX(-20px);
+		}
+		to {
+			opacity: 1;
+			transform: translateX(0);
+		}
+	}
+</style>
