@@ -115,9 +115,9 @@
 </div>
 <div class="sticky bottom-0 flex w-full justify-end bg-white py-3">
 	<button
-		class="rounded bg-blue-500 object-right px-4 py-2 text-white shadow hover:bg-blue-600 disabled:opacity-50"
+		class="rounded bg-blue-500 object-right px-4 py-2 text-white shadow enabled:hover:bg-blue-600 disabled:opacity-50"
 		onclick={onSave}
-		disabled={saving}
+		disabled={saving || character === null}
 	>
 		{saving ? 'Saving...' : 'Save'}
 	</button>

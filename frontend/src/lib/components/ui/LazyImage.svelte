@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 
-	let { src, alt = '', spinnerSize = 24, className = "", placeholder = null } = $props();
+	let { src, alt = '', spinnerSize = 24, className = '', placeholder = null } = $props();
 
 	let loading: boolean = $state(true);
 	let imgEl: HTMLImageElement;
@@ -20,9 +20,9 @@
 	}
 </script>
 
-<div class={`relative inline-block ${className}`}>
+<div class={`inline-block ${className}`}>
 	{#if loading}
-		<div class="absolute inset-0 flex items-center justify-center">
+		<div class="inset-0 flex h-full w-full items-center justify-center">
 			<div class="spinner" style={`width:${spinnerSize}px; height:${spinnerSize}px;`}></div>
 		</div>
 		{#if placeholder}
@@ -34,7 +34,7 @@
 		bind:this={imgEl}
 		src={actualSrc}
 		{alt}
-		class={`${loading ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300 h-full w-full object-cover`}
+		class={`${loading ? 'opacity-0' : 'opacity-100'} h-full w-full object-cover transition-opacity duration-300`}
 		loading="lazy"
 		decoding="async"
 		onload={handleLoad}

@@ -17,12 +17,14 @@
 </script>
 
 <label for={id} class="text-gray-600">{id}</label>
-<Select
-	id
-	bind:value
-	{items}
-	multiple
-	clearable
-	closeListOnChange={false}
-	placeholder="Select"
-/>
+<form autocomplete="off">
+	<Select
+		id
+		bind:value
+		{items}
+		multiple
+		clearable={false}
+		closeListOnChange={false}
+		placeholder="Select"
+	/>
+</form>
