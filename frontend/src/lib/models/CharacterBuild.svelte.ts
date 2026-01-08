@@ -19,7 +19,8 @@ export class CharacterBuild {
     targetWeaponRefine: string = $state("R5");
 
     // Artifact Progress
-    artifactIds: number[] = $state([]);
+    artifact1Id: number | null = $state(null);
+    artifact2Id: number | null = $state(null);
     flowerComplete: boolean = $state(false);
     plumeComplete: boolean = $state(false);
     sandsStat: string | null = $state(null);
@@ -54,7 +55,8 @@ export class CharacterBuild {
         this.weaponRefineComplete = buildValues.weaponRefineComplete ?? false;
         this.targetWeaponRefine = buildValues.targetWeaponRefine ?? "R5";
 
-        this.artifactIds = buildValues.artifactIds ? [...buildValues.artifactIds] : [];
+        this.artifact1Id = buildValues.artifact1Id ?? null;
+        this.artifact2Id = buildValues.artifact2Id ?? null;
         this.flowerComplete = buildValues.flowerComplete ?? false;
         this.plumeComplete = buildValues.plumeComplete ?? false;
         this.sandsStat = buildValues.sandsStat ?? null;

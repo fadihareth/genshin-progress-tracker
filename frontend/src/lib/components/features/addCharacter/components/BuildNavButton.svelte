@@ -1,32 +1,45 @@
 <script lang="ts">
-	import ChevronRight from '@tabler/icons-svelte/icons/chevron-right';
 	import type { SelectableItem } from '$lib/constants';
+	import Plus from '@tabler/icons-svelte/icons/plus';
+	import X from '@tabler/icons-svelte/icons/x';
+	import LazyImage from '$lib/components/ui/LazyImage.svelte';
 
 	let {
 		selected,
 		label,
 		changeMode,
-		disabled = false
+		removeSelection
 	}: {
 		selected: SelectableItem | null;
 		label: string;
 		changeMode: () => void;
-		disabled?: boolean;
+		removeSelection?: () => void;
 	} = $props();
 </script>
 
-<button
-	onclick={changeMode}
-	{disabled}
-	class={`flex w-full items-center justify-between rounded-lg border border-gray-300 p-2 ${disabled ? 'opacity-50' : 'hover:border-gray-400'}`}
->
-	{#if selected === null}
-		<p class="">{label}</p>
-	{:else}
-		<div class="flex items-center gap-3">
-			<img src={selected?.image} alt={selected?.name} class="h-15 w-15" />
-			<h2>{selected?.name}</h2>
-		</div>
+<div class="relative">
+	{#if removeSelection !== undefined && selected !== null}
+		<button
+			onclick={removeSelection}
+			class="absolute top-1 right-1 z-10 p-1 hover:bg-gray-300 rounded-full"
+		>
+			<X />
+		</button>
 	{/if}
-	<ChevronRight />
-</button>
+	<button
+		onclick={changeMode}
+		class="flex w-full flex-col items-center justify-evenly gap-1 rounded-xl bg-gray-100 p-2 hover:bg-gray-200"
+	>
+		{#if selected === null}
+			<Plus class="m-5 h-10 w-10" />
+			<p class="flex h-10 flex-col justify-around text-sm text-gray-800">{label}</p>
+		{:else}
+			<LazyImage
+				src={selected?.image}
+				alt={selected?.name}
+				className="h-20 w-20 rounded object-cover"
+			/>
+			<p class="flex h-10 flex-col justify-around text-sm text-gray-800">{selected?.name}</p>
+		{/if}
+	</button>
+</div>

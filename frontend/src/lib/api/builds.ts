@@ -17,7 +17,8 @@ const GET_BUILDS_QUERY = `
             targetWeaponLevel
             weaponRefineComplete
             targetWeaponRefine
-            artifactIds
+            artifact1Id
+            artifact2Id
             flowerComplete
             plumeComplete
             sandsStat
@@ -53,7 +54,8 @@ const CREATE_BUILD_MUTATION = `
             targetWeaponLevel
             weaponRefineComplete
             targetWeaponRefine
-            artifactIds
+            artifact1Id
+            artifact2Id
             flowerComplete
             plumeComplete
             sandsStat
@@ -94,7 +96,8 @@ interface BuildData {
     targetWeaponLevel: string;
     weaponRefineComplete: boolean;
     targetWeaponRefine: string;
-    artifactIds: number[];
+    artifact1Id: number | null;
+    artifact2Id: number | null;
     flowerComplete: boolean;
     plumeComplete: boolean;
     sandsStat: string | null;
@@ -125,7 +128,8 @@ function buildDataToCharacterBuild(data: BuildData): CharacterBuild {
         targetWeaponLevel: data.targetWeaponLevel,
         weaponRefineComplete: data.weaponRefineComplete,
         targetWeaponRefine: data.targetWeaponRefine,
-        artifactIds: data.artifactIds,
+        artifact1Id: data.artifact1Id,
+        artifact2Id: data.artifact2Id,
         flowerComplete: data.flowerComplete,
         plumeComplete: data.plumeComplete,
         sandsStat: data.sandsStat,
@@ -168,7 +172,8 @@ export async function createBuild(buildInput: {
     targetWeaponLevel?: string;
     weaponRefineComplete?: boolean;
     targetWeaponRefine?: string;
-    artifactIds?: number[];
+    artifact1Id?: number | null;
+    artifact2Id?: number | null;
     flowerComplete?: boolean;
     plumeComplete?: boolean;
     sandsStat?: string | null;

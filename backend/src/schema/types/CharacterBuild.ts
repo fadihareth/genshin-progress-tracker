@@ -21,7 +21,8 @@ export const CharacterBuildType = new GraphQLObjectType({
         targetWeaponRefine: { type: new GraphQLNonNull(GraphQLString) },
 
         // Artifact Progress
-        artifactIds: { type: new GraphQLNonNull(new GraphQLList(GraphQLInt)) },
+        artifact1Id: { type: GraphQLInt },
+        artifact2Id: { type: GraphQLInt },
         flowerComplete: { type: new GraphQLNonNull(GraphQLBoolean) },
         plumeComplete: { type: new GraphQLNonNull(GraphQLBoolean) },
         sandsStat: { type: GraphQLString },

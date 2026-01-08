@@ -17,7 +17,8 @@ CREATE TABLE IF NOT EXISTS character_builds (
     target_weapon_refine TEXT NOT NULL DEFAULT 'R5',
     
     -- Artifact Progress
-    artifact_ids TEXT NOT NULL DEFAULT '[]', -- JSON array
+    artifact1_id INTEGER,
+    artifact2_id INTEGER,
     flower_complete INTEGER NOT NULL DEFAULT 0,
     plume_complete INTEGER NOT NULL DEFAULT 0,
     sands_stat TEXT,

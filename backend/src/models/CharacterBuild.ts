@@ -12,7 +12,8 @@ export interface CharacterBuildInput {
     targetWeaponLevel?: string;
     weaponRefineComplete?: boolean;
     targetWeaponRefine?: string;
-    artifactIds?: number[];
+    artifact1Id?: number | null;
+    artifact2Id?: number | null;
     flowerComplete?: boolean;
     plumeComplete?: boolean;
     sandsStat?: string | null;
@@ -43,7 +44,8 @@ export interface CharacterBuildRow {
     target_weapon_level: string;
     weapon_refine_complete: number;
     target_weapon_refine: string;
-    artifact_ids: string;
+    artifact1_id: number | null;
+    artifact2_id: number | null;
     flower_complete: number;
     plume_complete: number;
     sands_stat: string | null;
@@ -76,7 +78,8 @@ export function rowToBuild(row: CharacterBuildRow) {
         targetWeaponLevel: row.target_weapon_level,
         weaponRefineComplete: Boolean(row.weapon_refine_complete),
         targetWeaponRefine: row.target_weapon_refine,
-        artifactIds: JSON.parse(row.artifact_ids),
+        artifact1Id: row.artifact1_id,
+        artifact2Id: row.artifact2_id,
         flowerComplete: Boolean(row.flower_complete),
         plumeComplete: Boolean(row.plume_complete),
         sandsStat: row.sands_stat,
@@ -122,12 +125,12 @@ export function createBuild(input: CharacterBuildInput) {
       character_id, sort_order,
       level_complete, target_level, constellation_complete, target_constellation,
       weapon_id, weapon_level_complete, target_weapon_level, weapon_refine_complete, target_weapon_refine,
-      artifact_ids, flower_complete, plume_complete, sands_stat, sands_complete,
+      artifact1_id, artifact2_id, flower_complete, plume_complete, sands_stat, sands_complete,
       goblet_stat, goblet_complete, circlet_stat, circlet_complete, artifact_substats,
       talent1_level_complete, target_talent1_level,
       talent2_level_complete, target_talent2_level,
       talent3_level_complete, target_talent3_level
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `);
 
     const result = stmt.run(
@@ -142,7 +145,8 @@ export function createBuild(input: CharacterBuildInput) {
         input.targetWeaponLevel ?? '90',
         input.weaponRefineComplete ? 1 : 0,
         input.targetWeaponRefine ?? 'R5',
-        JSON.stringify(input.artifactIds ?? []),
+        input.artifact1Id ?? null,
+        input.artifact2Id ?? null,
         input.flowerComplete ? 1 : 0,
         input.plumeComplete ? 1 : 0,
         input.sandsStat ?? null,
@@ -215,9 +219,13 @@ export function updateBuild(id: number, input: Partial<CharacterBuildInput>) {
         updates.push('target_weapon_refine = ?');
         values.push(input.targetWeaponRefine);
     }
-    if (input.artifactIds !== undefined) {
-        updates.push('artifact_ids = ?');
-        values.push(JSON.stringify(input.artifactIds));
+    if (input.artifact1Id !== undefined) {
+        updates.push('artifact1_id = ?');
+        values.push(input.artifact1Id);
+    }
+    if (input.artifact2Id !== undefined) {
+        updates.push('artifact2_id = ?');
+        values.push(input.artifact2Id);
     }
     if (input.flowerComplete !== undefined) {
         updates.push('flower_complete = ?');
