@@ -31,6 +31,19 @@
 	let selectedWeapon: Weapon | null = $state(null);
 	let selectedArtifact1: Artifact | null = $state(null);
 	let selectedArtifact2: Artifact | null = $state(null);
+	let buildValues = $state({
+		targetLevel: { value: '90', label: '90' },
+		targetConstellation: { value: 'C0', label: 'C0' },
+		targetWeaponLevel: { value: '90', label: '90' },
+		targetWeaponRefine: { value: 'R0', label: 'R0' },
+		sandsStat: null as { value: string; label: string } | null,
+		gobletStat: null as { value: string; label: string } | null,
+		circletStat: null as { value: string; label: string } | null,
+		artifactSubstats: [] as { value: string; label: string }[],
+		targetTalent1Level: { value: '10', label: '10' },
+		targetTalent2Level: { value: '10', label: '10' },
+		targetTalent3Level: { value: '10', label: '10' }
+	});
 	let saving = $state(false);
 
 	function selectCharacterMode() {
@@ -82,13 +95,23 @@
 		selectedArtifact2 = null;
 	}
 
-	async function saveBuild(buildValues: any) {
+	async function onSave() {
 		if (!selectedCharacter) return;
 
 		try {
 			saving = true;
 			const buildData = {
-				...buildValues,
+				targetLevel: buildValues.targetLevel.value,
+				targetConstellation: buildValues.targetConstellation.value,
+				targetWeaponLevel: buildValues.targetWeaponLevel.value,
+				targetWeaponRefine: buildValues.targetWeaponRefine.value,
+				sandsStat: buildValues.sandsStat?.value ?? null,
+				gobletStat: buildValues.gobletStat?.value ?? null,
+				circletStat: buildValues.circletStat?.value ?? null,
+				artifactSubstats: buildValues.artifactSubstats.map((a) => a.value),
+				targetTalent1Level: buildValues.targetTalent1Level.value,
+				targetTalent2Level: buildValues.targetTalent2Level.value,
+				targetTalent3Level: buildValues.targetTalent3Level.value,
 				characterId: selectedCharacter.id,
 				weaponId: selectedWeapon?.id ?? null,
 				artifact1Id: selectedArtifact1 ? Number(selectedArtifact1.id) : null,
@@ -173,7 +196,7 @@
 					{/if}
 				{/if}
 			</div>
-			<BuildConfig onSave={saveBuild} {saving} character={selectedCharacter} />
+			<BuildConfig bind:buildValues {onSave} {saving} character={selectedCharacter} />
 		</div>
 	{/if}
 </div>
