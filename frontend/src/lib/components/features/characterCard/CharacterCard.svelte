@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { artifactsById, charactersById, talentsByName } from '$lib/stores/data';
+	import { artifactsById, charactersById, talentsByName, weaponsById } from '$lib/stores/data';
 	import { buildsState } from '$lib/stores/state.svelte';
 	import { deleteBuild } from '$lib/api/builds';
 	import { CircleIcon, ChecklistItem } from './components';
@@ -58,7 +58,7 @@
 >
 	<div class="border-genshin-gold/30 absolute inset-2 z-0 rounded-xl border-2"></div>
 	<div class="flex">
-		<div class="fadeout h-75 z-10 w-[300px]">
+		<div class="fadeout h-80 w-[500px]">
 			<LazyImage
 				src={character.profileImage}
 				alt={character.name}
@@ -76,15 +76,29 @@
 				bind:isComplete={build.constellationComplete}
 				label={`Constellation: ${build.targetConstellation}`}
 			/>
-			<p class={build.weaponComplete() ? 'opacity-30' : ''}>Weapon</p>
-			<ChecklistItem
-				bind:isComplete={build.weaponLevelComplete}
-				label={`Level: ${build.targetWeaponLevel}`}
-			/>
-			<ChecklistItem
-				bind:isComplete={build.weaponRefineComplete}
-				label={`Refine: ${build.targetWeaponRefine}`}
-			/>
+			<p class={`${build.weaponComplete() && 'opacity-30'}`}>Weapon</p>
+			<div class="flex gap-5">
+				{#if build.weaponId !== null}
+					<LazyImage
+						src={weaponsById[build.weaponId].image}
+						alt="Weapon"
+						className={`pointer-events-none object-fill select-none w-20 h-20 p-1 rounded-lg bg-gray-100/10 ${build.weaponComplete() && 'opacity-30'}`}
+					/>
+				{/if}
+				<div class="flex flex-col gap-2">
+					<p class={`${build.weaponComplete() && 'opacity-30'}`}>
+						{build.weaponId !== null ? weaponsById[build.weaponId].name : character.weapon}
+					</p>
+					<ChecklistItem
+						bind:isComplete={build.weaponLevelComplete}
+						label={`Level: ${build.targetWeaponLevel}`}
+					/>
+					<ChecklistItem
+						bind:isComplete={build.weaponRefineComplete}
+						label={`Refine: ${build.targetWeaponRefine}`}
+					/>
+				</div>
+			</div>
 			<p class={build.talentComplete() ? 'opacity-30' : ''}>Talents</p>
 			<div class="flex items-center gap-5">
 				<CircleIcon
@@ -115,36 +129,62 @@
 		</div>
 	</div>
 	<div class="flex w-full flex-col gap-2 pb-5 pl-7 pr-5">
-		<p class={build.artifactsComplete() ? 'opacity-30' : ''}>Artifacts</p>
+		<p class={`${build.artifactsComplete() && 'opacity-30'}`}>Artifacts</p>
 		<div class="flex gap-5">
-			<LazyImage
-				src={artifactsById[0].image}
-				alt="Artifact"
-				className="pointer-events-none absolute object-contain select-none w-25 h-25 rounded-full bg-gray-100/10"
-			/>
+			{#if build.artifact1Id !== null && build.artifact2Id !== null}
+				<div
+					class={`relative h-20 w-20 rounded-lg bg-gray-100/10 ${build.artifactsComplete() && 'opacity-30'}`}
+				>
+					<LazyImage
+						src={artifactsById[build.artifact1Id].image}
+						alt="Artifact 1"
+						className="pointer-events-none absolute select-none w-14 h-14 top-1 left-1"
+					/>
+					<LazyImage
+						src={artifactsById[build.artifact2Id].image}
+						alt="Artifact 2"
+						className="pointer-events-none absolute select-none w-14 h-14 bottom-1 right-1"
+					/>
+				</div>
+			{:else if build.artifact1Id !== null}
+				<LazyImage
+					src={artifactsById[build.artifact1Id].image}
+					alt="Artifact"
+					className={`pointer-events-none object-contain select-none w-20 h-20 rounded-lg bg-gray-100/10 ${build.artifactsComplete() && 'opacity-30'}`}
+				/>
+			{/if}
 			<div class="grid grid-cols-[max-content_1fr] items-center gap-x-10 gap-y-2">
 				<ChecklistItem bind:isComplete={build.flowerComplete} label="HP">
-					<IconFlower />
+					<IconFlower size={20} />
 				</ChecklistItem>
-				<ChecklistItem bind:isComplete={build.gobletComplete} label="PYRO DMG%">
-					<IconGlass />
+				<ChecklistItem bind:isComplete={build.gobletComplete} label={build.gobletStat ?? 'Goblet'}>
+					<IconGlass size={20} />
 				</ChecklistItem>
 				<ChecklistItem bind:isComplete={build.plumeComplete} label="ATK">
-					<IconFeather />
+					<IconFeather size={20} />
 				</ChecklistItem>
-				<ChecklistItem bind:isComplete={build.circletComplete} label="CRIT RATE%">
-					<IconCrown />
+				<ChecklistItem
+					bind:isComplete={build.circletComplete}
+					label={build.circletStat ?? 'Circlet'}
+				>
+					<IconCrown size={20} />
 				</ChecklistItem>
-				<ChecklistItem bind:isComplete={build.sandsComplete} label="ER%">
-					<IconHourglassEmpty />
+				<ChecklistItem bind:isComplete={build.sandsComplete} label={build.sandsStat ?? 'Sands'}>
+					<IconHourglassEmpty size={20} />
 				</ChecklistItem>
 			</div>
 		</div>
-		<div class={`flex items-center gap-2 text-xs ${build.artifactsComplete() ? 'opacity-30' : ''}`}>
+		<div
+			class={`flex items-center gap-2 pt-1 text-xs ${build.artifactsComplete() ? 'opacity-30' : ''}`}
+		>
 			<p>Substats:</p>
-			{#each ['CRIT RATE', 'CRIT DMG', 'ER', 'EM'] as substat}
-				<p class="rounded-xl bg-gray-100/10 p-2">{substat}</p>
-			{/each}
+			{#if build.artifactSubstats.length === 0}
+				<p class="rounded-lg bg-gray-100/10 p-2">None</p>
+			{:else}
+				{#each build.artifactSubstats as substat}
+					<p class="rounded-lg bg-gray-100/10 p-2">{substat}</p>
+				{/each}
+			{/if}
 		</div>
 	</div>
 </div>
