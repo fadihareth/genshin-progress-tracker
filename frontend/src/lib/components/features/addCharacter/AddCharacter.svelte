@@ -155,12 +155,14 @@
 						changeMode={selectWeaponMode}
 						removeSelection={removeWeapon}
 					/>
-					<BuildNavButton
-						selected={selectedArtifact1}
-						label="Artifact Set"
-						changeMode={selectArtifact1Mode}
-						removeSelection={removeArtifact1}
-					/>
+					{#key selectedArtifact1?.id ?? 'artifact1-empty'}
+						<BuildNavButton
+							selected={selectedArtifact1}
+							label="Artifact Set"
+							changeMode={selectArtifact1Mode}
+							removeSelection={removeArtifact1}
+						/>
+					{/key}
 					{#if selectedArtifact1 !== null}
 						<BuildNavButton
 							selected={selectedArtifact2}
