@@ -63,6 +63,6 @@ export class Weapon implements SelectableItem {
     }
 
     get image(): string {
-        return `https://gbp-weapons.s3.us-east-2.amazonaws.com/${this.name.replaceAll(' ', '_')}.png`;
+        return `https://fadihareth.github.io/genshin-build-tracker-server/weapons/${this.name.replaceAll(' ', '_')}.png`;
     }
 }
