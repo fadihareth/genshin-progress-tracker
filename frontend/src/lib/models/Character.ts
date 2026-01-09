@@ -51,14 +51,14 @@ export class Character implements SelectableItem {
     }
 
     get profileImage(): string {
-        return `https://fadihareth.github.io/genshin-build-tracker-server/characters/profiles/${this.name.replaceAll(' ', '_')}_Profile.png`;
+        return `https://fadihareth.github.io/genshin-progress-tracker-server/characters/profiles/${this.name.replaceAll(' ', '_')}_Profile.png`;
     }
 
     get image(): string {
-        return `https://fadihareth.github.io/genshin-build-tracker-server/characters/icons/${this.name.replaceAll(' ', '_')}_Icon.png`;
+        return `https://fadihareth.github.io/genshin-progress-tracker-server/characters/icons/${this.name.replaceAll(' ', '_')}_Icon.png`;
     }
 
     get attackTalentImage(): string {
-        return `https://fadihareth.github.io/genshin-build-tracker-server/characters/talents/${this.weapon}_${this.element}.png`;
+        return `https://fadihareth.github.io/genshin-progress-tracker-server/characters/talents/${this.weapon}_${this.element}.png`;
     }
 }

@@ -63,6 +63,6 @@ export class Weapon implements SelectableItem {
     }
 
     get image(): string {
-        return `https://fadihareth.github.io/genshin-build-tracker-server/weapons/${this.name.replaceAll(' ', '_')}.png`;
+        return `https://fadihareth.github.io/genshin-progress-tracker-server/weapons/${this.name.replaceAll(' ', '_')}.png`;
     }
 }
