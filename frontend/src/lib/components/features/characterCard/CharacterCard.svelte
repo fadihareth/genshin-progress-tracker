@@ -43,7 +43,7 @@
 </script>
 
 <div
-	class={`relative flex flex-col rounded-xl ${bgColors[character.element]} ${build.isComplete() ? 'opacity-60' : ''} text-genshin-gold shadow-xl`}
+	class={`relative flex flex-col rounded-xl ${bgColors[character.element]} ${build.isComplete() && 'bg-opacity-60'} text-genshin-gold shadow-xl`}
 >
 	<div class="border-genshin-gold/30 absolute inset-2 z-0 rounded-xl border-2"></div>
 	<div class="flex">
@@ -51,13 +51,13 @@
 			<LazyImage
 				src={character.profileImage}
 				alt={character.name}
-				className="h-full w-full"
+				className={`h-full w-full ${build.isComplete() && 'opacity-30'}`}
 				placeholder={assets.placeholders.character}
 			/>
 		</div>
 		<div class="flex flex-col gap-2 p-5 w-full">
 			<div class="flex items-end justify-between">
-				<h2 bind:this={textEl}>{character.name}</h2>
+				<h2 bind:this={textEl} class={`${build.isComplete() && 'opacity-30'}`}>{character.name}</h2>
 				<MenuButton {onSelect} />
 			</div>
 			<CharacterSection bind:build {character} />

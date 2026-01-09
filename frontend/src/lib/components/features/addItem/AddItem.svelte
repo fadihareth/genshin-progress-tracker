@@ -39,7 +39,7 @@
 			class="w-full rounded-xl border px-3 py-2"
 		/>
 		<div
-			class="max-h-3/4 grid gap-2 overflow-y-auto"
+			class="max-h-3/4 grid gap-2"
 			style="grid-template-columns: repeat(4, minmax(80px, 1fr));"
 		>
 			{#each items as i}
