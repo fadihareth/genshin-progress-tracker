@@ -32,7 +32,7 @@
 <main>
 	<Header />
 	{#if loading}
-		<div class="flex items-center justify-center p-6">
+		<div class="text-genshin-gold flex items-center justify-center p-6">
 			<p>Loading builds...</p>
 		</div>
 	{:else if error}

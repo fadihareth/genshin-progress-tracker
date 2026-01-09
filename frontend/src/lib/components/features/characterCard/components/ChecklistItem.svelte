@@ -7,7 +7,7 @@
 </script>
 
 <button
-	class={`flex cursor-pointer items-center gap-2 z-10 ${isComplete && 'opacity-30'}`}
+	class={`flex cursor-pointer items-center gap-2 z-10 transition duration-150 ${isComplete && 'opacity-30'}`}
 	onclick={handleClick}
 >
 	<div class={`relative h-3.5 w-3.5 rounded-full border-2 border-genshin-gold`}>
