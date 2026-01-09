@@ -1,9 +1,5 @@
 // Static asset imports
-import cornerIcon from './ui/corner.svg?url';
-import arrowRightIcon from './ui/arrow-right.svg?url';
 import profilePlaceholder from './ui/profile-placeholder.png';
-import levelIcon from './icons/level.webp?url';
-import weaponIcon from './icons/weapon.webp?url';
 
 // Element SVGs
 import anemoIcon from './elements/Anemo.svg?url';
@@ -31,14 +27,6 @@ export const getElementIcon = (element: string): string => {
 
 // Exported asset URLs
 export const assets = {
-	ui: {
-		corner: cornerIcon,
-		arrowRight: arrowRightIcon
-	},
-	icons: {
-		level: levelIcon,
-		weapon: weaponIcon
-	},
 	placeholders: {
 		character: profilePlaceholder
 	},
