@@ -1,3 +1,5 @@
+import { baseURL } from "$lib/constants";
+
 export type TalentJSON = {
     attack: string;
     skill: string;
@@ -23,11 +25,11 @@ export class Talent {
 
     get skillImage(): string {
         let name = this.skill.replaceAll(':', '').replaceAll('/ ', '').replaceAll(' ', '_');
-        return `https://gbp-characters.s3.us-east-2.amazonaws.com/talents/${name}.png`;
+        return `${baseURL}/characters/talents/${name}.png`;
     }
 
     get burstImage(): string {
         let name = this.burst.replaceAll(':', '').replaceAll('/ ', '').replaceAll(' ', '_');
-        return `https://gbp-characters.s3.us-east-2.amazonaws.com/talents/${name}.png`;
+        return `${baseURL}/characters/talents/${name}.png`;
     }
 }

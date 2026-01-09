@@ -1,4 +1,5 @@
 import type { SelectableItem } from "$lib/constants";
+import { baseURL } from "$lib/constants";
 
 export type WeaponJSON = {
     id: number;
@@ -63,6 +64,6 @@ export class Weapon implements SelectableItem {
     }
 
     get image(): string {
-        return `https://fadihareth.github.io/genshin-progress-tracker-server/weapons/images/${this.name.replaceAll(' ', '_')}.png`;
+        return `${baseURL}/weapons/images/${this.name.replaceAll(' ', '_')}.png`;
     }
 }

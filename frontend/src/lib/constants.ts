@@ -1,3 +1,5 @@
+export const baseURL: string = "https://fadihareth.github.io/genshin-progress-tracker-server"
+
 export const bgColors: Record<string, string> = {
     Anemo: "bg-anemo/10",
     Cryo: "bg-cryo/10",

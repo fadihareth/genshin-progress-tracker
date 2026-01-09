@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 	import { CharacterCard, Header } from '$lib/components';
 	import { buildsState } from '$lib/stores/state.svelte';
+	import { loadData } from '$lib/stores/data';
 	import { fetchBuilds } from '$lib/api/builds';
 
 	let loading = $state(true);
@@ -14,6 +15,9 @@
 	onMount(async () => {
 		try {
 			loading = true;
+			// Load all JSON data
+			await loadData();
+
 			const builds = await fetchBuilds();
 			// Clear existing builds and populate with fetched ones
 			Object.keys(buildsState).forEach((key) => delete buildsState[key]);
@@ -32,11 +36,11 @@
 <main>
 	<Header />
 	{#if loading}
-		<div class="text-genshin-gold flex items-center justify-center p-6">
-			<p>Loading builds...</p>
+		<div class="flex justify-center p-6 min-h-screen">
+			<p class="text-genshin-gold">Loading builds...</p>
 		</div>
 	{:else if error}
-		<div class="flex items-center justify-center p-6">
+		<div class="flex justify-center p-6 min-h-screen">
 			<p class="text-red-500">Error: {error}</p>
 		</div>
 	{:else}

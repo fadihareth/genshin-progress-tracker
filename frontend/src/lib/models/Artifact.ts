@@ -1,4 +1,5 @@
 import type { SelectableItem } from "$lib/constants";
+import { baseURL } from "$lib/constants";
 
 export type ArtifactJSON = {
     id: number;
@@ -40,26 +41,26 @@ export class Artifact implements SelectableItem {
 
     get image(): string {
         let name = this.flower.replaceAll(':', '').replaceAll('/ ', '').replaceAll(' ', '_');
-        return `https://fadihareth.github.io/genshin-progress-tracker-server/artifacts/images/${name}.png`;
+        return `${baseURL}/artifacts/images/${name}.png`;
     }
 
     get plumeImage(): string {
         let name = this.plume.replaceAll(':', '').replaceAll('/ ', '').replaceAll(' ', '_');
-        return `https://fadihareth.github.io/genshin-progress-tracker-server/artifacts/images/${name}.png`;
+        return `${baseURL}/artifacts/images/${name}.png`;
     }
 
     get sandsImage(): string {
         let name = this.sands.replaceAll(':', '').replaceAll('/ ', '').replaceAll(' ', '_');
-        return `https://fadihareth.github.io/genshin-progress-tracker-server/artifacts/images/${name}.png`;
+        return `${baseURL}/artifacts/images/${name}.png`;
     }
 
     get gobletImage(): string {
         let name = this.goblet.replaceAll(':', '').replaceAll('/ ', '').replaceAll(' ', '_');
-        return `https://fadihareth.github.io/genshin-progress-tracker-server/artifacts/images/${name}.png`;
+        return `${baseURL}/artifacts/images/${name}.png`;
     }
 
     get circletImage(): string {
         let name = this.circlet.replaceAll(':', '').replaceAll('/ ', '').replaceAll(' ', '_');
-        return `https://fadihareth.github.io/genshin-progress-tracker-server/artifacts/images/${name}.png`;
+        return `${baseURL}/artifacts/images/${name}.png`;
     }
 }
