@@ -4,7 +4,11 @@
 	import { LazyImage } from '$lib/components';
 	import type { CharacterBuild } from '$lib/models/CharacterBuild.svelte';
 
-	let { build = $bindable(), weaponType }: { build: CharacterBuild; weaponType: string } = $props();
+	let {
+		build = $bindable(),
+		weaponType,
+		onUpdate
+	}: { build: CharacterBuild; weaponType: string; onUpdate: (input: any) => void } = $props();
 </script>
 
 <div class="flex flex-col gap-2">
@@ -24,10 +28,16 @@
 			<ChecklistItem
 				bind:isComplete={build.weaponLevelComplete}
 				label={`Level: ${build.targetWeaponLevel}`}
+				onUpdate={() => {
+					onUpdate({ weaponLevelComplete: build.weaponLevelComplete });
+				}}
 			/>
 			<ChecklistItem
 				bind:isComplete={build.weaponRefineComplete}
 				label={`Refine: ${build.targetWeaponRefine}`}
+				onUpdate={() => {
+					onUpdate({ weaponRefineComplete: build.weaponRefineComplete });
+				}}
 			/>
 		</div>
 	</div>

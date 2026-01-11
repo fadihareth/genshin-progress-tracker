@@ -11,7 +11,8 @@
 	} from '@tabler/icons-svelte';
 	import type { CharacterBuild } from '$lib/models/CharacterBuild.svelte';
 
-	let { build = $bindable() }: { build: CharacterBuild } = $props();
+	let { build = $bindable(), onUpdate }: { build: CharacterBuild; onUpdate: (input: any) => void } =
+		$props();
 </script>
 
 <div class="flex flex-col gap-2">
@@ -40,19 +41,49 @@
 			/>
 		{/if}
 		<div class="grid grid-cols-[max-content_1fr] items-center gap-x-5 gap-y-2">
-			<ChecklistItem bind:isComplete={build.flowerComplete} label="HP">
+			<ChecklistItem
+				bind:isComplete={build.flowerComplete}
+				label="HP"
+				onUpdate={() => {
+					onUpdate({ flowerComplete: build.flowerComplete });
+				}}
+			>
 				<IconFlower size={20} />
 			</ChecklistItem>
-			<ChecklistItem bind:isComplete={build.gobletComplete} label={build.gobletStat ?? 'Goblet'}>
+			<ChecklistItem
+				bind:isComplete={build.gobletComplete}
+				label={build.gobletStat ?? 'Goblet'}
+				onUpdate={() => {
+					onUpdate({ gobletComplete: build.gobletComplete });
+				}}
+			>
 				<IconGlass size={20} />
 			</ChecklistItem>
-			<ChecklistItem bind:isComplete={build.plumeComplete} label="ATK">
+			<ChecklistItem
+				bind:isComplete={build.plumeComplete}
+				label="ATK"
+				onUpdate={() => {
+					onUpdate({ plumeComplete: build.plumeComplete });
+				}}
+			>
 				<IconFeather size={20} />
 			</ChecklistItem>
-			<ChecklistItem bind:isComplete={build.circletComplete} label={build.circletStat ?? 'Circlet'}>
+			<ChecklistItem
+				bind:isComplete={build.circletComplete}
+				label={build.circletStat ?? 'Circlet'}
+				onUpdate={() => {
+					onUpdate({ circletComplete: build.circletComplete });
+				}}
+			>
 				<IconCrown size={20} />
 			</ChecklistItem>
-			<ChecklistItem bind:isComplete={build.sandsComplete} label={build.sandsStat ?? 'Sands'}>
+			<ChecklistItem
+				bind:isComplete={build.sandsComplete}
+				label={build.sandsStat ?? 'Sands'}
+				onUpdate={() => {
+					onUpdate({ sandsComplete: build.sandsComplete });
+				}}
+			>
 				<IconHourglassEmpty size={20} />
 			</ChecklistItem>
 		</div>

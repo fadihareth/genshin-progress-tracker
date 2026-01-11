@@ -75,6 +75,43 @@ const CREATE_BUILD_MUTATION = `
     }
 `;
 
+// GraphQL mutation to create a build
+const UPDATE_BUILD_MUTATION = `
+    mutation UpdateBuild($id: Int!, $input: UpdateBuildInput!) {
+        updateBuild(id: $id, input: $input) {
+            id
+            characterId
+            order
+            levelComplete
+            targetLevel
+            constellationComplete
+            targetConstellation
+            weaponId
+            weaponLevelComplete
+            targetWeaponLevel
+            weaponRefineComplete
+            targetWeaponRefine
+            artifact1Id
+            artifact2Id
+            flowerComplete
+            plumeComplete
+            sandsStat
+            sandsComplete
+            gobletStat
+            gobletComplete
+            circletStat
+            circletComplete
+            artifactSubstats
+            talent1LevelComplete
+            targetTalent1Level
+            talent2LevelComplete
+            targetTalent2Level
+            talent3LevelComplete
+            targetTalent3Level
+        }
+    }
+`;
+
 // GraphQL mutation to delete a build
 const DELETE_BUILD_MUTATION = `
     mutation DeleteBuild($id: Int!) {
@@ -198,6 +235,23 @@ export async function createBuild(buildInput: {
         return buildDataToCharacterBuild(response.createBuild);
     } catch (error) {
         console.error('Error creating build:', error);
+        throw error;
+    }
+}
+
+// Update an existing build via the API
+export async function updateBuild(id: number, input: any): Promise<CharacterBuild> {
+    try {
+        const response = await graphqlClient.request<{ updateBuild: BuildData }>(
+            UPDATE_BUILD_MUTATION,
+            {
+                id,
+                input
+            }
+        );
+        return buildDataToCharacterBuild(response.updateBuild);
+    } catch (error) {
+        console.error('Error updating build:', error);
         throw error;
     }
 }

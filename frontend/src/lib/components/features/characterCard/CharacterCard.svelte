@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { charactersById } from '$lib/stores/data';
 	import { buildsState } from '$lib/stores/state.svelte';
-	import { deleteBuild } from '$lib/api/builds';
+	import { deleteBuild, updateBuild } from '$lib/api/builds';
 	import { ArtifactSection, CharacterSection, WeaponSection } from './components';
 	import { LazyImage, MenuButton } from '$lib/components';
 	import { bgColors } from '$lib/constants';
@@ -40,6 +40,15 @@
 			}
 		}
 	}
+
+	async function onUpdate(input: any) {
+		try {
+			await updateBuild(id, input);
+		} catch (error) {
+			console.error('Error updating build:', error);
+			alert('Failed to update build. Please try again.');
+		}
+	}
 </script>
 
 <div
@@ -55,16 +64,16 @@
 				placeholder={assets.placeholders.character}
 			/>
 		</div>
-		<div class="flex flex-col gap-2 p-5 w-full">
+		<div class="flex w-full flex-col gap-2 p-5">
 			<div class="flex items-end justify-between">
 				<h2 bind:this={textEl} class={`${build.isComplete() && 'opacity-30'}`}>{character.name}</h2>
 				<MenuButton {onSelect} />
 			</div>
-			<CharacterSection bind:build {character} />
+			<CharacterSection bind:build {character} {onUpdate} />
 		</div>
 	</div>
 	<div class="flex flex-col gap-5 p-5">
-		<WeaponSection bind:build weaponType={character.weapon} />
-		<ArtifactSection bind:build />
+		<WeaponSection bind:build weaponType={character.weapon} {onUpdate} />
+		<ArtifactSection bind:build {onUpdate} />
 	</div>
 </div>
