@@ -2,6 +2,7 @@
 	import type { Character } from '$lib/models/Character';
 	import type { Weapon } from '$lib/models/Weapon';
 	import type { Artifact } from '$lib/models/Artifact';
+	import type { CharacterBuild } from '$lib/models/CharacterBuild.svelte';
 	import {
 		characterList,
 		charactersById,
@@ -11,11 +12,14 @@
 		artifactsById
 	} from '$lib/stores/data';
 	import { buildsState } from '$lib/stores/state.svelte';
-	import { createBuild } from '$lib/api/builds';
+	import { createBuild, updateBuild } from '$lib/api/builds';
 	import { BuildConfig, BuildNavButton } from './components';
 	import { AddItem } from '$lib/components';
 
-	let { toggleShowOverlay }: { toggleShowOverlay: () => void } = $props();
+	let {
+		toggleShowOverlay,
+		editingBuild
+	}: { toggleShowOverlay: () => void; editingBuild?: CharacterBuild } = $props();
 
 	let containerElement: HTMLDivElement;
 
@@ -26,23 +30,31 @@
 		ARTIFACTS2: 3,
 		BUILD_CONFIG: 4
 	} as const;
-	let mode: number = $state(MODE.CHARACTER);
-	let selectedCharacter: Character | null = $state(null);
-	let selectedWeapon: Weapon | null = $state(null);
-	let selectedArtifact1: Artifact | null = $state(null);
-	let selectedArtifact2: Artifact | null = $state(null);
+	let mode: number = $state(editingBuild ? MODE.BUILD_CONFIG : MODE.CHARACTER);
+	let selectedCharacter: Character | null = $state(
+		editingBuild ? charactersById[editingBuild.character] : null
+	);
+	let selectedWeapon: Weapon | null = $state(
+		editingBuild && editingBuild.weaponId ? weaponsById[editingBuild.weaponId] : null
+	);
+	let selectedArtifact1: Artifact | null = $state(
+		editingBuild && editingBuild.artifact1Id ? artifactsById[editingBuild.artifact1Id] : null
+	);
+	let selectedArtifact2: Artifact | null = $state(
+		editingBuild && editingBuild.artifact2Id ? artifactsById[editingBuild.artifact2Id] : null
+	);
 	let buildValues = $state({
-		targetLevel: { value: '90', label: '90' },
-		targetConstellation: { value: 'C0', label: 'C0' },
-		targetWeaponLevel: { value: '90', label: '90' },
-		targetWeaponRefine: { value: 'R0', label: 'R0' },
-		sandsStat: null as { value: string; label: string } | null,
-		gobletStat: null as { value: string; label: string } | null,
-		circletStat: null as { value: string; label: string } | null,
-		artifactSubstats: [] as { value: string; label: string }[],
-		targetTalent1Level: { value: '10', label: '10' },
-		targetTalent2Level: { value: '10', label: '10' },
-		targetTalent3Level: { value: '10', label: '10' }
+		targetLevel: editingBuild?.targetLevel ?? '90',
+		targetConstellation: editingBuild?.targetConstellation ?? 'C0',
+		targetWeaponLevel: editingBuild?.targetWeaponLevel ?? '90',
+		targetWeaponRefine: editingBuild?.targetWeaponRefine ?? 'R0',
+		sandsStat: editingBuild?.sandsStat ?? null,
+		gobletStat: editingBuild?.gobletStat ?? null,
+		circletStat: editingBuild?.circletStat ?? null,
+		artifactSubstats: editingBuild?.artifactSubstats ?? [],
+		targetTalent1Level: editingBuild?.targetTalent1Level ?? '10',
+		targetTalent2Level: editingBuild?.targetTalent2Level ?? '10',
+		targetTalent3Level: editingBuild?.targetTalent3Level ?? '10'
 	});
 	let saving = $state(false);
 
@@ -64,8 +76,11 @@
 	}
 
 	function selectCharacter(id: number) {
-		selectedCharacter = charactersById[id];
-		selectedWeapon = null;
+		const newCharacter = charactersById[id];
+		if (selectedCharacter?.weapon !== newCharacter.weapon) {
+			selectedWeapon = null;
+		}
+		selectedCharacter = newCharacter;
 		goBack();
 	}
 	function selectWeapon(id: number) {
@@ -101,26 +116,30 @@
 		try {
 			saving = true;
 			const buildData = {
-				targetLevel: buildValues.targetLevel.value,
-				targetConstellation: buildValues.targetConstellation.value,
-				targetWeaponLevel: buildValues.targetWeaponLevel.value,
-				targetWeaponRefine: buildValues.targetWeaponRefine.value,
-				sandsStat: buildValues.sandsStat?.value ?? null,
-				gobletStat: buildValues.gobletStat?.value ?? null,
-				circletStat: buildValues.circletStat?.value ?? null,
-				artifactSubstats: buildValues.artifactSubstats.map((a) => a.value),
-				targetTalent1Level: buildValues.targetTalent1Level.value,
-				targetTalent2Level: buildValues.targetTalent2Level.value,
-				targetTalent3Level: buildValues.targetTalent3Level.value,
+				targetLevel: buildValues.targetLevel,
+				targetConstellation: buildValues.targetConstellation,
+				targetWeaponLevel: buildValues.targetWeaponLevel,
+				targetWeaponRefine: buildValues.targetWeaponRefine,
+				sandsStat: buildValues.sandsStat,
+				gobletStat: buildValues.gobletStat,
+				circletStat: buildValues.circletStat,
+				artifactSubstats: buildValues.artifactSubstats,
+				targetTalent1Level: buildValues.targetTalent1Level,
+				targetTalent2Level: buildValues.targetTalent2Level,
+				targetTalent3Level: buildValues.targetTalent3Level,
 				characterId: selectedCharacter.id,
 				weaponId: selectedWeapon?.id ?? null,
 				artifact1Id: selectedArtifact1 ? Number(selectedArtifact1.id) : null,
 				artifact2Id: selectedArtifact2 ? Number(selectedArtifact2.id) : null
 			};
 
-			const newBuild = await createBuild(buildData);
-
-			buildsState[newBuild.id] = newBuild;
+			if (editingBuild) {
+				const newBuild = await updateBuild(editingBuild.id, buildData);
+				buildsState[editingBuild.id] = newBuild;
+			} else {
+				const newBuild = await createBuild(buildData);
+				buildsState[newBuild.id] = newBuild;
+			}
 			toggleShowOverlay();
 		} catch (error) {
 			console.error('Error saving build:', error);

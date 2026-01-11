@@ -7,6 +7,8 @@
 		items,
 		icon
 	}: { value: string | null; id: string; items: string[]; icon?: string | any } = $props();
+
+	let newVal = $derived(value ? { value: value, label: value } : null);
 </script>
 
 <div class="flex items-center gap-2">
@@ -21,5 +23,5 @@
 	<label for={id} class="text-gray-600">{id}</label>
 </div>
 <form autocomplete="off">
-	<Select id bind:value {items} placeholder="Select" clearable={false} />
+	<Select id bind:justValue={value} value={newVal} {items} placeholder="Select" clearable={false} />
 </form>

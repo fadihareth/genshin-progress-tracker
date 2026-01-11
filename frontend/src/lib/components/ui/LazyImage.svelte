@@ -1,13 +1,15 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-
-	let { src, alt = '', spinnerSize = 24, className = '', placeholder = null } = $props();
+	let { src, alt = '', spinnerSize = 24, className = '' } = $props();
 
 	let loading: boolean = $state(true);
 	let imgEl: HTMLImageElement;
 	let actualSrc: string = $state('');
 
-	onMount(() => {
+	$effect(() => {
+		if (!src) return;
+
+		loading = true;
+
 		requestAnimationFrame(() => {
 			requestAnimationFrame(() => {
 				actualSrc = src;
@@ -25,9 +27,6 @@
 		<div class="inset-0 flex h-full w-full items-center justify-center">
 			<div class="spinner" style={`width:${spinnerSize}px; height:${spinnerSize}px;`}></div>
 		</div>
-		{#if placeholder}
-			<img src={placeholder} alt="Placeholder" class="w-full object-cover" />
-		{/if}
 	{/if}
 
 	<img

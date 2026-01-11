@@ -1,16 +1,16 @@
 <script lang="ts">
+	import { AddCharacter, Overlay } from '$lib/components';
 	import { charactersById } from '$lib/stores/data';
 	import { buildsState } from '$lib/stores/state.svelte';
 	import { deleteBuild, updateBuild } from '$lib/api/builds';
 	import { ArtifactSection, CharacterSection, WeaponSection } from './components';
 	import { LazyImage, MenuButton } from '$lib/components';
 	import { bgColors } from '$lib/constants';
-	import { assets } from '$lib/assets';
 	import fitty from 'fitty';
 
 	let { id }: { id: number } = $props();
 	let build = $derived(buildsState[id]);
-	let character = charactersById[buildsState[id].character];
+	let character = $derived(charactersById[buildsState[id].character]);
 
 	let textEl: HTMLElement;
 	$effect(() => {
@@ -21,8 +21,18 @@
 		});
 	});
 
+	let showOverlay = $state(false);
+	function toggleShowOverlay() {
+        document.body.style.overflow = showOverlay ? 'unset' : 'hidden';
+		showOverlay = !showOverlay;
+	}
+
 	async function onSelect(option: String) {
 		switch (option) {
+			case 'Edit Build': {
+				toggleShowOverlay();
+				break;
+			}
 			case 'Delete Build': {
 				if (confirm('Are you sure you want to delete this build?')) {
 					try {
@@ -61,7 +71,6 @@
 				src={character.profileImage}
 				alt={character.name}
 				className={`h-full w-full ${build.isComplete() && 'opacity-30'}`}
-				placeholder={assets.placeholders.character}
 			/>
 		</div>
 		<div class="flex w-full flex-col gap-2 p-5">
@@ -77,3 +86,7 @@
 		<ArtifactSection bind:build {onUpdate} />
 	</div>
 </div>
+
+<Overlay bind:open={showOverlay} onClose={toggleShowOverlay}>
+    <AddCharacter {toggleShowOverlay} editingBuild={build} />
+</Overlay>
