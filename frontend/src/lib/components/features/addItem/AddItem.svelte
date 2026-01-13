@@ -48,7 +48,7 @@
 					onclick={() => onItemSelect(i.id)}
 				>
 					<LazyImage src={i.image} alt={i.name} className="h-30 w-30 rounded object-cover" />
-					<p class="flex h-10 flex-col justify-around text-sm text-gray-800">{i.name}</p>
+					<p class="flex h-15 flex-col justify-around text-sm text-gray-800">{i.name}</p>
 				</button>
 			{/each}
 		</div>

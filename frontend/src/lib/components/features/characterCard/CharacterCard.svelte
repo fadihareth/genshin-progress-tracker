@@ -6,24 +6,14 @@
 	import { ArtifactSection, CharacterSection, WeaponSection } from './components';
 	import { LazyImage, MenuButton } from '$lib/components';
 	import { bgColors } from '$lib/constants';
-	import fitty from 'fitty';
 
 	let { id }: { id: number } = $props();
 	let build = $derived(buildsState[id]);
 	let character = $derived(charactersById[buildsState[id].character]);
 
-	let textEl: HTMLElement;
-	$effect(() => {
-		fitty(textEl, {
-			minSize: 10,
-			maxSize: 22,
-			multiLine: false
-		});
-	});
-
 	let showOverlay = $state(false);
 	function toggleShowOverlay() {
-        document.body.style.overflow = showOverlay ? 'unset' : 'hidden';
+		document.body.style.overflow = showOverlay ? 'unset' : 'hidden';
 		showOverlay = !showOverlay;
 	}
 
@@ -66,7 +56,7 @@
 >
 	<div class="border-genshin-gold/30 absolute inset-2 z-0 rounded-xl border-2"></div>
 	<div class="flex">
-		<div class="fadeout w-[500px]">
+		<div class="fadeout w-[230px] h-[307px] shrink-0">
 			<LazyImage
 				src={character.profileImage}
 				alt={character.name}
@@ -74,19 +64,21 @@
 			/>
 		</div>
 		<div class="flex w-full flex-col gap-2 p-5">
-			<div class="flex items-end justify-between">
-				<h2 bind:this={textEl} class={`${build.isComplete() && 'opacity-30'}`}>{character.name}</h2>
+			<div class="flex items-center justify-between">
+				<h2 class={`${build.isComplete() && 'opacity-30'}`}>
+					{character.name}
+				</h2>
 				<MenuButton {onSelect} />
 			</div>
 			<CharacterSection bind:build {character} {onUpdate} />
 		</div>
 	</div>
-	<div class="flex flex-col gap-5 p-5">
+	<div class="flex flex-col gap-5 px-5 pb-5 pt-2">
 		<WeaponSection bind:build weaponType={character.weapon} {onUpdate} />
 		<ArtifactSection bind:build {onUpdate} />
 	</div>
 </div>
 
 <Overlay bind:open={showOverlay} onClose={toggleShowOverlay}>
-    <AddCharacter {toggleShowOverlay} editingBuild={build} />
+	<AddCharacter {toggleShowOverlay} editingBuild={build} />
 </Overlay>
