@@ -52,14 +52,14 @@ export class Character implements SelectableItem {
     }
 
     get profileImage(): string {
-        return `${baseURL}/characters/profiles/${this.name.replaceAll(' ', '_')}_Profile.png`;
+        return `${baseURL}/characters/profiles/${this.name.replaceAll(' ', '_')}_Profile.webp`;
     }
 
     get image(): string {
-        return `${baseURL}/characters/icons/${this.name.replaceAll(' ', '_')}_Icon.png`;
+        return `${baseURL}/characters/icons/${this.name.replaceAll(' ', '_')}_Icon.webp`;
     }
 
     get attackTalentImage(): string {
-        return `${baseURL}/characters/talents/${this.weapon}_${this.element}.png`;
+        return `${baseURL}/characters/talents/${this.weapon}_${this.element}.webp`;
     }
 }

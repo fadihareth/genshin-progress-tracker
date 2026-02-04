@@ -25,11 +25,11 @@ export class Talent {
 
     get skillImage(): string {
         let name = this.skill.replaceAll(':', '').replaceAll('/ ', '').replaceAll(' ', '_');
-        return `${baseURL}/characters/talents/${name}.png`;
+        return `${baseURL}/characters/talents/${name}.webp`;
     }
 
     get burstImage(): string {
         let name = this.burst.replaceAll(':', '').replaceAll('/ ', '').replaceAll(' ', '_');
-        return `${baseURL}/characters/talents/${name}.png`;
+        return `${baseURL}/characters/talents/${name}.webp`;
     }
 }

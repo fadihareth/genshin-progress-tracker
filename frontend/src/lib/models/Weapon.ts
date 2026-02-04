@@ -64,6 +64,6 @@ export class Weapon implements SelectableItem {
     }
 
     get image(): string {
-        return `${baseURL}/weapons/images/${this.name.replaceAll(' ', '_')}.png`;
+        return `${baseURL}/weapons/images/${this.name.replaceAll(' ', '_')}.webp`;
     }
 }

@@ -41,26 +41,26 @@ export class Artifact implements SelectableItem {
 
     get image(): string {
         let name = this.flower.replaceAll(':', '').replaceAll('/ ', '').replaceAll(' ', '_');
-        return `${baseURL}/artifacts/images/${name}.png`;
+        return `${baseURL}/artifacts/images/${name}.webp`;
     }
 
     get plumeImage(): string {
         let name = this.plume.replaceAll(':', '').replaceAll('/ ', '').replaceAll(' ', '_');
-        return `${baseURL}/artifacts/images/${name}.png`;
+        return `${baseURL}/artifacts/images/${name}.webp`;
     }
 
     get sandsImage(): string {
         let name = this.sands.replaceAll(':', '').replaceAll('/ ', '').replaceAll(' ', '_');
-        return `${baseURL}/artifacts/images/${name}.png`;
+        return `${baseURL}/artifacts/images/${name}.webp`;
     }
 
     get gobletImage(): string {
         let name = this.goblet.replaceAll(':', '').replaceAll('/ ', '').replaceAll(' ', '_');
-        return `${baseURL}/artifacts/images/${name}.png`;
+        return `${baseURL}/artifacts/images/${name}.webp`;
     }
 
     get circletImage(): string {
         let name = this.circlet.replaceAll(':', '').replaceAll('/ ', '').replaceAll(' ', '_');
-        return `${baseURL}/artifacts/images/${name}.png`;
+        return `${baseURL}/artifacts/images/${name}.webp`;
     }
 }
