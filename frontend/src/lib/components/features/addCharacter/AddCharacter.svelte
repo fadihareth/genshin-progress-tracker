@@ -30,20 +30,20 @@
 		ARTIFACTS2: 3,
 		BUILD_CONFIG: 4
 	} as const;
-	let mode: number = $state(editingBuild ? MODE.BUILD_CONFIG : MODE.CHARACTER);
-	let selectedCharacter: Character | null = $state(
+	let mode: number = $derived(editingBuild ? MODE.BUILD_CONFIG : MODE.CHARACTER);
+	let selectedCharacter: Character | null = $derived(
 		editingBuild ? charactersById[editingBuild.character] : null
 	);
-	let selectedWeapon: Weapon | null = $state(
+	let selectedWeapon: Weapon | null = $derived(
 		editingBuild && editingBuild.weaponId ? weaponsById[editingBuild.weaponId] : null
 	);
-	let selectedArtifact1: Artifact | null = $state(
+	let selectedArtifact1: Artifact | null = $derived(
 		editingBuild && editingBuild.artifact1Id ? artifactsById[editingBuild.artifact1Id] : null
 	);
-	let selectedArtifact2: Artifact | null = $state(
+	let selectedArtifact2: Artifact | null = $derived(
 		editingBuild && editingBuild.artifact2Id ? artifactsById[editingBuild.artifact2Id] : null
 	);
-	let buildValues = $state({
+	let buildValues = $derived({
 		targetLevel: editingBuild?.targetLevel ?? '90',
 		targetConstellation: editingBuild?.targetConstellation ?? 'C0',
 		targetWeaponLevel: editingBuild?.targetWeaponLevel ?? '90',
