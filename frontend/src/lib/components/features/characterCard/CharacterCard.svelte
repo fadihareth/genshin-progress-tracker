@@ -13,7 +13,14 @@
 
 	let showOverlay = $state(false);
 	function toggleShowOverlay() {
-		document.body.style.overflow = showOverlay ? 'unset' : 'hidden';
+		const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+		if (!showOverlay) {
+			document.body.style.overflow = 'hidden';
+			document.body.style.paddingRight = `${scrollbarWidth}px`;
+		} else {
+			document.body.style.overflow = 'unset';
+			document.body.style.paddingRight = '0';
+		}
 		showOverlay = !showOverlay;
 	}
 
