@@ -33,14 +33,14 @@
 	});
 </script>
 
-<main>
+<main class="min-h-screen">
 	<Header />
 	{#if loading}
-		<div class="flex justify-center p-6 min-h-screen">
+		<div class="flex justify-center p-6">
 			<p class="text-genshin-gold">Loading builds...</p>
 		</div>
 	{:else if error}
-		<div class="flex justify-center p-6 min-h-screen">
+		<div class="flex justify-center p-6">
 			<p class="text-red-500">Error: {error}</p>
 		</div>
 	{:else}
