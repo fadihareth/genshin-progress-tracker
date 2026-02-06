@@ -43,6 +43,10 @@
 		<div class="flex justify-center p-6">
 			<p class="text-red-500">Error: {error}</p>
 		</div>
+	{:else if orderedBuilds.length === 0}
+		<div class="flex justify-center p-6">
+			<p class="text-genshin-gold">No builds found</p>
+		</div>
 	{:else}
 		<div
 			class="grid gap-6 p-6"

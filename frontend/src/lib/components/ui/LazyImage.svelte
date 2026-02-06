@@ -1,4 +1,6 @@
 <script lang="ts">
+	import getCachedImage from '$lib/util/imageCache';
+
 	let { src, alt = '', spinnerSize = 24, className = '' } = $props();
 
 	let loading: boolean = $state(true);
@@ -12,7 +14,9 @@
 
 		requestAnimationFrame(() => {
 			requestAnimationFrame(() => {
-				actualSrc = src;
+				getCachedImage(src).then((res) => {
+					actualSrc = res;
+				});
 			});
 		});
 	});
