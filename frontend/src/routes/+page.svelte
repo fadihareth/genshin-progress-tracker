@@ -49,8 +49,11 @@
 		</div>
 	{:else}
 		<div
-			class="grid gap-6 p-6"
-			style="grid-template-columns: repeat(auto-fit, minmax(var(--minWidth-card), 1fr));"
+			class="grid gap-3 p-6"
+			style="
+				grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+				justify-content: start;
+			"
 		>
 			{#each orderedBuilds as build (build.id)}
 				<CharacterCard id={build.id} />

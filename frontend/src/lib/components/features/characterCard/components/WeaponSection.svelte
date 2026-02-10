@@ -18,7 +18,7 @@
 			<LazyImage
 				src={weaponsById[build.weaponId].image}
 				alt="Weapon"
-				className={`pointer-events-none object-contain select-none w-20 h-20 rounded-lg bg-gray-100/10 ${build.weaponComplete() && 'opacity-30'}`}
+				className={`pointer-events-none object-contain shrink-0 select-none w-20 h-20 rounded-lg bg-gray-100/10 ${build.weaponComplete() && 'opacity-30'}`}
 			/>
 		{/if}
 		<div class="flex flex-col gap-2">

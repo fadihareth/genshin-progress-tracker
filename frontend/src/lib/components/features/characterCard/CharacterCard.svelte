@@ -62,25 +62,19 @@
 	class={`relative flex flex-col rounded-xl ${bgColors[character.element]} ${build.isComplete() && 'bg-opacity-60'} text-genshin-gold shadow-xl`}
 >
 	<div class="border-genshin-gold/30 absolute inset-2 z-0 rounded-xl border-2"></div>
-	<div class="flex">
-		<div class="fadeout w-[230px] h-[307px] shrink-0">
-			<LazyImage
-				src={character.profileImage}
-				alt={character.name}
-				className={`h-full w-full ${build.isComplete() && 'opacity-30'}`}
-			/>
+	<LazyImage
+			src={character.profileImage}
+			alt={character.name}
+			className={`fadeout h-[250px] w-full ${build.isComplete() && 'opacity-30'}`}
+		/>
+	<div class="flex flex-col gap-2 px-5 pb-5">
+		<div class="flex items-center justify-between">
+			<h2 class="{build.isComplete() ? 'opacity-30' : ''}">
+				{character.name}
+			</h2>
+			<MenuButton {onSelect} />
 		</div>
-		<div class="flex w-full flex-col gap-2 p-5">
-			<div class="flex items-center justify-between">
-				<h2 class={`${build.isComplete() && 'opacity-30'}`}>
-					{character.name}
-				</h2>
-				<MenuButton {onSelect} />
-			</div>
-			<CharacterSection bind:build {character} {onUpdate} />
-		</div>
-	</div>
-	<div class="flex flex-col gap-5 px-5 pb-5 pt-2">
+		<CharacterSection bind:build {character} {onUpdate} />
 		<WeaponSection bind:build weaponType={character.weapon} {onUpdate} />
 		<ArtifactSection bind:build {onUpdate} />
 	</div>

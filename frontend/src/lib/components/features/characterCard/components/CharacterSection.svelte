@@ -27,11 +27,10 @@
 			onUpdate({ constellationComplete: build.constellationComplete });
 		}}
 	/>
-	<p class={build.talentComplete() ? 'opacity-30' : ''}>Talents</p>
 	<div class="flex flex-col gap-2">
 		<ChecklistItem
 			bind:isComplete={build.talent1LevelComplete}
-			label={`Attack: ${build.targetTalent1Level}`}
+			label={`Normal Attack Talent: ${build.targetTalent1Level}`}
 			onUpdate={() => {
 				onUpdate({ talent1LevelComplete: build.talent1LevelComplete });
 			}}
@@ -44,7 +43,7 @@
 		</ChecklistItem>
 		<ChecklistItem
 			bind:isComplete={build.talent2LevelComplete}
-			label={`Skill: ${build.targetTalent2Level}`}
+			label={`Skill Talent: ${build.targetTalent2Level}`}
 			onUpdate={() => {
 				onUpdate({ talent2LevelComplete: build.talent2LevelComplete });
 			}}
@@ -57,7 +56,7 @@
 		</ChecklistItem>
 		<ChecklistItem
 			bind:isComplete={build.talent3LevelComplete}
-			label={`Burst: ${build.targetTalent3Level}`}
+			label={`Burst Talent: ${build.targetTalent3Level}`}
 			onUpdate={() => {
 				onUpdate({ talent3LevelComplete: build.talent3LevelComplete });
 			}}
