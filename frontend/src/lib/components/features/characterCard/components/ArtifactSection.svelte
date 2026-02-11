@@ -10,6 +10,7 @@
 		IconHourglassEmpty
 	} from '@tabler/icons-svelte';
 	import type { CharacterBuild } from '$lib/models/CharacterBuild.svelte';
+	import { baseURL } from '$lib/constants';
 
 	let { build = $bindable(), onUpdate }: { build: CharacterBuild; onUpdate: (input: any) => void } =
 		$props();
@@ -21,31 +22,37 @@
 <div class="flex flex-col gap-2">
 	<p class="{build.artifactsComplete() ? 'opacity-30' : ''}">Artifacts</p>
 	<div class="flex gap-5">
-		{#if build.artifact1Id !== null && build.artifact2Id !== null}
+		{#if artifact1 && artifact2}
 			<div
 				class="relative shrink-0 h-20 w-20 rounded-lg bg-gray-100/10 {build.artifactsComplete() ? 'opacity-30' : ''}"
 			>
 				<LazyImage
-					src={artifact1?.image}
+					src={artifact1.image}
 					alt="Artifact 1"
 					className="pointer-events-none absolute select-none w-14 h-14 top-0 left-0"
 				/>
 				<LazyImage
-					src={artifact2?.image}
+					src={artifact2.image}
 					alt="Artifact 2"
 					className="pointer-events-none absolute select-none w-14 h-14 bottom-0 right-0"
 				/>
 			</div>
-		{:else if build.artifact1Id !== null}
+		{:else if artifact1}
 			<LazyImage
-				src={artifact1?.image}
+				src={artifact1.image}
+				alt="Artifact"
+				className={`pointer-events-none object-contain shrink-0 select-none w-20 h-20 rounded-lg bg-gray-100/10 ${build.artifactsComplete() && 'opacity-30'}`}
+			/>
+		{:else}
+			<LazyImage
+				src={baseURL + "/artifacts/images/artifact.webp"}
 				alt="Artifact"
 				className={`pointer-events-none object-contain shrink-0 select-none w-20 h-20 rounded-lg bg-gray-100/10 ${build.artifactsComplete() && 'opacity-30'}`}
 			/>
 		{/if}
 		<div class="flex flex-col gap-2">
 			<p class="text-sm {build.artifactsComplete() ? 'opacity-30' : ''}">
-				{artifact1 && artifact2 ? artifact1.name + " / " + artifact2.name : artifact1 ? artifact1.name : artifact2 ? artifact2.name : "Artifact"}
+				{[artifact1?.name, artifact2?.name].filter(Boolean).join(' / ') || 'Main Stats'}
 			</p>
 			<ChecklistItem
 				bind:isComplete={build.flowerComplete}

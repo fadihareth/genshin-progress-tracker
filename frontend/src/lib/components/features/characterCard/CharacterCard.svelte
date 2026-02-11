@@ -75,7 +75,9 @@
 			<MenuButton {onSelect} />
 		</div>
 		<CharacterSection bind:build {character} {onUpdate} />
+		<div class="w-full border border-genshin-gold/30 mt-1"></div>
 		<WeaponSection bind:build weaponType={character.weapon} {onUpdate} />
+		<div class="w-full border border-genshin-gold/30 mt-1"></div>
 		<ArtifactSection bind:build {onUpdate} />
 	</div>
 </div>
