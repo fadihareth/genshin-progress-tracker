@@ -4,7 +4,6 @@
 	let { src, alt = '', spinnerSize = 24, className = '' } = $props();
 
 	let loading: boolean = $state(true);
-	let imgEl: HTMLImageElement;
 	let actualSrc: string = $state('');
 
 	$effect(() => {
@@ -26,23 +25,24 @@
 	}
 </script>
 
-<div class={`inline-block ${className}`}>
-	{#if loading}
-		<div class="inset-0 flex h-full w-full items-center justify-center">
-			<div class="spinner" style={`width:${spinnerSize}px; height:${spinnerSize}px;`}></div>
-		</div>
-	{/if}
-
-	<img
-		bind:this={imgEl}
-		src={actualSrc}
-		{alt}
-		class={`${loading ? 'opacity-0' : 'opacity-100'} h-full w-full object-cover transition-opacity duration-300`}
-		loading="lazy"
-		decoding="async"
-		onload={handleLoad}
-	/>
-</div>
+{#key src}
+	<div class={`inline-block ${className}`}>
+		{#if loading}
+			<div class="inset-0 flex h-full w-full items-center justify-center">
+				<div class="spinner" style={`width:${spinnerSize}px; height:${spinnerSize}px;`}></div>
+			</div>
+		{/if}
+		
+		<img
+			src={actualSrc}
+			{alt}
+			class={`${loading ? 'opacity-0' : 'opacity-100'} h-full w-full object-cover fade`}
+			loading="lazy"
+			decoding="async"
+			onload={handleLoad}
+		/>
+	</div>
+{/key}
 
 <style>
 	.spinner {

@@ -33,10 +33,10 @@
 	</button>
 
 	{#if open}
-		<div class="absolute right-0 z-50 mt-2 w-40 bg-genshin-white shadow-lg">
+		<div class="absolute right-0 z-50 mt-1 w-40 rounded bg-genshin-white shadow-lg">
 			{#each options as option}
 				<button
-					class="w-full px-4 py-2 text-left text-sm text-genshin-blue hover:bg-genshin-gold/80"
+					class="w-full px-4 py-2 text-left rounded text-sm text-genshin-blue hover:bg-genshin-gold/80"
 					onclick={() => select(option)}
 				>
 					{option}

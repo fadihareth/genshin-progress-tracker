@@ -16,8 +16,8 @@
 }
 
 @layer components {
-    .number-textfield {
-        @apply w-15 rounded px-2 py-1 text-center;
+    .fade {
+        @apply transition duration-150 ease-in-out;
     }
 }
 
@@ -26,29 +26,7 @@
 	src: url(./lib/assets/fonts/genshin-text.ttf);
 }
 
-/* Hide increments from number textfields */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
-/* Hide scrollbar from overflows */
-.hidescrollbar::-webkit-scrollbar {
-    display: none;
-}
-
-.hidescrollbar {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-}
-
-/* Applies fade out effect to view for each edge */
-.fadeout-right {
-    -webkit-mask-image: linear-gradient(to right, black 75%, transparent 100%);
-    mask-image: linear-gradient(to right, black 75%, transparent 100%);
-}
-
+/* Applies fade out effect to view */
 .fadeout {
 	-webkit-mask-image:
         linear-gradient(to right, transparent, black 15%, black 85%, transparent),
@@ -56,17 +34,6 @@ input::-webkit-inner-spin-button {
 	mask-image:
         linear-gradient(to right, transparent, black 15%, black 85%, transparent),
         linear-gradient(to bottom, black 75%, transparent 100%);
-	-webkit-mask-composite: intersect;
-	mask-composite: intersect;
-}
-
-.fadeout-all {
-	-webkit-mask-image:
-		linear-gradient(to right, transparent, black 15%, black 85%, transparent),
-		linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
-	mask-image:
-		linear-gradient(to right, transparent, black 15%, black 85%, transparent),
-		linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
 	-webkit-mask-composite: intersect;
 	mask-composite: intersect;
 }

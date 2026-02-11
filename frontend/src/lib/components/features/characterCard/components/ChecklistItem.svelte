@@ -18,7 +18,8 @@
 </script>
 
 <button
-	class={`z-10 flex cursor-pointer items-center gap-2 transition duration-150 ${isComplete && 'opacity-30'}`}
+	class="z-10 flex cursor-pointer items-center gap-2 fade"
+	class:opacity-30={isComplete}
 	onclick={handleClick}
 >
 	<div class={`border-genshin-gold relative h-3.5 w-3.5 rounded-full border-2`}>

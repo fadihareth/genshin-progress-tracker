@@ -34,7 +34,7 @@ export async function loadData() {
         fetchJson<WeaponJSON[]>(`${baseURL}/weapons/weapons.json`),
     ]);
 
-    characterList = charactersData.map((c) => new Character(c));
+    characterList = charactersData.map((c) => new Character(c)).sort((c1, c2) => c1.name.localeCompare(c2.name));
     charactersById = Object.fromEntries(
         characterList.map((c) => [c.id, c])
     );
@@ -47,12 +47,12 @@ export async function loadData() {
         {} as Record<string, Talent>
     );
 
-    artifactList = artifactData.map((a) => new Artifact(a));
+    artifactList = artifactData.map((a) => new Artifact(a)).sort((a1, a2) => a1.name.localeCompare(a2.name));
     artifactsById = Object.fromEntries(
         artifactList.map((a) => [a.id, a])
     );
 
-    weaponList = weaponsData.map((w) => new Weapon(w));
+    weaponList = weaponsData.map((w) => new Weapon(w)).sort((w1, w2) => w1.name.localeCompare(w2.name));
     weaponsById = Object.fromEntries(
         weaponList.map((w) => [w.id, w])
     );

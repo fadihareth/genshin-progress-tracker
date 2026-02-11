@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { charactersById, weaponsById } from '$lib/stores/data';
+	import { weaponsById } from '$lib/stores/data';
 	import { ChecklistItem } from '.';
 	import { LazyImage } from '$lib/components';
 	import type { CharacterBuild } from '$lib/models/CharacterBuild.svelte';
@@ -11,21 +11,21 @@
 		onUpdate
 	}: { build: CharacterBuild; weaponType: string; onUpdate: (input: any) => void } = $props();
 
-	const noWeaponImage = `${baseURL}/weapons/images/${charactersById[build.character].weapon.toLowerCase()}.webp`;
-	let imageSrc = $derived(build.weaponId ? weaponsById[build.weaponId].image : noWeaponImage);
+	const weapon = $derived(build.weaponId ? weaponsById[build.weaponId] : null);
+	const noWeaponImage = $derived(`${baseURL}/weapons/images/${weaponType.toLowerCase()}.webp`);
 </script>
 
 <div class="flex flex-col gap-2">
-	<p class={`${build.weaponComplete() && 'opacity-30'}`}>Weapon</p>
+	<p class:opacity-30={build.weaponComplete()} class="fade">Weapon</p>
 	<div class="flex gap-5">
 		<LazyImage
-			src={imageSrc}
+			src={weapon ? weapon.image : noWeaponImage}
 			alt="Weapon"
-			className={`pointer-events-none object-contain shrink-0 select-none w-20 h-20 rounded-lg bg-gray-100/10 ${build.weaponComplete() && 'opacity-30'}`}
+			className={`pointer-events-none object-contain shrink-0 select-none w-20 h-20 rounded-lg bg-gray-100/10 fade ${build.weaponComplete() && 'opacity-30'}`}
 		/>
 		<div class="flex flex-col gap-2">
-			<p class={`text-sm ${build.weaponComplete() && 'opacity-30'}`}>
-				{build.weaponId !== null ? weaponsById[build.weaponId].name : weaponType}
+			<p class:opacity-30={build.weaponComplete()} class="text-sm fade">
+				{weapon !== null ? weapon.name : weaponType}
 			</p>
 			<ChecklistItem
 				bind:isComplete={build.weaponLevelComplete}
