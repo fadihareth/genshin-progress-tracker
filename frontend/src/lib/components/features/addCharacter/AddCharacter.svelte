@@ -43,19 +43,6 @@
 	let selectedArtifact2: Artifact | null = $derived(
 		editingBuild && editingBuild.artifact2Id ? artifactsById[editingBuild.artifact2Id] : null
 	);
-	let buildValues = $derived({
-		targetLevel: editingBuild?.targetLevel ?? '90',
-		targetConstellation: editingBuild?.targetConstellation ?? 'C0',
-		targetWeaponLevel: editingBuild?.targetWeaponLevel ?? '90',
-		targetWeaponRefine: editingBuild?.targetWeaponRefine ?? 'R0',
-		sandsStat: editingBuild?.sandsStat ?? null,
-		gobletStat: editingBuild?.gobletStat ?? null,
-		circletStat: editingBuild?.circletStat ?? null,
-		artifactSubstats: editingBuild?.artifactSubstats ?? [],
-		targetTalent1Level: editingBuild?.targetTalent1Level ?? '10',
-		targetTalent2Level: editingBuild?.targetTalent2Level ?? '10',
-		targetTalent3Level: editingBuild?.targetTalent3Level ?? '10'
-	});
 	let saving = $state(false);
 
 	function selectCharacterMode() {
@@ -110,7 +97,7 @@
 		selectedArtifact2 = null;
 	}
 
-	async function onSave() {
+	async function onSave(buildValues: any) {
 		if (!selectedCharacter) return;
 
 		try {
@@ -123,7 +110,7 @@
 				sandsStat: buildValues.sandsStat,
 				gobletStat: buildValues.gobletStat,
 				circletStat: buildValues.circletStat,
-				artifactSubstats: buildValues.artifactSubstats,
+				artifactSubstats: buildValues.artifactSubstats ?? [],
 				targetTalent1Level: buildValues.targetTalent1Level,
 				targetTalent2Level: buildValues.targetTalent2Level,
 				targetTalent3Level: buildValues.targetTalent3Level,
@@ -215,7 +202,7 @@
 					{/if}
 				{/if}
 			</div>
-			<BuildConfig bind:buildValues {onSave} {saving} character={selectedCharacter} />
+			<BuildConfig {editingBuild} {onSave} {saving} character={selectedCharacter} />
 		</div>
 	{/if}
 </div>

@@ -5,17 +5,14 @@
 		value = $bindable(),
 		id,
 		options,
-		max
 	}: {
 		value: string[];
 		id: string;
 		options: string[];
-		max: number;
 	} = $props();
 
-	const items = $derived(value?.length === max ? [] : [...options]);
 	let newVal = $derived(
-		value.map((v) => {
+		value?.map((v) => {
 			return { value: v, label: v };
 		})
 	);
@@ -27,7 +24,7 @@
 		id
 		bind:justValue={value}
 		value={newVal}
-		{items}
+		items={options}
 		multiple
 		clearable={false}
 		closeListOnChange={false}
