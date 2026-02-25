@@ -8,9 +8,11 @@ export type WeaponJSON = {
     type: string;
     rarity: number;
     baseAtk: number;
+    baseAtkMax: number;
     mainStat: string;
     mainStatValue: string;
-    effectName: string;
+    mainStatValueMax: string;
+    effectname: string;
     effect: string;
     r1: string[];
     r2?: string[] | undefined;
@@ -29,8 +31,10 @@ export class Weapon implements SelectableItem {
     type: string;
     rarity: number;
     baseAtk: number;
+    baseAtkMax: number;
     mainStat: string;
     mainStatValue: string;
+    mainStatValueMax: string;
     effectName: string;
     effect: string;
     r1: string[];
@@ -49,9 +53,11 @@ export class Weapon implements SelectableItem {
         this.type = data.type;
         this.rarity = data.rarity;
         this.baseAtk = data.baseAtk;
+        this.baseAtkMax = data.baseAtkMax;
         this.mainStat = data.mainStat;
         this.mainStatValue = data.mainStatValue;
-        this.effectName = data.effectName;
+        this.mainStatValueMax = data.mainStatValueMax;
+        this.effectName = data.effectname;
         this.effect = data.effect;
         this.r1 = data.r1;
         this.r2 = data.r2;

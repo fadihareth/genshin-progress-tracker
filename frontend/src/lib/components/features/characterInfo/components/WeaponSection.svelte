@@ -3,6 +3,7 @@
 	import type { CharacterBuild } from "$lib/models/CharacterBuild.svelte";
     import { weaponsById } from "$lib/stores/data";
     import { Item } from "./";
+    import { IconStarFilled } from "@tabler/icons-svelte";
 
     let { build }: { build: CharacterBuild } = $props();
     let weapon = $derived(build.weaponId ? weaponsById[build.weaponId] : null);
@@ -15,7 +16,19 @@
             <LazyImage src={weapon.image} alt={`${weapon.name}-image`} className="h-30 w-30 rounded object-cover bg-gray-100/10 shadow-md" />
             <div class="flex flex-col gap-1 items-start">
                 <p class="text-xl text-genshin-gold">{weapon.name}</p>
-                <!-- <p class="text-sm">{weapon.description}</p> -->
+                <!-- <p class="text-sm">{weapon.effectName}</p> -->
+                <div class="flex flex-wrap gap-2 text-sm items-center">
+                    <p>Base ATK: {weapon.baseAtk}-{weapon.baseAtkMax}</p>
+                    <p class="text-genshin-white/30">|</p>
+                    <p>{weapon.type}</p>
+                    <p class="text-genshin-white/30">|</p>
+                    <div class="flex gap-1 items-center">
+                        {#each { length: weapon.rarity }}
+                            <IconStarFilled size={12} />
+                        {/each}
+                    </div>
+                </div>
+                <p class="text-sm">Bonus Effect: {weapon.mainStat} +{weapon.mainStatValue}%-{weapon.mainStatValueMax}%</p>
             </div>
         </div> 
         <p class="text-genshin-gold">Ascension Lvl 1-{build.targetWeaponLevel}</p>
