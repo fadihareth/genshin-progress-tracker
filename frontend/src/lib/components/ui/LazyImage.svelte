@@ -26,9 +26,9 @@
 </script>
 
 {#key src}
-	<div class={`inline-block ${className}`}>
+	<div class={`relative inline-block ${className}`}>
 		{#if loading}
-			<div class="inset-0 flex h-full w-full items-center justify-center">
+			<div class="absolute inset-0 flex items-center justify-center">
 				<div class="spinner" style={`width:${spinnerSize}px; height:${spinnerSize}px;`}></div>
 			</div>
 		{/if}

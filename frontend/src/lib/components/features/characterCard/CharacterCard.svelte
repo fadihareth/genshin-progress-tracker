@@ -1,33 +1,35 @@
 <script lang="ts">
-	import { AddCharacter, Overlay } from '$lib/components';
+	import { AddCharacter, CharacterInfo, Overlay } from '$lib/components';
 	import { charactersById } from '$lib/stores/data';
 	import { buildsState } from '$lib/stores/state.svelte';
 	import { deleteBuild, updateBuild } from '$lib/api/builds';
 	import { ArtifactSection, CharacterSection, WeaponSection } from './components';
 	import { LazyImage, MenuButton } from '$lib/components';
-	import { bgColors } from '$lib/constants';
+	import { hideScrollbar } from '$lib/util/hideScrollbar';
 
 	let { id }: { id: number } = $props();
 	let build = $derived(buildsState[id]);
 	let character = $derived(charactersById[buildsState[id].character]);
 
-	let showOverlay = $state(false);
-	function toggleShowOverlay() {
-		const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-		if (!showOverlay) {
-			document.body.style.overflow = 'hidden';
-			document.body.style.paddingRight = `${scrollbarWidth}px`;
-		} else {
-			document.body.style.overflow = 'unset';
-			document.body.style.paddingRight = '0';
-		}
-		showOverlay = !showOverlay;
+	let showEditing = $state(false);
+	let showMaterials = $state(false);
+	function toggleShowEditing() {
+		hideScrollbar(showEditing);
+		showEditing = !showEditing;
+	}
+	function toggleShowMaterials() {
+		hideScrollbar(showMaterials);
+		showMaterials = !showMaterials;
 	}
 
 	async function onSelect(option: String) {
 		switch (option) {
+			case 'View Info': {
+				toggleShowMaterials();
+				break;
+			}
 			case 'Edit Build': {
-				toggleShowOverlay();
+				toggleShowEditing();
 				break;
 			}
 			case 'Delete Build': {
@@ -59,13 +61,13 @@
 </script>
 
 <div
-	class={`relative flex flex-col rounded-xl ${bgColors[character.element]} ${build.isComplete() && 'bg-opacity-60'} text-genshin-gold shadow-xl`}
+	class={`relative flex flex-col rounded-xl gradient ${character.element.toLowerCase()}-bg ${build.isComplete() && 'bg-opacity-60'} text-genshin-gold shadow-xl`}
 >
 	<div class="border-genshin-gold/30 absolute inset-2 z-0 rounded-xl border-2"></div>
 	<LazyImage
 			src={character.profileImage}
 			alt={character.name}
-			className={`fadeout h-[250px] w-full fade ${build.isComplete() && 'opacity-30'}`}
+			className={`fadeout h-[280px] w-full fade ${build.isComplete() && 'opacity-30'}`}
 		/>
 	<div class="flex flex-col gap-2 px-5 pb-5">
 		<div class="flex items-center justify-between">
@@ -82,6 +84,10 @@
 	</div>
 </div>
 
-<Overlay bind:open={showOverlay} onClose={toggleShowOverlay}>
-	<AddCharacter {toggleShowOverlay} editingBuild={build} />
+<Overlay bind:open={showEditing} onClose={toggleShowEditing}>
+	<AddCharacter toggleShowOverlay={toggleShowEditing} editingBuild={build} />
+</Overlay>
+
+<Overlay bind:open={showMaterials} onClose={toggleShowMaterials}>
+	<CharacterInfo toggleShowOverlay={toggleShowMaterials} {build} />
 </Overlay>

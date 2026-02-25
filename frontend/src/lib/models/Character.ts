@@ -51,6 +51,21 @@ export class Character implements SelectableItem {
         this.worldDropMaterial = data.worldDropMaterial;
     }
 
+    getGemstoneName(rarity: number) {
+        let gemstoneName = {
+            'Pyro': 'Agnidus Agate',
+            'Hydro': 'Varunada Lazurite',
+            'Electro': 'Vajrada Amethyst',
+            'Cryo': 'Shivada Jade',
+            'Anemo': 'Vayuda Turquoise',
+            'Geo': 'Prithiva Topaz',
+            'Dendro': 'Nagadus Emerald'
+        }[this.element];
+        let rarityName = ['Sliver', 'Fragment', 'Chunk', 'Gemstone'][rarity];
+    
+        return `${gemstoneName} ${rarityName}`
+    }
+
     get profileImage(): string {
         return `${baseURL}/characters/profiles/${this.name.replaceAll(' ', '_')}_Profile.webp`;
     }

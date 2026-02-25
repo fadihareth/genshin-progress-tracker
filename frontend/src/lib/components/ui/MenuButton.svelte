@@ -1,6 +1,6 @@
 <script lang="ts">
     import { IconDots } from "@tabler/icons-svelte";
-	let { options = ['Edit Build', "Delete Build"], onSelect } = $props();
+	let { options = ['View Info', 'Edit Build', "Delete Build"], onSelect } = $props();
 
 	let open = $state(false);
 	let menuRef: HTMLDivElement | null = null;
@@ -33,7 +33,7 @@
 	</button>
 
 	{#if open}
-		<div class="absolute right-0 z-50 mt-1 w-40 rounded bg-genshin-white shadow-lg">
+		<div class="absolute right-0 z-50 mt-1 w-50 rounded bg-genshin-white shadow-lg">
 			{#each options as option}
 				<button
 					class="w-full px-4 py-2 text-left rounded text-sm text-genshin-blue hover:bg-genshin-gold/80"
