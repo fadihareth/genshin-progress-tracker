@@ -6,13 +6,6 @@
     --color-genshin-blue-darker: #353A49;
     --color-genshin-gold: #CFBD93;
     --color-genshin-white: #EBE5D9;
-    --color-anemo: #416265;
-    --color-cryo: #4D6A78;
-    --color-dendro: #4F604E;
-    --color-electro: #5C5178;
-    --color-geo: #665A4E;
-    --color-hydro: #3D5E78;
-    --color-pyro: #664C52;
 }
 
 @layer components {
@@ -21,28 +14,28 @@
     }
     /* Element background colours */
     .gradient {
-        @apply bg-linear-to-b from-5% to-40%
+        @apply bg-linear-to-b from-5% to-40% from-black/25 to-transparent
     }
     .anemo-bg {
-        @apply from-[#314845] to-anemo
+        @apply bg-[#416265]
     }
     .cryo-bg {
-        @apply from-[#364B56] to-cryo
+        @apply bg-[#4D6A78]
     }
     .dendro-bg {
-        @apply from-[#36443B] to-dendro
+        @apply bg-[#4F604E]
     }
     .electro-bg {
-        @apply from-[#3F3A61] to-electro
+        @apply bg-[#5C5178]
     }
     .geo-bg {
-        @apply from-[#524038] to-geo
+        @apply bg-[#665A4E]
     }
     .hydro-bg {
-        @apply from-[#2F445A] to-hydro
+        @apply bg-[#3D5E78]
     }
     .pyro-bg {
-        @apply from-[#553944] to-pyro
+        @apply bg-[#664C52]
     }
     /* Rarity background colours */
     .rarity-0 {

@@ -5,6 +5,7 @@
     import { getElementIcon } from "$lib/assets";
     import { IconStarFilled } from "@tabler/icons-svelte";
     import { Item } from "./";
+    import { calculateAscensionAmount, calculateTalentsAmount } from "$lib/util/getItemAmount";
 
     let { build }: { build: CharacterBuild } = $props();
     let character = $derived(charactersById[build.character]);
@@ -38,15 +39,39 @@
     <p class="text-genshin-gold">Ascension Lvl 1-{build.targetLevel}</p>
     <div class="grid gap-4" style="grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));">
         {#each { length: 4 }, rarity }
-            <Item name={character.getGemstoneName(rarity)} rarity={rarity + 1} amount={1} />
+            <Item
+                name={character.getGemstoneName(rarity)} 
+                rarity={rarity + 1}
+                amount={calculateAscensionAmount('gemstone', build.targetLevel, rarity)}
+            />
         {/each}
-        <Item name="Mora" rarity={2} amount={2092530} />
-        <Item name="Hero's Wit" rarity={3} amount={419} />
+        <Item
+            name="Mora"
+            rarity={2}
+            amount={calculateAscensionAmount('mora', build.targetLevel)}
+        />
+        <Item
+            name="Hero's Wit"
+            rarity={3}
+            amount={calculateAscensionAmount('exp', build.targetLevel)}
+        />
         {#each { length: 3}, rarity }
-            <Item name={character.worldDropMaterial[rarity + 1]} {rarity} amount={1} />
+            <Item
+                name={character.worldDropMaterial[rarity + 1]}
+                {rarity}
+                amount={calculateAscensionAmount('worldDrop', build.targetLevel, rarity)}
+            />
         {/each}
-        <Item name={character.localSpecialtyMaterial} rarity={0} amount={168} />
-        <Item name={character.worldBossMaterial} rarity={3} amount={46} />
+        <Item
+            name={character.localSpecialtyMaterial}
+            rarity={0}
+            amount={calculateAscensionAmount('localSpecialty', build.targetLevel)}
+        />
+        <Item
+            name={character.worldBossMaterial}
+            rarity={3}
+            amount={calculateAscensionAmount('worldBoss', build.targetLevel)}
+        />
     </div>
     <p class="text-genshin-gold">
         Normal Attack Lvl 1-{build.targetTalent1Level}
@@ -55,15 +80,66 @@
         <span class="border-genshin-gold/50 border mr-2 ml-1"></span>
         Burst Lvl 1-{build.targetTalent3Level}
     </p>
-    <div class="grid gap-4" style="grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));">
-        {#each { length: 3 }, rarity}
-            <Item name={talents.talentMaterial[rarity + 1]} rarity={rarity + 1} amount={1} />
-        {/each}
-        {#each { length: 3}, rarity }
-            <Item name={character.worldDropMaterial[rarity + 1]} {rarity} amount={1} />
-        {/each}
-        <Item name="Mora" rarity={2} amount={4957500} />
-        <Item name="Crown of Insight" rarity={4} amount={3} />
-        <Item name={talents.weeklyBossMaterial} rarity={4} amount={18} />
-    </div>
+    {#if build.targetTalent1Level !== "1" || build.targetTalent2Level !== "1" || build.targetTalent3Level !== "1"}
+        <div class="grid gap-4" style="grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));">
+            {#each { length: 3 }, rarity}
+                <Item
+                    name={talents.talentMaterial[rarity + 1]}
+                    rarity={rarity + 1}
+                    amount={calculateTalentsAmount(
+                        'talentsMaterial',
+                        build.targetTalent1Level,
+                        build.targetTalent2Level,
+                        build.targetTalent3Level,
+                        rarity
+                    )}
+                />
+            {/each}
+            {#each { length: 3}, rarity }
+                <Item
+                    name={character.worldDropMaterial[rarity + 1]}
+                    {rarity}
+                    amount={calculateTalentsAmount(
+                        'worldDrop',
+                        build.targetTalent1Level,
+                        build.targetTalent2Level,
+                        build.targetTalent3Level,
+                        rarity
+                    )}
+                />
+            {/each}
+            <Item
+                name="Mora"
+                rarity={2}
+                amount={calculateTalentsAmount(
+                    'mora',
+                    build.targetTalent1Level,
+                    build.targetTalent2Level,
+                    build.targetTalent3Level
+                )}
+            />
+            <Item
+                name="Crown of Insight"
+                rarity={4}
+                amount={calculateTalentsAmount(
+                    'crown',
+                    build.targetTalent1Level,
+                    build.targetTalent2Level,
+                    build.targetTalent3Level
+                )}
+            />
+            <Item
+                name={talents.weeklyBossMaterial}
+                rarity={4}
+                amount={calculateTalentsAmount(
+                    'weeklyBoss',
+                    build.targetTalent1Level,
+                    build.targetTalent2Level,
+                    build.targetTalent3Level
+                )}
+            />
+        </div>
+    {:else}
+        <p class="italic text-genshin-white/70">No Materials Required</p>
+    {/if}
 </div>
