@@ -1,6 +1,12 @@
 <script lang="ts">
-    import { IconDots } from "@tabler/icons-svelte";
-	let { options = ['View Info', 'Edit Build', "Delete Build"], onSelect } = $props();
+	let {
+		options = ['View Info', 'Edit Build', "Delete Build"],
+		label = '',
+		onSelect,
+		buttonClass = '',
+		menuPlacement = 'mt-1',
+		children
+	} = $props();
 
 	let open = $state(false);
 	let menuRef: HTMLDivElement | null = null;
@@ -24,16 +30,19 @@
 
 <div class="relative" bind:this={menuRef}>
 	<button
-		class="rounded-full h-8 w-8 p-1 transition hover:bg-white/20"
+		class={buttonClass}
 		aria-haspopup="true"
 		aria-expanded={open}
 		onclick={() => (open = !open)}
 	>
-		<IconDots />
+		{@render children()}
 	</button>
 
 	{#if open}
-		<div class="absolute right-0 z-50 mt-1 w-50 rounded bg-genshin-white shadow-lg">
+		<div class="absolute right-0 z-50 {menuPlacement} w-50 rounded bg-genshin-white shadow-lg">
+			{#if label !== ''}
+				<p class="w-full px-4 py-2 text-left rounded text-sm text-genshin-blue/70">{label}</p>
+			{/if}
 			{#each options as option}
 				<button
 					class="w-full px-4 py-2 text-left rounded text-sm text-genshin-blue hover:bg-genshin-gold/80"

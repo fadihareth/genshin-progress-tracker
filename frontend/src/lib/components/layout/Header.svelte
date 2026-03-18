@@ -1,28 +1,55 @@
 <script lang="ts">
-	import { AddCharacter, Overlay } from '$lib/components';
-	import { IconPlus } from '@tabler/icons-svelte';
+	import { AddCharacter, MenuButton, Overlay } from '$lib/components';
+	import { IconPlus, IconUser } from '@tabler/icons-svelte';
 	import { hideScrollbar } from '$lib/util/hideScrollbar';
+	import { authState, clearAuth } from '$lib/stores/auth.svelte';
 
 	let showOverlay = $state(false);
 	function toggleShowOverlay() {
 		hideScrollbar(showOverlay);
 		showOverlay = !showOverlay;
 	}
+
+	function onSelect(option: String) {
+		switch (option) {
+			case 'Sign out': {
+				clearAuth();
+				break;
+			}
+			default: {
+				console.log('Invalid option');
+			}
+		}
+	}
 </script>
 
 <header
 	class="sticky top-0 z-50 flex items-center justify-between bg-genshin-blue py-4 px-6 shadow-sm"
 >
-	<h1 class="text-2xl text-genshin-gold">Genshin Build Progress</h1>
-	<button
-		onclick={toggleShowOverlay}
-		class="max-md:text-sm flex items-center gap-1 rounded-md bg-genshin-gold p-2 px-4 text-genshin-blue transition hover:bg-genshin-gold/50"
-		aria-label="Add character"
-	>
-        <IconPlus stroke={3} size={18} /> Add Character
-	</button>
+	<h1 class="md:text-2xl text-genshin-gold">Genshin Build Progress</h1>
+	<div class="flex items-center gap-3">
+		<button
+			onclick={toggleShowOverlay}
+			class="max-md:text-sm flex items-center gap-1 rounded-md bg-genshin-gold p-2 px-4 text-genshin-blue transition hover:bg-genshin-gold/50"
+			aria-label="Add character"
+		>
+			<IconPlus class="w-[1em] h-[1em]" stroke={3} /> Add Character
+		</button>
+
+		{#if authState.email}
+			<MenuButton
+				options={['Sign out']}
+				label={authState.email}
+				{onSelect}
+				menuPlacement='mt-4'
+				buttonClass="text-xl md:text-2xl rounded-md bg-genshin-gold p-2 text-genshin-blue transition hover:bg-genshin-gold/50"
+			>
+				<IconUser class="w-[1em] h-[1em]" stroke={3} />
+			</MenuButton>
+		{/if}
+	</div>
 </header>
 
 <Overlay bind:open={showOverlay} onClose={toggleShowOverlay}>
-    <AddCharacter {toggleShowOverlay} />
+	<AddCharacter {toggleShowOverlay} />
 </Overlay>

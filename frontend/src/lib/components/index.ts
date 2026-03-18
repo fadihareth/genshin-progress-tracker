@@ -3,6 +3,7 @@ export { default as AddCharacter } from './features/addCharacter/AddCharacter.sv
 export { default as AddItem } from './features/addItem/AddItem.svelte';
 export { default as CharacterCard } from './features/characterCard/CharacterCard.svelte';
 export { default as CharacterInfo } from './features/characterInfo/characterInfo.svelte';
+export { default as LoginSignup } from './features/loginSignup/LoginSignup.svelte';
 
 // Layout components
 export * from './layout';

@@ -7,3 +7,13 @@ export const graphqlClient = new GraphQLClient(API_URL, {
         'Content-Type': 'application/json',
     },
 });
+
+export function setAuthToken(token: string | null) {
+    if (token) {
+        graphqlClient.setHeader('Authorization', `Bearer ${token}`);
+    } else {
+        graphqlClient.setHeaders({
+            'Content-Type': 'application/json',
+        });
+    }
+}

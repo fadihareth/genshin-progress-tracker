@@ -1,5 +1,6 @@
 CREATE TABLE IF NOT EXISTS character_builds (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL,
     character_id INTEGER NOT NULL,
     sort_order INTEGER NOT NULL DEFAULT 0,
     
@@ -43,3 +44,14 @@ CREATE TABLE IF NOT EXISTS character_builds (
 
 CREATE INDEX IF NOT EXISTS idx_character_builds_character_id ON character_builds(character_id);
 CREATE INDEX IF NOT EXISTS idx_character_builds_sort_order ON character_builds(sort_order);
+
+-- Users table for authentication
+CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    email TEXT NOT NULL UNIQUE,
+    password_hash TEXT NOT NULL,
+    session_token TEXT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);

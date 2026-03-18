@@ -1,5 +1,18 @@
-import { GraphQLInputObjectType, GraphQLInt, GraphQLString, GraphQLBoolean, GraphQLList, GraphQLNonNull } from 'graphql';
-import { createBuild, updateBuild, deleteBuild, CharacterBuildInput } from '../../models/CharacterBuild';
+import {
+    GraphQLInputObjectType,
+    GraphQLInt,
+    GraphQLString,
+    GraphQLBoolean,
+    GraphQLList,
+    GraphQLNonNull,
+} from 'graphql';
+import {
+    createBuild,
+    updateBuild,
+    deleteBuild,
+    CharacterBuildInput,
+} from '../../models/CharacterBuild';
+import { GraphQLContext } from './queries';
 
 // Input type for creating a build
 const CreateBuildInputType = new GraphQLInputObjectType({
@@ -76,8 +89,11 @@ export const mutationResolvers = {
         args: {
             input: { type: new GraphQLNonNull(CreateBuildInputType) },
         },
-        resolve: (_: any, args: { input: CharacterBuildInput }) => {
-            return createBuild(args.input);
+        resolve: (_: any, args: { input: CharacterBuildInput }, ctx: GraphQLContext) => {
+            if (!ctx.userId) {
+                throw new Error('Not authenticated');
+            }
+            return createBuild(args.input, ctx.userId);
         },
     },
 
@@ -86,12 +102,22 @@ export const mutationResolvers = {
             id: { type: new GraphQLNonNull(GraphQLInt) },
             input: { type: new GraphQLNonNull(UpdateBuildInputType) },
         },
-        resolve: (_: any, args: { id: number; input: Partial<CharacterBuildInput> }) => {
-            return updateBuild(args.id, args.input);
+        resolve: (
+            _: any,
+            args: { id: number; input: Partial<CharacterBuildInput> },
+            ctx: GraphQLContext,
+        ) => {
+            if (!ctx.userId) {
+                throw new Error('Not authenticated');
+            }
+            return updateBuild(args.id, args.input, ctx.userId);
         },
     },
 
-    deleteBuild: (_: any, args: { id: number }) => {
-        return deleteBuild(args.id);
+    deleteBuild: (_: any, args: { id: number }, ctx: GraphQLContext) => {
+        if (!ctx.userId) {
+            throw new Error('Not authenticated');
+        }
+        return deleteBuild(args.id, ctx.userId);
     },
 };

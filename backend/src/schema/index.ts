@@ -1,6 +1,14 @@
-import { GraphQLSchema, GraphQLObjectType, GraphQLList, GraphQLInt, GraphQLNonNull } from 'graphql';
-import { CharacterBuildType } from './types';
+import {
+    GraphQLSchema,
+    GraphQLObjectType,
+    GraphQLList,
+    GraphQLInt,
+    GraphQLNonNull,
+    GraphQLString,
+} from 'graphql';
+import { AuthPayloadType, CharacterBuildType } from './types';
 import { mutationResolvers, queryResolvers } from './resolvers';
+import { createUser, loginUser } from '../models/User';
 
 const QueryType = new GraphQLObjectType({
     name: 'Query',
@@ -38,6 +46,28 @@ const MutationType = new GraphQLObjectType({
                 id: { type: new GraphQLNonNull(GraphQLInt) },
             },
             resolve: mutationResolvers.deleteBuild,
+        },
+
+        signup: {
+            type: new GraphQLNonNull(AuthPayloadType),
+            args: {
+                email: { type: new GraphQLNonNull(GraphQLString) },
+                password: { type: new GraphQLNonNull(GraphQLString) },
+            },
+            resolve: (_source, args: { email: string; password: string }) => {
+                return createUser(args.email, args.password);
+            },
+        },
+
+        login: {
+            type: new GraphQLNonNull(AuthPayloadType),
+            args: {
+                email: { type: new GraphQLNonNull(GraphQLString) },
+                password: { type: new GraphQLNonNull(GraphQLString) },
+            },
+            resolve: (_source, args: { email: string; password: string }) => {
+                return loginUser(args.email, args.password);
+            },
         },
     },
 });

@@ -33,6 +33,7 @@ export interface CharacterBuildInput {
 
 export interface CharacterBuildRow {
     id: number;
+    user_id: number | null;
     character_id: number;
     sort_order: number;
     level_complete: number;
@@ -67,6 +68,7 @@ export interface CharacterBuildRow {
 export function rowToBuild(row: CharacterBuildRow) {
     return {
         id: row.id,
+        userId: row.user_id,
         characterId: row.character_id,
         order: row.sort_order,
         levelComplete: Boolean(row.level_complete),
@@ -98,31 +100,41 @@ export function rowToBuild(row: CharacterBuildRow) {
     };
 }
 
-// Get all builds
-export function getAllBuilds() {
+// Get all builds for a user
+export function getAllBuilds(userId: number) {
     const db = getDatabase();
-    const rows = db.prepare('SELECT * FROM character_builds ORDER BY sort_order ASC, id ASC').all() as CharacterBuildRow[];
+    const rows = db
+        .prepare(
+            'SELECT * FROM character_builds WHERE user_id = ? ORDER BY sort_order ASC, id ASC',
+        )
+        .all(userId) as CharacterBuildRow[];
     return rows.map(rowToBuild);
 }
 
-// Get build by ID
-export function getBuildById(id: number) {
+// Get build by ID (scoped to a user)
+export function getBuildById(id: number, userId: number) {
     const db = getDatabase();
-    const row = db.prepare('SELECT * FROM character_builds WHERE id = ?').get(id) as CharacterBuildRow | undefined;
+    const row = db
+        .prepare('SELECT * FROM character_builds WHERE id = ? AND user_id = ?')
+        .get(id, userId) as CharacterBuildRow | undefined;
     return row ? rowToBuild(row) : null;
 }
 
-// Create a new build
-export function createBuild(input: CharacterBuildInput) {
+// Create a new build for a user
+export function createBuild(input: CharacterBuildInput, userId: number) {
     const db = getDatabase();
 
-    // Get max sort_order to append at end
-    const maxOrder = db.prepare('SELECT COALESCE(MAX(sort_order), 0) as max_order FROM character_builds').get() as { max_order: number };
+    // Get max sort_order to append at end (per user)
+    const maxOrder = db
+        .prepare(
+            'SELECT COALESCE(MAX(sort_order), 0) as max_order FROM character_builds WHERE user_id = ?',
+        )
+        .get(userId) as { max_order: number };
     const sortOrder = input.order ?? maxOrder.max_order + 1;
 
     const stmt = db.prepare(`
     INSERT INTO character_builds (
-      character_id, sort_order,
+      user_id, character_id, sort_order,
       level_complete, target_level, constellation_complete, target_constellation,
       weapon_id, weapon_level_complete, target_weapon_level, weapon_refine_complete, target_weapon_refine,
       artifact1_id, artifact2_id, flower_complete, plume_complete, sands_stat, sands_complete,
@@ -130,10 +142,11 @@ export function createBuild(input: CharacterBuildInput) {
       talent1_level_complete, target_talent1_level,
       talent2_level_complete, target_talent2_level,
       talent3_level_complete, target_talent3_level
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `);
 
     const result = stmt.run(
+        userId,
         input.characterId,
         sortOrder,
         input.levelComplete ? 1 : 0,
@@ -164,11 +177,11 @@ export function createBuild(input: CharacterBuildInput) {
         input.targetTalent3Level ?? '10',
     );
 
-    return getBuildById(result.lastInsertRowid as number)!;
+    return getBuildById(result.lastInsertRowid as number, userId)!;
 }
 
-// Update a build
-export function updateBuild(id: number, input: Partial<CharacterBuildInput>) {
+// Update a build (scoped to a user)
+export function updateBuild(id: number, input: Partial<CharacterBuildInput>, userId: number) {
     const db = getDatabase();
 
     // Build dynamic update query
@@ -289,22 +302,24 @@ export function updateBuild(id: number, input: Partial<CharacterBuildInput>) {
     }
 
     if (updates.length === 0) {
-        return getBuildById(id);
+        return getBuildById(id, userId);
     }
 
     updates.push('updated_at = CURRENT_TIMESTAMP');
-    values.push(id);
+    values.push(id, userId);
 
-    const stmt = db.prepare(`UPDATE character_builds SET ${updates.join(', ')} WHERE id = ?`);
+    const stmt = db.prepare(
+        `UPDATE character_builds SET ${updates.join(', ')} WHERE id = ? AND user_id = ?`,
+    );
     stmt.run(...values);
 
-    return getBuildById(id)!;
+    return getBuildById(id, userId)!;
 }
 
-// Delete a build
-export function deleteBuild(id: number): number {
+// Delete a build (scoped to a user)
+export function deleteBuild(id: number, userId: number): number {
     const db = getDatabase();
-    const stmt = db.prepare('DELETE FROM character_builds WHERE id = ?');
-    const result = stmt.run(id);
+    const stmt = db.prepare('DELETE FROM character_builds WHERE id = ? AND user_id = ?');
+    const result = stmt.run(id, userId);
     return id;
 }

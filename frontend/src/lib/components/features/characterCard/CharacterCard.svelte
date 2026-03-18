@@ -6,6 +6,7 @@
 	import { ArtifactSection, CharacterSection, WeaponSection } from './components';
 	import { LazyImage, MenuButton } from '$lib/components';
 	import { hideScrollbar } from '$lib/util/hideScrollbar';
+	import { IconDots } from "@tabler/icons-svelte";
 
 	let { id }: { id: number } = $props();
 	let build = $derived(buildsState[id]);
@@ -74,7 +75,9 @@
 			<h2 class="fade" class:opacity-30={build.isComplete()}>
 				{character.name}
 			</h2>
-			<MenuButton {onSelect} />
+			<MenuButton {onSelect} buttonClass='rounded-full h-8 w-8 p-1 transition hover:bg-white/20'>
+				<IconDots />
+			</MenuButton>
 		</div>
 		<CharacterSection bind:build {character} {onUpdate} />
 		<div class="w-full border border-genshin-gold/30 mt-1"></div>
