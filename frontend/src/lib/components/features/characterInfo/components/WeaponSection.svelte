@@ -4,6 +4,7 @@
     import { weaponsById } from "$lib/stores/data";
     import { Item } from "./";
     import { IconStarFilled } from "@tabler/icons-svelte";
+    import { calculateWeaponAmount } from "$lib/util/getItemAmount";
 
     let { build }: { build: CharacterBuild } = $props();
     let weapon = $derived(build.weaponId ? weaponsById[build.weaponId] : null);
@@ -34,14 +35,26 @@
         <p class="text-genshin-gold">Ascension Lvl 1-{build.targetWeaponLevel}</p>
         <div class="grid gap-4" style="grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));">
             {#each { length: 4 }, rarity }
-                <Item name={weapon.weaponMaterial[rarity + 1]} rarity={rarity + 1} amount={1} />
+                <Item
+                    name={weapon.weaponMaterial[rarity + 1]} 
+                    rarity={rarity + 1}
+                    amount={calculateWeaponAmount('weaponMaterial', build.targetWeaponLevel, rarity)}
+                />
             {/each}
-            <Item name="Mora" rarity={2} amount={225000} />
+            <Item name="Mora" rarity={2} amount={calculateWeaponAmount('mora', build.targetWeaponLevel)} />
             {#each { length: 3}, rarity }
-                <Item name={weapon.worldDropMaterial1[rarity + 1]} {rarity} amount={1} />
+                <Item
+                    name={weapon.worldDropMaterial1[rarity + 1]}
+                    {rarity}
+                    amount={calculateWeaponAmount('worldDrop1', build.targetWeaponLevel, rarity)}
+                />
             {/each}
             {#each { length: 3}, rarity }
-                <Item name={weapon.worldDropMaterial2[rarity + 1]} {rarity} amount={1} />
+                <Item
+                    name={weapon.worldDropMaterial2[rarity + 1]}
+                    {rarity}
+                    amount={calculateWeaponAmount('worldDrop2', build.targetWeaponLevel, rarity)}
+                />
             {/each}
         </div>
     </div>

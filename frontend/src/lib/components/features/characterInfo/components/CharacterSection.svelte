@@ -18,6 +18,7 @@
         <div class="flex flex-col gap-1 items-start">
             <p class="text-xl text-genshin-gold">{character.name}</p>
             <p class="text-sm">{character.title}</p>
+            <p class="text-sm">Substat: {character.substat}</p>
             <div class="flex flex-wrap gap-2 text-sm items-center">
                 <div class="flex gap-1 items-center">
                     <img src={getElementIcon(character.element)} alt="element" class="h-5 w-5" />

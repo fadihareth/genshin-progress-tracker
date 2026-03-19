@@ -1,4 +1,8 @@
-// Character ascension formulas
+/*
+    ##########
+    Character ascension formulas
+    ##########
+*/
 
 type AscensionItemType = 'gemstone' | 'mora' | 'exp' | 'worldDrop' | 'localSpecialty' | 'worldBoss';
 
@@ -78,7 +82,11 @@ function calculateWorldBossAmount(target: number) {
     return 0;
 }
 
-// Character talents formulas
+/*
+    ##########
+    Character talents formulas
+    ##########
+*/
 
 type TalentsItemType = 'talentsMaterial' | 'worldDrop' | 'mora' | 'crown' | 'weeklyBoss';
 
@@ -137,4 +145,60 @@ function calculateTalentsWeeklyBossAmount(target: number) {
     if (target >= 8) return 2;
     if (target >= 7) return 1;
     return 0;
+}
+
+/*
+    ##########
+    Weapon ascension formulas
+    ##########
+*/
+
+type WeaponItemType = 'weaponMaterial' | 'mora' | 'worldDrop1' | 'worldDrop2';
+
+export function calculateWeaponAmount(itemType: WeaponItemType, target: string, rarity?: number): number {
+    switch (itemType) {
+        case 'weaponMaterial':
+            return calculateWeaponMaterialAmount(Number(target), rarity ?? 0);
+        case 'mora':
+            return calculateWeaponMoraAmount(Number(target));
+        case 'worldDrop1':
+            return calculateWeaponWorldDrop1Amount(Number(target), rarity ?? 0);
+        case 'worldDrop2':
+            return calculateWeaponWorldDrop2Amount(Number(target), rarity ?? 0);
+    }
+}
+
+function calculateWeaponMaterialAmount(target: number, rarity: number): number {
+    return {
+        0: target >= 30 ? 5 : 0,
+        1: target >= 60 ? 14 : target >= 50 ? 5 : 0,
+        2: target >= 80 ? 14 : target >= 70 ? 5 : 0,
+        3: target >= 90 ? 6 : 0
+    }[rarity] ?? 0;
+}
+
+function calculateWeaponMoraAmount(target: number): number {
+    if (target >= 90) return 225000;
+    if (target >= 80) return 160000;
+    if (target >= 70) return 105000;
+    if (target >= 60) return 60000;
+    if (target >= 50) return 30000;
+    if (target >= 30) return 10000;
+    return 0;
+}
+
+function calculateWeaponWorldDrop1Amount(target: number, rarity: number): number {
+    return {
+        0: target >= 50 ? 23 : target >= 30 ? 5 : 0,
+        1: target >= 70 ? 27 : target >= 60 ? 9 : 0,
+        2: target >= 90 ? 41 : target >= 80 ? 14 : 0
+    }[rarity] ?? 0;
+}
+
+function calculateWeaponWorldDrop2Amount(target: number, rarity: number): number {
+    return {
+        0: target >= 50 ? 15 : target >= 30 ? 3 : 0,
+        1: target >= 70 ? 23 : target >= 60 ? 9 : 0,
+        2: target >= 90 ? 27 : target >= 80 ? 9 : 0
+    }[rarity] ?? 0;
 }
