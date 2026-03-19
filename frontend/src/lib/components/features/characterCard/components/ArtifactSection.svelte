@@ -28,16 +28,12 @@
 				class="relative shrink-0 h-20 w-20 rounded-lg bg-gray-100/10 fade"
 				class:opacity-30={build.artifactsComplete()}
 			>
-				<LazyImage
-					src={artifact1.image}
-					alt="Artifact 1"
-					className="pointer-events-none absolute select-none w-14 h-14 top-0 left-0"
-				/>
-				<LazyImage
-					src={artifact2.image}
-					alt="Artifact 2"
-					className="pointer-events-none absolute select-none w-14 h-14 bottom-0 right-0"
-				/>
+				<div class="absolute w-14 h-14 top-0 left-0 pointer-events-none select-none">
+					<LazyImage src={artifact1.image} alt="Artifact 1" />
+				</div>
+				<div class="absolute w-14 h-14 bottom-0 right-0 pointer-events-none select-none">
+					<LazyImage src={artifact2.image} alt="Artifact 2" />
+				</div>
 			</div>
 		{:else}
 			<LazyImage
