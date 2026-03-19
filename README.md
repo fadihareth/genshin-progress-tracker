@@ -1,6 +1,7 @@
 # Genshin Progress Tracker
 
 Track your Genshin Impact character build progress (levels, constellations, weapons, artifacts, and talents).
+Streamlines progress tracking via a simple UI that provides checklists rather than excessive data input.
 
 This repo contains:
 - `frontend/`: SvelteKit UI (with Tailwind)
