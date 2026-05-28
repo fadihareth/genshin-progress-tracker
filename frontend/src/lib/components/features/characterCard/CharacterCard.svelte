@@ -65,11 +65,13 @@
 	class={`relative flex flex-col rounded-xl gradient ${character.element.toLowerCase()}-bg ${build.isComplete() && 'bg-opacity-60'} text-genshin-gold shadow-xl`}
 >
 	<div class="border-genshin-gold/30 absolute inset-2 z-0 rounded-xl border-2"></div>
-	<LazyImage
-			src={character.profileImage}
-			alt={character.name}
-			className={`fadeout h-[280px] w-full fade ${build.isComplete() && 'opacity-30'}`}
-		/>
+    <div class="overflow-hidden w-full h-70 fadeout">
+        <LazyImage
+                src={character.profileImage}
+                alt={character.name}
+                className={`h-full w-full fade object-cover scale-110 origin-top ${build.isComplete() && 'opacity-30'}`}
+            />
+    </div>
 	<div class="flex flex-col gap-2 px-5 pb-5">
 		<div class="flex items-center justify-between">
 			<h2 class="fade" class:opacity-30={build.isComplete()}>
