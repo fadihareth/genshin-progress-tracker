@@ -5,8 +5,9 @@ import {
     GraphQLInt,
     GraphQLNonNull,
     GraphQLString,
+    GraphQLBoolean,
 } from 'graphql';
-import { AuthPayloadType, CharacterBuildType } from './types';
+import { AuthPayloadType, CharacterBuildType, UserType } from './types';
 import { mutationResolvers, queryResolvers } from './resolvers';
 import { createUser, loginUser } from '../models/User';
 
@@ -23,6 +24,10 @@ const QueryType = new GraphQLObjectType({
                 id: { type: new GraphQLNonNull(GraphQLInt) },
             },
             resolve: queryResolvers.build,
+        },
+        me: {
+            type: new GraphQLNonNull(UserType),
+            resolve: queryResolvers.me,
         },
     },
 });
@@ -68,6 +73,14 @@ const MutationType = new GraphQLObjectType({
             resolve: (_source, args: { email: string; password: string }) => {
                 return loginUser(args.email, args.password);
             },
+        },
+
+        updateUserSettings: {
+            type: new GraphQLNonNull(UserType),
+            args: {
+                hideCompleted: { type: new GraphQLNonNull(GraphQLBoolean) },
+            },
+            resolve: mutationResolvers.updateUserSettings,
         },
     },
 });

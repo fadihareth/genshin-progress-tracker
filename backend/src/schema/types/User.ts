@@ -1,10 +1,17 @@
-import { GraphQLObjectType, GraphQLNonNull, GraphQLInt, GraphQLString } from 'graphql';
+import {
+    GraphQLObjectType,
+    GraphQLNonNull,
+    GraphQLInt,
+    GraphQLString,
+    GraphQLBoolean,
+} from 'graphql';
 
 export const UserType = new GraphQLObjectType({
     name: 'User',
     fields: () => ({
         id: { type: new GraphQLNonNull(GraphQLInt) },
         email: { type: new GraphQLNonNull(GraphQLString) },
+        hideCompleted: { type: new GraphQLNonNull(GraphQLBoolean) },
     }),
 });
 

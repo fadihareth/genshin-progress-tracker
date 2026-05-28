@@ -12,6 +12,7 @@ import {
     deleteBuild,
     CharacterBuildInput,
 } from '../../models/CharacterBuild';
+import { updateUserSettings } from '../../models/User';
 import { GraphQLContext } from './queries';
 
 // Input type for creating a build
@@ -119,5 +120,12 @@ export const mutationResolvers = {
             throw new Error('Not authenticated');
         }
         return deleteBuild(args.id, ctx.userId);
+    },
+
+    updateUserSettings: (_: any, args: { hideCompleted: boolean }, ctx: GraphQLContext) => {
+        if (!ctx.userId) {
+            throw new Error('Not authenticated');
+        }
+        return updateUserSettings(ctx.userId, args.hideCompleted);
     },
 };
