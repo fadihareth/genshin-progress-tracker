@@ -10,6 +10,7 @@
 		IconHourglassEmpty
 	} from '@tabler/icons-svelte';
 	import type { CharacterBuild } from '$lib/models/CharacterBuild.svelte';
+    import { settingsState } from '$lib/stores/state.svelte';
 	import { baseURL } from '$lib/constants';
 
 	let { build = $bindable(), onUpdate }: { build: CharacterBuild; onUpdate: (input: any) => void } =
@@ -20,7 +21,7 @@
 	const noArtifactImage = baseURL + "/artifacts/images/artifact.webp";
 </script>
 
-<div class="flex flex-col gap-2">
+<div class="flex flex-col gap-2" class:hidden={settingsState.hideCompleted && build.artifactsComplete()}>
 	<p class="fade" class:opacity-30={build.artifactsComplete()}>Artifacts</p>
 	<div class="flex gap-5">
 		{#if artifact1 && artifact2}

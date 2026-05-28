@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { AddCharacter, CharacterInfo, Overlay } from '$lib/components';
 	import { charactersById } from '$lib/stores/data';
-	import { buildsState } from '$lib/stores/state.svelte';
+	import { buildsState, settingsState } from '$lib/stores/state.svelte';
 	import { deleteBuild, updateBuild } from '$lib/api/builds';
 	import { ArtifactSection, CharacterSection, WeaponSection } from './components';
 	import { LazyImage, MenuButton } from '$lib/components';
@@ -82,10 +82,11 @@
 			</MenuButton>
 		</div>
 		<CharacterSection bind:build {character} {onUpdate} />
-		<div class="w-full border border-genshin-gold/30 mt-1"></div>
 		<WeaponSection bind:build weaponType={character.weapon} {onUpdate} />
-		<div class="w-full border border-genshin-gold/30 mt-1"></div>
 		<ArtifactSection bind:build {onUpdate} />
+        {#if build.isComplete() && settingsState.hideCompleted}
+            <p class="opacity-30 italic">All done!</p>
+        {/if}
 	</div>
 </div>
 

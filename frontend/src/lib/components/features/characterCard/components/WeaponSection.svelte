@@ -3,6 +3,7 @@
 	import { ChecklistItem } from '.';
 	import { LazyImage } from '$lib/components';
 	import type { CharacterBuild } from '$lib/models/CharacterBuild.svelte';
+    import { settingsState } from '$lib/stores/state.svelte';
 	import { baseURL } from "$lib/constants";
 
 	let {
@@ -15,7 +16,7 @@
 	const noWeaponImage = $derived(`${baseURL}/weapons/images/${weaponType.toLowerCase()}.webp`);
 </script>
 
-<div class="flex flex-col gap-2">
+<div class="flex flex-col gap-2" class:hidden={settingsState.hideCompleted && build.weaponComplete()}>
 	<p class:opacity-30={build.weaponComplete()} class="fade">Weapon</p>
 	<div class="flex gap-5">
 		<LazyImage
@@ -43,4 +44,5 @@
 			/>
 		</div>
 	</div>
+    <div class="w-full border border-genshin-gold/30 mt-1"></div>
 </div>

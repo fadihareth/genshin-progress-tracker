@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { AddCharacter, MenuButton, Overlay } from '$lib/components';
-	import { IconPlus, IconUser } from '@tabler/icons-svelte';
+	import { IconPlus, IconSettings } from '@tabler/icons-svelte';
 	import { hideScrollbar } from '$lib/util/hideScrollbar';
+    import { settingsState } from '$lib/stores/state.svelte';
 	import { authState, clearAuth } from '$lib/stores/auth.svelte';
 
 	let showOverlay = $state(false);
@@ -12,6 +13,14 @@
 
 	function onSelect(option: String) {
 		switch (option) {
+            case 'Hide Completed': {
+                settingsState.hideCompleted = !settingsState.hideCompleted;
+                break;
+            }
+            case 'Show Completed': {
+                settingsState.hideCompleted = !settingsState.hideCompleted;
+                break;
+            }
 			case 'Sign out': {
 				clearAuth();
 				break;
@@ -38,13 +47,13 @@
 
 		{#if authState.email}
 			<MenuButton
-				options={['Sign out']}
+				options={[settingsState.hideCompleted ? 'Show Completed' : 'Hide Completed', 'Sign out']}
 				label={authState.email}
 				{onSelect}
 				menuPlacement='mt-4'
 				buttonClass="text-xl md:text-2xl rounded-md bg-genshin-gold p-2 text-genshin-blue transition hover:bg-genshin-gold/50"
 			>
-				<IconUser class="w-[1em] h-[1em]" stroke={3} />
+				<IconSettings class="w-[1em] h-[1em]" stroke={3} />
 			</MenuButton>
 		{/if}
 	</div>

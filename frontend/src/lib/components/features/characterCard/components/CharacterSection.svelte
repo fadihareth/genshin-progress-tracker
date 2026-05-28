@@ -2,6 +2,7 @@
 	import LazyImage from '$lib/components/ui/LazyImage.svelte';
 	import type { Character } from '$lib/models/Character';
 	import type { CharacterBuild } from '$lib/models/CharacterBuild.svelte';
+    import { settingsState } from '$lib/stores/state.svelte';
 	import { talentsByName } from '$lib/stores/data';
 	import { ChecklistItem } from '.';
 
@@ -12,7 +13,10 @@
 	}: { build: CharacterBuild; character: Character; onUpdate: (input: any) => void } = $props();
 </script>
 
-<div class="flex flex-col gap-2">
+<div
+    class="flex flex-col gap-2"
+    class:hidden={settingsState.hideCompleted && build.levelComplete && build.talentComplete()}
+>
 	<ChecklistItem
 		bind:isComplete={build.levelComplete}
 		label={`Level: ${build.targetLevel}`}
@@ -68,4 +72,5 @@
 			/>
 		</ChecklistItem>
 	</div>
+    <div class="w-full border border-genshin-gold/30 mt-1"></div> 
 </div>
