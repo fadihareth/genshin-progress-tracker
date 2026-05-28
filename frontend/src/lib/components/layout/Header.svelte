@@ -4,6 +4,7 @@
 	import { hideScrollbar } from '$lib/util/hideScrollbar';
     import { settingsState } from '$lib/stores/state.svelte';
 	import { authState, clearAuth } from '$lib/stores/auth.svelte';
+    import { updateSettings } from '$lib/stores/profile.svelte';
 
 	let showOverlay = $state(false);
 	function toggleShowOverlay() {
@@ -14,11 +15,11 @@
 	function onSelect(option: String) {
 		switch (option) {
             case 'Hide Completed': {
-                settingsState.hideCompleted = !settingsState.hideCompleted;
+                updateSettings();
                 break;
             }
             case 'Show Completed': {
-                settingsState.hideCompleted = !settingsState.hideCompleted;
+                updateSettings();
                 break;
             }
 			case 'Sign out': {

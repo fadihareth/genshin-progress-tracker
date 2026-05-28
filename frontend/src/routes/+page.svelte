@@ -4,6 +4,7 @@
 	import { buildsState } from '$lib/stores/state.svelte';
 	import { loadData } from '$lib/stores/data';
 	import { fetchBuilds } from '$lib/api/builds';
+    import { loadProfile } from '$lib/stores/profile.svelte';
 	import { authState } from '$lib/stores/auth.svelte';
 
 	let loading = $state(true);
@@ -19,8 +20,20 @@
 			return;
 		}
 
+        await loadUserSettings();
 		await loadBuilds();
 	});
+
+    async function loadUserSettings() {
+        try {
+            loading = true;
+            await loadProfile();
+        } catch (err) {
+            console.error('Error loading profile:', err);
+        } finally {
+			loading = false;
+		}
+    }
 
 	async function loadBuilds() {
 		try {

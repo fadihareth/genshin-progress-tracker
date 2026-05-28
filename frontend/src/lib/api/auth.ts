@@ -47,4 +47,3 @@ export async function login(email: string, password: string): Promise<AuthPayloa
     });
     return res.login;
 }
-
